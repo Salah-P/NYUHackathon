@@ -109,72 +109,57 @@ export function Header() {
                 <Link 
                   href="/dashboard" 
                   className={cn(
-                    "nav-link text-sm font-medium transition-colors relative",
+                    "text-sm font-medium transition-colors duration-300",
                     isActiveLink("/dashboard")
                       ? "text-primary font-semibold"
                       : "text-secondary hover:text-primary"
                   )}
                 >
                   Dashboard
-                  {isActiveLink("/dashboard") && (
-                    <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary rounded-full" />
-                  )}
                 </Link>
                 <Link 
                   href="/find-ride" 
                   className={cn(
-                    "nav-link text-sm font-medium transition-colors relative",
+                    "text-sm font-medium transition-colors duration-300",
                     isActiveLink("/find-ride")
                       ? "text-primary font-semibold"
                       : "text-secondary hover:text-primary"
                   )}
                 >
                   Find Ride
-                  {isActiveLink("/find-ride") && (
-                    <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary rounded-full" />
-                  )}
                 </Link>
                 <Link 
                   href="/post-ride" 
                   className={cn(
-                    "nav-link text-sm font-medium transition-colors relative",
+                    "text-sm font-medium transition-colors duration-300",
                     isActiveLink("/post-ride")
                       ? "text-primary font-semibold"
                       : "text-secondary hover:text-primary"
                   )}
                 >
                   Post Ride
-                  {isActiveLink("/post-ride") && (
-                    <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary rounded-full" />
-                  )}
                 </Link>
                 <Link 
                   href="/wallet" 
                   className={cn(
-                    "nav-link text-sm font-medium transition-colors relative",
+                    "text-sm font-medium transition-colors duration-300",
                     isActiveLink("/wallet")
                       ? "text-primary font-semibold"
                       : "text-secondary hover:text-primary"
                   )}
                 >
                   Wallet
-                  {isActiveLink("/wallet") && (
-                    <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary rounded-full" />
-                  )}
                 </Link>
                 <Link 
                   href="/profile" 
                   className={cn(
-                    "nav-link text-sm font-medium transition-colors relative",
+                    "text-sm font-medium transition-colors duration-300",
                     isActiveLink("/profile")
                       ? "text-primary font-semibold"
                       : "text-secondary hover:text-primary"
                   )}
                 >
                   Profile
-                  {isActiveLink("/profile") && (
-                    <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary rounded-full" />
-                  )}
                 </Link>
               </nav>
 
@@ -198,44 +183,35 @@ export function Header() {
                 <Link 
                   href="/" 
                   className={cn(
-                    "nav-link text-sm font-medium transition-colors relative",
+                    "text-sm font-medium transition-colors duration-300",
                     isActiveLink("/")
                       ? "text-primary font-semibold"
                       : "text-secondary hover:text-primary"
                   )}
                 >
                   Home
-                  {isActiveLink("/") && (
-                    <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary rounded-full" />
-                  )}
                 </Link>
                 <Link 
                   href="/about" 
                   className={cn(
-                    "nav-link text-sm font-medium transition-colors relative",
+                    "text-sm font-medium transition-colors duration-300",
                     isActiveLink("/about")
                       ? "text-primary font-semibold"
                       : "text-secondary hover:text-primary"
                   )}
                 >
                   About
-                  {isActiveLink("/about") && (
-                    <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary rounded-full" />
-                  )}
                 </Link>
                 <Link 
                   href="/contact" 
                   className={cn(
-                    "nav-link text-sm font-medium transition-colors relative",
+                    "text-sm font-medium transition-colors duration-300",
                     isActiveLink("/contact")
                       ? "text-primary font-semibold"
                       : "text-secondary hover:text-primary"
                   )}
                 >
                   Contact Us
-                  {isActiveLink("/contact") && (
-                    <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary rounded-full" />
-                  )}
                 </Link>
               </nav>
               
@@ -283,10 +259,10 @@ export function Header() {
                   href="/dashboard" 
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={cn(
-                    "block px-4 py-3 text-sm font-medium transition-colors rounded-lg",
+                    "block px-4 py-3 text-sm font-medium transition-colors duration-300 rounded-lg",
                     isActiveLink("/dashboard")
-                      ? "text-primary font-semibold bg-red-50"
-                      : "text-secondary hover:text-primary hover:bg-red-50"
+                      ? "text-primary font-semibold"
+                      : "text-secondary hover:text-primary"
                   )}
                 >
                   Dashboard
@@ -295,10 +271,10 @@ export function Header() {
                   href="/find-ride" 
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={cn(
-                    "block px-4 py-3 text-sm font-medium transition-colors rounded-lg",
+                    "block px-4 py-3 text-sm font-medium transition-colors duration-300 rounded-lg",
                     isActiveLink("/find-ride")
-                      ? "text-primary font-semibold bg-red-50"
-                      : "text-secondary hover:text-primary hover:bg-red-50"
+                      ? "text-primary font-semibold"
+                      : "text-secondary hover:text-primary"
                   )}
                 >
                   Find Ride
@@ -307,10 +283,10 @@ export function Header() {
                   href="/post-ride" 
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={cn(
-                    "block px-4 py-3 text-sm font-medium transition-colors rounded-lg",
+                    "block px-4 py-3 text-sm font-medium transition-colors duration-300 rounded-lg",
                     isActiveLink("/post-ride")
-                      ? "text-primary font-semibold bg-red-50"
-                      : "text-secondary hover:text-primary hover:bg-red-50"
+                      ? "text-primary font-semibold"
+                      : "text-secondary hover:text-primary"
                   )}
                 >
                   Post Ride
@@ -319,10 +295,10 @@ export function Header() {
                   href="/wallet" 
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={cn(
-                    "block px-4 py-3 text-sm font-medium transition-colors rounded-lg",
+                    "block px-4 py-3 text-sm font-medium transition-colors duration-300 rounded-lg",
                     isActiveLink("/wallet")
-                      ? "text-primary font-semibold bg-red-50"
-                      : "text-secondary hover:text-primary hover:bg-red-50"
+                      ? "text-primary font-semibold"
+                      : "text-secondary hover:text-primary"
                   )}
                 >
                   Wallet
@@ -331,10 +307,10 @@ export function Header() {
                   href="/profile" 
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={cn(
-                    "block px-4 py-3 text-sm font-medium transition-colors rounded-lg",
+                    "block px-4 py-3 text-sm font-medium transition-colors duration-300 rounded-lg",
                     isActiveLink("/profile")
-                      ? "text-primary font-semibold bg-red-50"
-                      : "text-secondary hover:text-primary hover:bg-red-50"
+                      ? "text-primary font-semibold"
+                      : "text-secondary hover:text-primary"
                   )}
                 >
                   Profile
@@ -361,10 +337,10 @@ export function Header() {
                   href="/" 
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={cn(
-                    "block px-4 py-3 text-sm font-medium transition-colors rounded-lg",
+                    "block px-4 py-3 text-sm font-medium transition-colors duration-300 rounded-lg",
                     isActiveLink("/")
-                      ? "text-primary font-semibold bg-red-50"
-                      : "text-secondary hover:text-primary hover:bg-red-50"
+                      ? "text-primary font-semibold"
+                      : "text-secondary hover:text-primary"
                   )}
                 >
                   Home
@@ -373,10 +349,10 @@ export function Header() {
                   href="/about" 
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={cn(
-                    "block px-4 py-3 text-sm font-medium transition-colors rounded-lg",
+                    "block px-4 py-3 text-sm font-medium transition-colors duration-300 rounded-lg",
                     isActiveLink("/about")
-                      ? "text-primary font-semibold bg-red-50"
-                      : "text-secondary hover:text-primary hover:bg-red-50"
+                      ? "text-primary font-semibold"
+                      : "text-secondary hover:text-primary"
                   )}
                 >
                   About
@@ -385,10 +361,10 @@ export function Header() {
                   href="/contact" 
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={cn(
-                    "block px-4 py-3 text-sm font-medium transition-colors rounded-lg",
+                    "block px-4 py-3 text-sm font-medium transition-colors duration-300 rounded-lg",
                     isActiveLink("/contact")
-                      ? "text-primary font-semibold bg-red-50"
-                      : "text-secondary hover:text-primary hover:bg-red-50"
+                      ? "text-primary font-semibold"
+                      : "text-secondary hover:text-primary"
                   )}
                 >
                   Contact Us

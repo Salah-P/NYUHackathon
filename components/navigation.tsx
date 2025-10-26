@@ -58,10 +58,10 @@ export function Navigation() {
               key={link.href}
               href={link.href}
               className={cn(
-                "flex flex-col items-center gap-1 px-4 py-2 text-sm font-medium transition-colors md:flex-row md:gap-2",
+                "flex flex-col items-center gap-1 px-4 py-2 text-sm font-medium transition-colors duration-300 md:flex-row md:gap-2",
                 isActive 
-                  ? "text-primary font-semibold bg-red-50 rounded-lg" 
-                  : "text-secondary hover:text-primary hover:bg-red-50",
+                  ? "text-primary font-semibold" 
+                  : "text-secondary hover:text-primary",
               )}
             >
               <Icon className={cn(
