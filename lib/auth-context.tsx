@@ -70,9 +70,50 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   ]
 
+  // Get all users from localStorage
+  const getStoredUsers = (): Array<User & { password: string }> => {
+    try {
+      const stored = localStorage.getItem('allUsers')
+      return stored ? JSON.parse(stored) : []
+    } catch {
+      return []
+    }
+  }
+
+  // Save users to localStorage
+  const saveUserToStorage = (userWithPassword: User & { password: string }) => {
+    try {
+      const users = getStoredUsers()
+      // Check if user already exists by email
+      const existingIndex = users.findIndex(u => u.email === userWithPassword.email)
+      if (existingIndex >= 0) {
+        // Update existing user
+        users[existingIndex] = userWithPassword
+      } else {
+        // Add new user
+        users.push(userWithPassword)
+      }
+      localStorage.setItem('allUsers', JSON.stringify(users))
+    } catch (error) {
+      console.warn('Failed to save user to localStorage:', error)
+    }
+  }
+
   // Function to find user by email or ID
   const findUserByCredentials = (emailOrId: string, password: string): User | null => {
-    // Test credentials for easy demo access
+    // First check stored users from signups
+    const storedUsers = getStoredUsers()
+    const foundStoredUser = storedUsers.find(
+      user => user.email.toLowerCase() === emailOrId.toLowerCase() && user.password === password
+    )
+    
+    if (foundStoredUser) {
+      // Return user without password
+      const { password: _, ...userWithoutPassword } = foundStoredUser
+      return userWithoutPassword
+    }
+
+    // Fallback: Test credentials for easy demo access
     const testCredentials = [
       { email: "test@uaeu.ac.ae", password: "test123", userIndex: 0 },
       { email: "demo@aus.edu", password: "demo456", userIndex: 1 },
@@ -181,6 +222,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           role: "passenger",
         }
         
+        // Create user with password for storage
+        const userWithPassword = {
+          ...newUser,
+          password: userData.password, // Store password (not encrypted - for demo only!)
+        }
+        
+        // Save to storage array
+        saveUserToStorage(userWithPassword)
+        
+        // Also save as current user
         setUser(newUser)
         try {
           localStorage.setItem('user', JSON.stringify(newUser))
