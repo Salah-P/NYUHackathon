@@ -60,27 +60,30 @@ class PerformanceMonitor {
     if (typeof window === 'undefined') return
 
     // Import and report web vitals
-    import('web-vitals').then(({ onCLS, onFID, onFCP, onLCP, onTTFB }) => {
-      onCLS((metric) => {
+    import('web-vitals').then(({ onCLS, onFCP, onLCP, onTTFB, onINP }) => {
+      onCLS((metric: any) => {
         this.metrics.cls = metric.value
         this.reportMetric('CLS', metric.value, PERFORMANCE_BUDGETS.CLS_THRESHOLD, metric.entries)
       })
 
-      onFID((metric) => {
-        this.metrics.fid = metric.value
-        this.reportMetric('FID', metric.value, PERFORMANCE_BUDGETS.FID_THRESHOLD, metric.entries)
-      })
+      // onFID has been replaced with onINP in newer versions of web-vitals
+      if (onINP) {
+        onINP((metric: any) => {
+          this.metrics.fid = metric.value
+          this.reportMetric('INP', metric.value, PERFORMANCE_BUDGETS.FID_THRESHOLD, metric.entries)
+        })
+      }
 
-      onFCP((metric) => {
+      onFCP((metric: any) => {
         this.reportMetric('FCP', metric.value, 1800, metric.entries) // FCP threshold: 1.8s
       })
 
-      onLCP((metric) => {
+      onLCP((metric: any) => {
         this.metrics.lcp = metric.value
         this.reportMetric('LCP', metric.value, PERFORMANCE_BUDGETS.LCP_THRESHOLD, metric.entries)
       })
 
-      onTTFB((metric) => {
+      onTTFB((metric: any) => {
         this.reportMetric('TTFB', metric.value, 600, metric.entries) // TTFB threshold: 600ms
       })
     }).catch(() => {

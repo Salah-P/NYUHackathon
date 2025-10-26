@@ -3,7 +3,7 @@ import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { MapPin, Calendar, Clock, Users, Star, Map } from "lucide-react"
 import Link from "next/link"
-import type { Ride } from "@/lib/mock-rides"
+import type { Ride } from "@/lib/mock-data"
 
 interface RideCardProps {
   ride: Ride

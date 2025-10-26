@@ -106,7 +106,7 @@ const Avatar = React.forwardRef<
   const initials = getInitials(name)
   const backgroundColor = getAvatarColor(name)
   const avatarAlt = alt || `${name}'s avatar`
-  const imageSize = avatarImageSizes[size]
+  const imageSize = avatarImageSizes[size || 'md']
 
   return (
     <AvatarPrimitive.Root

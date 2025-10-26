@@ -65,7 +65,7 @@ export function ContactForm() {
     
     try {
       // Measure form submission performance
-      await measureFormSubmission('Contact Form', async () => {
+      await measureFormSubmission('Contact Form', Promise.resolve().then(async () => {
         // Simulate API call delay
         await new Promise(resolve => setTimeout(resolve, 1000))
         
@@ -74,7 +74,7 @@ export function ContactForm() {
         form.reset()
         
         return true
-      })
+      }))
       
       // We're showing the success state component, so no need for toast here
     } catch (error) {

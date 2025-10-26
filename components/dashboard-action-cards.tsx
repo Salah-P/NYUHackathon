@@ -96,7 +96,7 @@ export function DashboardActionCards() {
     <div className="px-4 py-8 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div 
-          ref={elementRef}
+          ref={elementRef as any}
           className={cn(
             "grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 scroll-reveal",
             isVisible && "visible"

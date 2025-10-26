@@ -129,7 +129,9 @@ class BrowserCache {
     // Limit memory cache size
     if (this.memoryCache.size > this.MAX_MEMORY_ENTRIES) {
       const firstKey = this.memoryCache.keys().next().value
-      this.memoryCache.delete(firstKey)
+      if (firstKey) {
+        this.memoryCache.delete(firstKey)
+      }
     }
 
     // Store in localStorage for persistence

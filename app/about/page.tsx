@@ -55,7 +55,7 @@ export default function AboutPage() {
                 Back to Home
               </Link>
             </Button>
-            <Logo size="md" nonClickable />
+            <Logo size="sm" nonClickable />
           </div>
           
           {/* Hero Section */}

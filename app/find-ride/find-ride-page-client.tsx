@@ -11,8 +11,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { SearchX, Map, List, ArrowLeft, Filter, X } from "lucide-react"
-import { getMockRides } from "@/lib/mock-rides"
-import type { Ride } from "@/lib/mock-rides"
+import { getRides } from "@/lib/mock-data"
+import type { Ride } from "@/lib/mock-data"
 
 // Lazy load map components
 const RideListMap = lazy(() => import("@/components/maps/ride-list-map"))
@@ -49,7 +49,7 @@ export function FindRidePageClient() {
     // Simulate API call with timeout
     setTimeout(() => {
       try {
-        const mockRides = getMockRides()
+        const mockRides = getRides()
         setRides(mockRides)
         setFilteredRides(mockRides)
         setIsLoading(false)
