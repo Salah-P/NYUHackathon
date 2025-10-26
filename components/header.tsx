@@ -111,8 +111,8 @@ export function Header() {
                   className={cn(
                     "text-sm font-medium transition-colors duration-300",
                     isActiveLink("/dashboard")
-                      ? "text-emerald font-semibold"
-                      : "text-black hover:text-emerald"
+                      ? "text-gold font-semibold"
+                      : "text-gray-400 hover:text-gold"
                   )}
                 >
                   Dashboard
@@ -122,8 +122,8 @@ export function Header() {
                   className={cn(
                     "text-sm font-medium transition-colors duration-300",
                     isActiveLink("/find-ride")
-                      ? "text-emerald font-semibold"
-                      : "text-black hover:text-emerald"
+                      ? "text-gold font-semibold"
+                      : "text-gray-400 hover:text-gold"
                   )}
                 >
                   Find Ride
@@ -133,8 +133,8 @@ export function Header() {
                   className={cn(
                     "text-sm font-medium transition-colors duration-300",
                     isActiveLink("/post-ride")
-                      ? "text-emerald font-semibold"
-                      : "text-black hover:text-emerald"
+                      ? "text-gold font-semibold"
+                      : "text-gray-400 hover:text-gold"
                   )}
                 >
                   Post Ride
@@ -144,8 +144,8 @@ export function Header() {
                   className={cn(
                     "text-sm font-medium transition-colors duration-300",
                     isActiveLink("/wallet")
-                      ? "text-emerald font-semibold"
-                      : "text-black hover:text-emerald"
+                      ? "text-gold font-semibold"
+                      : "text-gray-400 hover:text-gold"
                   )}
                 >
                   Wallet
@@ -155,8 +155,8 @@ export function Header() {
                   className={cn(
                     "text-sm font-medium transition-colors duration-300",
                     isActiveLink("/profile")
-                      ? "text-emerald font-semibold"
-                      : "text-black hover:text-emerald"
+                      ? "text-gold font-semibold"
+                      : "text-gray-400 hover:text-gold"
                   )}
                 >
                   Profile

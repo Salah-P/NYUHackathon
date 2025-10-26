@@ -7,78 +7,78 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Luxury Minimalist Color Palette */
-  --background: 0 0% 97%; /* Off-white background (#F8F8F8) */
-  --foreground: 0 0% 0%; /* Black text (#000000) */
-  --card: 0 0% 100%; /* Pure white cards */
-  --card-foreground: 0 0% 0%; /* Black card text */
-  --popover: 0 0% 100%; /* Pure white popovers */
-  --popover-foreground: 0 0% 0%; /* Black popover text */
-  --primary: 127 47% 23%; /* Emerald Green (#046307) */
-  --primary-foreground: 0 0% 100%; /* White on primary */
+  /* Black & Gold Luxury Color Palette */
+  --background: 0 0% 0%; /* Black background (#000000) */
+  --foreground: 0 0% 97%; /* Off-white text (#F8F8F8) */
+  --card: 0 0% 5%; /* Dark card background */
+  --card-foreground: 0 0% 97%; /* Off-white card text */
+  --popover: 0 0% 0%; /* Black popovers */
+  --popover-foreground: 0 0% 97%; /* Off-white popover text */
+  --primary: 43 67% 52%; /* Gold primary (#D4AF37) */
+  --primary-foreground: 0 0% 0%; /* Black on primary */
   --secondary: 0 0% 0%; /* Black secondary */
-  --secondary-foreground: 0 0% 100%; /* White on secondary */
-  --muted: 0 0% 97%; /* Off-white muted (#F8F8F8) */
-  --muted-foreground: 0 0% 50%; /* Gray muted text */
+  --secondary-foreground: 0 0% 97%; /* Off-white on secondary */
+  --muted: 0 0% 10%; /* Very dark muted */
+  --muted-foreground: 43 67% 60%; /* Lighter gold muted text */
   --accent: 43 67% 52%; /* Gold accent (#D4AF37) */
   --accent-foreground: 0 0% 0%; /* Black on accent */
   --destructive: 0 70% 50%; /* Red destructive */
-  --destructive-foreground: 0 0% 100%; /* White on destructive */
-  --border: 0 0% 90%; /* Light gray borders */
-  --input: 0 0% 100%; /* White inputs */
-  --ring: 127 47% 23%; /* Emerald focus rings */
-  --chart-1: 127 47% 23%; /* Emerald chart 1 */
-  --chart-2: 43 67% 52%; /* Gold chart 2 */
-  --chart-3: 0 0% 20%; /* Dark gray chart 3 */
-  --chart-4: 0 0% 0%; /* Black chart 4 */
-  --chart-5: 127 30% 15%; /* Dark emerald chart 5 */
+  --destructive-foreground: 0 0% 97%; /* Off-white on destructive */
+  --border: 0 0% 20%; /* Dark gray borders */
+  --input: 0 0% 5%; /* Dark input background */
+  --ring: 43 67% 52%; /* Gold focus rings */
+  --chart-1: 43 67% 52%; /* Gold chart 1 */
+  --chart-2: 127 47% 40%; /* Light emerald chart 2 */
+  --chart-3: 43 67% 60%; /* Light gold chart 3 */
+  --chart-4: 0 0% 30%; /* Gray chart 4 */
+  --chart-5: 127 47% 23%; /* Emerald chart 5 */
   --radius: 0.5rem;
-  --sidebar: 0 0% 97%; /* Off-white sidebar */
-  --sidebar-foreground: 0 0% 0%; /* Black sidebar text */
-  --sidebar-primary: 127 47% 23%; /* Emerald sidebar primary */
-  --sidebar-primary-foreground: 0 0% 100%; /* White on sidebar primary */
-  --sidebar-accent: 0 0% 100%; /* White sidebar accent */
-  --sidebar-accent-foreground: 0 0% 0%; /* Black sidebar accent text */
-  --sidebar-border: 0 0% 90%; /* Light gray sidebar border */
-  --sidebar-ring: 127 47% 23%; /* Emerald sidebar ring */
+  --sidebar: 0 0% 0%; /* Black sidebar */
+  --sidebar-foreground: 0 0% 97%; /* Off-white sidebar text */
+  --sidebar-primary: 43 67% 52%; /* Gold sidebar primary */
+  --sidebar-primary-foreground: 0 0% 0%; /* Black on sidebar primary */
+  --sidebar-accent: 0 0% 5%; /* Dark sidebar accent */
+  --sidebar-accent-foreground: 43 67% 52%; /* Gold sidebar accent text */
+  --sidebar-border: 0 0% 20%; /* Dark gray sidebar border */
+  --sidebar-ring: 43 67% 52%; /* Gold sidebar ring */
   
-  /* Custom luxury colors */
-  --emerald: 127 47% 23%; /* Emerald Green (#046307) */
-  --gold: 43 67% 52%; /* Gold (#D4AF37) */
-  --black: 0 0% 0%; /* Black (#000000) */
-  --off-white: 0 0% 97%; /* Off-white (#F8F8F8) */
+  /* Luxury palette - Black & Gold dominant */
+  --emerald: 127 47% 23%; /* Emerald Green (#046307) - subtle accent */
+  --gold: 43 67% 52%; /* Gold (#D4AF37) - primary accent */
+  --black: 0 0% 0%; /* Black (#000000) - dominant */
+  --off-white: 0 0% 97%; /* Off-white (#F8F8F8) - contrast */
 }
 
 html, body {
-  background-color: #F8F8F8 !important;
-  color: #000000 !important;
+  background-color: #000000 !important;
+  color: #F8F8F8 !important;
 }
 
-/* Force all backgrounds to off-white */
-.bg-background, .bg-gray-50, .bg-gray-100 {
-  background-color: #F8F8F8 !important;
+/* Black background as default */
+.bg-background {
+  background-color: #000000 !important;
 }
 
 .bg-white {
-  background-color: #FFFFFF !important;
+  background-color: #0A0A0A !important;
 }
 
-/* Force all text to black */
+/* Force text to off-white for readability on black */
 .text-foreground, .text-gray-900, .text-gray-800, .text-gray-700 {
+  color: #F8F8F8 !important;
+}
+
+/* Gold as primary - buttons, links, accents */
+.bg-primary {
+  background-color: #D4AF37 !important;
   color: #000000 !important;
 }
 
-/* Force primary elements to emerald green */
-.bg-primary {
-  background-color: #046307 !important;
-  color: #FFFFFF !important;
-}
-
 .text-primary {
-  color: #046307 !important;
+  color: #D4AF37 !important;
 }
 
-/* Force accent elements to gold */
+/* Gold accent elements */
 .bg-accent {
   background-color: #D4AF37 !important;
   color: #000000 !important;
@@ -88,77 +88,85 @@ html, body {
   color: #D4AF37 !important;
 }
 
-/* Force borders to subtle gray */
+/* Dark borders with gold glow on hover */
 .border-border, .border-gray-200, .border-gray-300 {
-  border-color: #E5E5E5 !important;
+  border-color: #333333 !important;
 }
 
-/* Force cards to white */
-.bg-card, .bg-gray-50 {
-  background-color: #FFFFFF !important;
+/* Dark cards with off-white text */
+.bg-card {
+  background-color: #0A0A0A !important;
 }
 
 .text-card-foreground {
-  color: #000000 !important;
+  color: #F8F8F8 !important;
 }
 
-/* Gold accents */
+/* Gold utility classes */
 .text-gold {
   color: #D4AF37 !important;
 }
 
 .bg-gold {
   background-color: #D4AF37 !important;
+  color: #000000 !important;
 }
 
 .border-gold {
   border-color: #D4AF37 !important;
 }
 
-/* Emerald green accents */
+/* Emerald green for subtle accents */
 .bg-emerald {
   background-color: #046307 !important;
+  color: #FFFFFF !important;
 }
 
 .text-emerald {
   color: #046307 !important;
 }
 
-/* Force buttons to luxury style */
-button {
-  background-color: transparent !important;
-  color: #000000 !important;
-  border-color: #D4AF37 !important;
-  border-width: 1px !important;
-}
-
-button:hover {
-  background-color: #046307 !important;
-  color: #FFFFFF !important;
+.border-emerald {
   border-color: #046307 !important;
 }
 
-/* Force inputs to luxury style */
-input, textarea, select {
-  background-color: #FFFFFF !important;
+/* Luxury button styles - black with gold borders */
+button {
+  background-color: #000000 !important;
+  color: #D4AF37 !important;
+  border-color: #D4AF37 !important;
+  border-width: 1px !important;
+  transition: all 0.3s ease-in-out !important;
+}
+
+button:hover {
+  background-color: #D4AF37 !important;
   color: #000000 !important;
-  border-color: #E5E5E5 !important;
+  border-color: #D4AF37 !important;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.3) !important;
+}
+
+/* Dark inputs with gold focus */
+input, textarea, select {
+  background-color: #0A0A0A !important;
+  color: #F8F8F8 !important;
+  border-color: #333333 !important;
 }
 
 input:focus, textarea:focus, select:focus {
   border-color: #D4AF37 !important;
   outline: none !important;
-  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.1) !important;
+  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2) !important;
 }
 
-/* Force links to luxury style */
+/* Links with gold on hover */
 a {
-  color: #000000 !important;
+  color: #F8F8F8 !important;
   transition: color 0.3s ease !important;
 }
 
 a:hover {
-  color: #046307 !important;
+  color: #D4AF37 !important;
 }
 
 .dark {
