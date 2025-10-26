@@ -61,7 +61,7 @@ export function Navigation() {
                 "flex flex-col items-center gap-1 px-4 py-2 text-sm font-medium transition-colors duration-300 md:flex-row md:gap-2",
                 isActive 
                   ? "text-gold font-semibold" 
-                  : "text-gray-400 hover:text-gold",
+                  : "text-gray-400 hover:text-accent",
               )}
             >
               <Icon className={cn(
@@ -77,7 +77,7 @@ export function Navigation() {
             variant="ghost"
             size="sm"
             onClick={handleLogout}
-            className="flex flex-col items-center gap-1 px-4 py-2 text-sm font-medium text-gray-400 hover:text-gold md:flex-row md:gap-2"
+            className="flex flex-col items-center gap-1 px-4 py-2 text-sm font-medium text-gray-400 hover:text-accent md:flex-row md:gap-2"
           >
             <LogOut className="h-5 w-5" />
             <span className="text-xs md:text-sm">Logout</span>

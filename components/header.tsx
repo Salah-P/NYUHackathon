@@ -112,7 +112,7 @@ export function Header() {
                     "text-sm font-medium transition-colors duration-300",
                     isActiveLink("/dashboard")
                       ? "text-gold font-semibold"
-                      : "text-gray-400 hover:text-gold"
+                      : "text-gray-400 hover:text-accent"
                   )}
                 >
                   Dashboard
@@ -123,7 +123,7 @@ export function Header() {
                     "text-sm font-medium transition-colors duration-300",
                     isActiveLink("/find-ride")
                       ? "text-gold font-semibold"
-                      : "text-gray-400 hover:text-gold"
+                      : "text-gray-400 hover:text-accent"
                   )}
                 >
                   Find Ride
@@ -134,7 +134,7 @@ export function Header() {
                     "text-sm font-medium transition-colors duration-300",
                     isActiveLink("/post-ride")
                       ? "text-gold font-semibold"
-                      : "text-gray-400 hover:text-gold"
+                      : "text-gray-400 hover:text-accent"
                   )}
                 >
                   Post Ride
@@ -145,7 +145,7 @@ export function Header() {
                     "text-sm font-medium transition-colors duration-300",
                     isActiveLink("/wallet")
                       ? "text-gold font-semibold"
-                      : "text-gray-400 hover:text-gold"
+                      : "text-gray-400 hover:text-accent"
                   )}
                 >
                   Wallet
@@ -156,7 +156,7 @@ export function Header() {
                     "text-sm font-medium transition-colors duration-300",
                     isActiveLink("/profile")
                       ? "text-gold font-semibold"
-                      : "text-gray-400 hover:text-gold"
+                      : "text-gray-400 hover:text-accent"
                   )}
                 >
                   Profile
