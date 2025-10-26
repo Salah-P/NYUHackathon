@@ -1,0 +1,16 @@
+<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Circle background with gradient -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#14b8a6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="90" cy="90" r="85" fill="url(#bgGradient)" stroke="#ffffff" stroke-width="5"/>
+  
+  <!-- UR Text -->
+  <text x="90" y="115" font-family="system-ui, -apple-system, sans-serif" font-size="80" font-weight="bold" text-anchor="middle" fill="white">UR</text>
+</svg>
+

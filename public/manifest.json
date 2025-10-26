@@ -1,0 +1,40 @@
+{
+  "name": "UniRide - Student Carpooling",
+  "short_name": "UniRide",
+  "description": "Connect with verified university students for safe, affordable carpooling across UAE emirates",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#10b981",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["travel", "social", "transportation"],
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-touch-icon.svg",
+      "sizes": "180x180",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/og-image.svg",
+      "sizes": "1200x630",
+      "type": "image/svg+xml",
+      "form_factor": "wide",
+      "label": "UniRide landing page"
+    }
+  ]
+}
+
+
+
+
