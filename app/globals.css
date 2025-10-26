@@ -7,122 +7,158 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Custom color palette: Light Gray, Dark Gray, Blue-Gray, Red */
-  --background: 0 0% 87%; /* Light gray background (#DDDDDD) */
-  --foreground: 220 13% 16%; /* Dark gray text (#222831) */
-  --card: 0 0% 87%; /* Light gray cards (#DDDDDD) */
-  --card-foreground: 220 13% 16%; /* Dark gray card text (#222831) */
-  --popover: 0 0% 87%; /* Light gray popovers (#DDDDDD) */
-  --popover-foreground: 220 13% 16%; /* Dark gray popover text (#222831) */
-  --primary: 215 32% 28%; /* Blue-gray primary (#30475E) */
-  --primary-foreground: 0 0% 87%; /* Light gray on primary (#DDDDDD) */
-  --secondary: 220 13% 16%; /* Dark gray secondary (#222831) */
-  --secondary-foreground: 0 0% 87%; /* Light gray on secondary (#DDDDDD) */
-  --muted: 0 0% 87%; /* Light gray muted (#DDDDDD) */
-  --muted-foreground: 215 32% 28%; /* Blue-gray muted text (#30475E) */
-  --accent: 0 70% 64%; /* Red accent (#F05454) */
-  --accent-foreground: 0 0% 87%; /* Light gray on accent (#DDDDDD) */
-  --destructive: 0 70% 64%; /* Red destructive (#F05454) */
-  --destructive-foreground: 0 0% 87%; /* Light gray on destructive (#DDDDDD) */
-  --border: 215 32% 28%; /* Blue-gray borders (#30475E) */
-  --input: 0 0% 87%; /* Light gray inputs (#DDDDDD) */
-  --ring: 215 32% 28%; /* Blue-gray focus rings (#30475E) */
-  --chart-1: 215 32% 28%; /* Blue-gray chart 1 (#30475E) */
-  --chart-2: 220 13% 16%; /* Dark gray chart 2 (#222831) */
-  --chart-3: 0 70% 64%; /* Red chart 3 (#F05454) */
-  --chart-4: 0 0% 87%; /* Light gray chart 4 (#DDDDDD) */
-  --chart-5: 215 32% 28%; /* Blue-gray chart 5 (#30475E) */
-  --radius: 0.75rem;
-  --sidebar: 0 0% 87%; /* Light gray sidebar (#DDDDDD) */
-  --sidebar-foreground: 220 13% 16%; /* Dark gray sidebar text (#222831) */
-  --sidebar-primary: 215 32% 28%; /* Blue-gray sidebar primary (#30475E) */
-  --sidebar-primary-foreground: 0 0% 87%; /* Light gray on sidebar primary (#DDDDDD) */
-  --sidebar-accent: 0 0% 87%; /* Light gray sidebar accent (#DDDDDD) */
-  --sidebar-accent-foreground: 220 13% 16%; /* Dark gray sidebar accent text (#222831) */
-  --sidebar-border: 215 32% 28%; /* Blue-gray sidebar border (#30475E) */
-  --sidebar-ring: 215 32% 28%; /* Blue-gray sidebar ring (#30475E) */
-}
-
-/* Force color overrides for immediate visibility */
-* {
-  --tw-bg-opacity: 1 !important;
-  --tw-text-opacity: 1 !important;
+  /* Luxury Minimalist Color Palette */
+  --background: 0 0% 97%; /* Off-white background (#F8F8F8) */
+  --foreground: 0 0% 0%; /* Black text (#000000) */
+  --card: 0 0% 100%; /* Pure white cards */
+  --card-foreground: 0 0% 0%; /* Black card text */
+  --popover: 0 0% 100%; /* Pure white popovers */
+  --popover-foreground: 0 0% 0%; /* Black popover text */
+  --primary: 127 47% 23%; /* Emerald Green (#046307) */
+  --primary-foreground: 0 0% 100%; /* White on primary */
+  --secondary: 0 0% 0%; /* Black secondary */
+  --secondary-foreground: 0 0% 100%; /* White on secondary */
+  --muted: 0 0% 97%; /* Off-white muted (#F8F8F8) */
+  --muted-foreground: 0 0% 50%; /* Gray muted text */
+  --accent: 43 67% 52%; /* Gold accent (#D4AF37) */
+  --accent-foreground: 0 0% 0%; /* Black on accent */
+  --destructive: 0 70% 50%; /* Red destructive */
+  --destructive-foreground: 0 0% 100%; /* White on destructive */
+  --border: 0 0% 90%; /* Light gray borders */
+  --input: 0 0% 100%; /* White inputs */
+  --ring: 127 47% 23%; /* Emerald focus rings */
+  --chart-1: 127 47% 23%; /* Emerald chart 1 */
+  --chart-2: 43 67% 52%; /* Gold chart 2 */
+  --chart-3: 0 0% 20%; /* Dark gray chart 3 */
+  --chart-4: 0 0% 0%; /* Black chart 4 */
+  --chart-5: 127 30% 15%; /* Dark emerald chart 5 */
+  --radius: 0.5rem;
+  --sidebar: 0 0% 97%; /* Off-white sidebar */
+  --sidebar-foreground: 0 0% 0%; /* Black sidebar text */
+  --sidebar-primary: 127 47% 23%; /* Emerald sidebar primary */
+  --sidebar-primary-foreground: 0 0% 100%; /* White on sidebar primary */
+  --sidebar-accent: 0 0% 100%; /* White sidebar accent */
+  --sidebar-accent-foreground: 0 0% 0%; /* Black sidebar accent text */
+  --sidebar-border: 0 0% 90%; /* Light gray sidebar border */
+  --sidebar-ring: 127 47% 23%; /* Emerald sidebar ring */
+  
+  /* Custom luxury colors */
+  --emerald: 127 47% 23%; /* Emerald Green (#046307) */
+  --gold: 43 67% 52%; /* Gold (#D4AF37) */
+  --black: 0 0% 0%; /* Black (#000000) */
+  --off-white: 0 0% 97%; /* Off-white (#F8F8F8) */
 }
 
 html, body {
-  background-color: #DDDDDD !important;
-  color: #222831 !important;
+  background-color: #F8F8F8 !important;
+  color: #000000 !important;
 }
 
-/* Force all backgrounds to light gray */
-.bg-background, .bg-white, .bg-gray-50, .bg-gray-100 {
-  background-color: #DDDDDD !important;
+/* Force all backgrounds to off-white */
+.bg-background, .bg-gray-50, .bg-gray-100 {
+  background-color: #F8F8F8 !important;
 }
 
-/* Force all text to dark gray */
+.bg-white {
+  background-color: #FFFFFF !important;
+}
+
+/* Force all text to black */
 .text-foreground, .text-gray-900, .text-gray-800, .text-gray-700 {
-  color: #222831 !important;
+  color: #000000 !important;
 }
 
-/* Force primary elements to blue-gray */
-.bg-primary, .bg-blue-600, .bg-emerald-600, .bg-emerald-500 {
-  background-color: #30475E !important;
-  color: #DDDDDD !important;
+/* Force primary elements to emerald green */
+.bg-primary {
+  background-color: #046307 !important;
+  color: #FFFFFF !important;
 }
 
-.text-primary, .text-blue-600, .text-emerald-600 {
-  color: #30475E !important;
+.text-primary {
+  color: #046307 !important;
 }
 
-/* Force accent elements to red */
-.bg-accent, .bg-red-500, .bg-red-600 {
-  background-color: #F05454 !important;
-  color: #DDDDDD !important;
+/* Force accent elements to gold */
+.bg-accent {
+  background-color: #D4AF37 !important;
+  color: #000000 !important;
 }
 
-.text-accent, .text-red-500, .text-red-600 {
-  color: #F05454 !important;
+.text-accent {
+  color: #D4AF37 !important;
 }
 
-/* Force borders to blue-gray */
+/* Force borders to subtle gray */
 .border-border, .border-gray-200, .border-gray-300 {
-  border-color: #30475E !important;
+  border-color: #E5E5E5 !important;
 }
 
-/* Force cards to light gray */
+/* Force cards to white */
 .bg-card, .bg-gray-50 {
-  background-color: #DDDDDD !important;
+  background-color: #FFFFFF !important;
 }
 
 .text-card-foreground {
-  color: #222831 !important;
+  color: #000000 !important;
 }
 
-/* Force buttons */
+/* Gold accents */
+.text-gold {
+  color: #D4AF37 !important;
+}
+
+.bg-gold {
+  background-color: #D4AF37 !important;
+}
+
+.border-gold {
+  border-color: #D4AF37 !important;
+}
+
+/* Emerald green accents */
+.bg-emerald {
+  background-color: #046307 !important;
+}
+
+.text-emerald {
+  color: #046307 !important;
+}
+
+/* Force buttons to luxury style */
 button {
-  background-color: #30475E !important;
-  color: #DDDDDD !important;
-  border-color: #30475E !important;
+  background-color: transparent !important;
+  color: #000000 !important;
+  border-color: #D4AF37 !important;
+  border-width: 1px !important;
 }
 
 button:hover {
-  background-color: #222831 !important;
+  background-color: #046307 !important;
+  color: #FFFFFF !important;
+  border-color: #046307 !important;
 }
 
-/* Force inputs */
+/* Force inputs to luxury style */
 input, textarea, select {
-  background-color: #DDDDDD !important;
-  color: #222831 !important;
-  border-color: #30475E !important;
+  background-color: #FFFFFF !important;
+  color: #000000 !important;
+  border-color: #E5E5E5 !important;
 }
 
-/* Force links */
+input:focus, textarea:focus, select:focus {
+  border-color: #D4AF37 !important;
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.1) !important;
+}
+
+/* Force links to luxury style */
 a {
-  color: #30475E !important;
+  color: #000000 !important;
+  transition: color 0.3s ease !important;
 }
 
 a:hover {
-  color: #F05454 !important;
+  color: #046307 !important;
 }
 
 .dark {

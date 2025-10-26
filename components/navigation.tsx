@@ -60,13 +60,13 @@ export function Navigation() {
               className={cn(
                 "flex flex-col items-center gap-1 px-4 py-2 text-sm font-medium transition-colors duration-300 md:flex-row md:gap-2",
                 isActive 
-                  ? "text-primary font-semibold" 
-                  : "text-secondary hover:text-primary",
+                  ? "text-emerald font-semibold" 
+                  : "text-black hover:text-emerald",
               )}
             >
               <Icon className={cn(
                 "h-5 w-5",
-                isActive ? "text-primary" : "text-secondary"
+                isActive ? "text-emerald" : "text-black"
               )} />
               <span className="text-xs md:text-sm">{link.label}</span>
             </Link>
@@ -77,7 +77,7 @@ export function Navigation() {
             variant="ghost"
             size="sm"
             onClick={handleLogout}
-            className="flex flex-col items-center gap-1 px-4 py-2 text-sm font-medium text-secondary hover:text-primary hover:bg-red-50 md:flex-row md:gap-2"
+            className="flex flex-col items-center gap-1 px-4 py-2 text-sm font-medium text-black hover:text-emerald md:flex-row md:gap-2"
           >
             <LogOut className="h-5 w-5" />
             <span className="text-xs md:text-sm">Logout</span>
