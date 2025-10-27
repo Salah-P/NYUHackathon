@@ -24,6 +24,8 @@ export function EditProfileModal({ isOpen, onClose }: EditProfileModalProps) {
     name: "",
     email: "",
     phone: "",
+    countryCode: "+971",
+    phoneNumber: "",
     university: "",
     gender: "",
     photo: ""
@@ -32,10 +34,18 @@ export function EditProfileModal({ isOpen, onClose }: EditProfileModalProps) {
   // Initialize form data when modal opens
   useEffect(() => {
     if (user && isOpen) {
+      // Parse existing phone number to extract country code and number
+      const phone = user.phone || ""
+      const phoneMatch = phone.match(/^(\+\d{1,4})\s?(.+)$/)
+      const countryCode = phoneMatch ? phoneMatch[1] : "+971"
+      const phoneNumber = phoneMatch ? phoneMatch[2].replace(/\D/g, '') : ""
+      
       setFormData({
         name: user.name || "",
         email: user.email || "",
-        phone: user.phone || "",
+        phone: phone,
+        countryCode: countryCode,
+        phoneNumber: phoneNumber,
         university: user.university || "",
         gender: user.gender || "",
         photo: user.photo || ""
@@ -77,12 +87,12 @@ export function EditProfileModal({ isOpen, onClose }: EditProfileModalProps) {
         return
       }
 
-      // Validate phone format (basic validation)
-      const phoneRegex = /^[\+]?[0-9\s\-\(\)]{10,}$/
-      if (!phoneRegex.test(formData.phone)) {
+      // Validate phone number format (basic validation)
+      const phoneRegex = /^[0-9]{7,15}$/
+      if (!phoneRegex.test(formData.phoneNumber)) {
         toast({
           title: "Invalid Phone",
-          description: "Please enter a valid phone number.",
+          description: "Please enter a valid phone number (7-15 digits).",
           variant: "destructive"
         })
         return
@@ -93,7 +103,9 @@ export function EditProfileModal({ isOpen, onClose }: EditProfileModalProps) {
         ...user,
         name: formData.name.trim(),
         email: formData.email.trim(),
-        phone: formData.phone.trim(),
+        phone: `${formData.countryCode} ${formData.phoneNumber}`,
+        countryCode: formData.countryCode,
+        phoneNumber: formData.phoneNumber,
         university: formData.university,
         gender: formData.gender,
         photo: formData.photo
@@ -224,14 +236,40 @@ export function EditProfileModal({ isOpen, onClose }: EditProfileModalProps) {
             {/* Phone */}
             <div className="space-y-2">
               <Label htmlFor="phone">Phone Number *</Label>
-              <Input
-                id="phone"
-                type="tel"
-                value={formData.phone}
-                onChange={(e) => handleInputChange("phone", e.target.value)}
-                placeholder="Enter your phone number"
-                disabled={isLoading}
-              />
+              <div className="flex gap-2">
+                <Select
+                  value={formData.countryCode}
+                  onValueChange={(value) => handleInputChange("countryCode", value)}
+                  disabled={isLoading}
+                >
+                  <SelectTrigger className="w-24">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="+971">🇦🇪 +971</SelectItem>
+                    <SelectItem value="+1">🇺🇸 +1</SelectItem>
+                    <SelectItem value="+44">🇬🇧 +44</SelectItem>
+                    <SelectItem value="+91">🇮🇳 +91</SelectItem>
+                    <SelectItem value="+966">🇸🇦 +966</SelectItem>
+                    <SelectItem value="+974">🇶🇦 +974</SelectItem>
+                    <SelectItem value="+965">🇰🇼 +965</SelectItem>
+                    <SelectItem value="+973">🇧🇭 +973</SelectItem>
+                    <SelectItem value="+968">🇴🇲 +968</SelectItem>
+                  </SelectContent>
+                </Select>
+                <Input
+                  id="phoneNumber"
+                  type="tel"
+                  placeholder="50 123 4567"
+                  value={formData.phoneNumber}
+                  onChange={(e) => {
+                    const value = e.target.value.replace(/\D/g, '') // Only allow numbers
+                    handleInputChange("phoneNumber", value)
+                  }}
+                  className="flex-1"
+                  disabled={isLoading}
+                />
+              </div>
             </div>
 
             {/* University */}

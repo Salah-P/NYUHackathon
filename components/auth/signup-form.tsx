@@ -30,6 +30,8 @@ export function SignupForm() {
     university: "",
     gender: "",
     phone: "",
+    countryCode: "+971",
+    phoneNumber: "",
     termsAccepted: false,
   })
   const [universityId, setUniversityId] = useState<File | null>(null)
@@ -89,7 +91,14 @@ export function SignupForm() {
     setLoading(true)
     
     try {
-      const signupSuccess = await signup(formData)
+      // Combine country code and phone number
+      const userData = {
+        ...formData,
+        phone: `${formData.countryCode} ${formData.phoneNumber}`,
+        countryCode: formData.countryCode,
+        phoneNumber: formData.phoneNumber
+      }
+      const signupSuccess = await signup(userData)
       if (signupSuccess) {
         setSuccess(true)
         toast({
@@ -220,14 +229,39 @@ export function SignupForm() {
 
           <div className="space-y-2">
             <Label htmlFor="phone">Phone Number</Label>
-            <Input
-              id="phone"
-              type="tel"
-              placeholder="+971 50 123 4567"
-              value={formData.phone}
-              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              required
-            />
+            <div className="flex gap-2">
+              <Select
+                value={formData.countryCode}
+                onValueChange={(value) => setFormData({ ...formData, countryCode: value })}
+              >
+                <SelectTrigger className="w-24">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="+971">🇦🇪 +971</SelectItem>
+                  <SelectItem value="+1">🇺🇸 +1</SelectItem>
+                  <SelectItem value="+44">🇬🇧 +44</SelectItem>
+                  <SelectItem value="+91">🇮🇳 +91</SelectItem>
+                  <SelectItem value="+966">🇸🇦 +966</SelectItem>
+                  <SelectItem value="+974">🇶🇦 +974</SelectItem>
+                  <SelectItem value="+965">🇰🇼 +965</SelectItem>
+                  <SelectItem value="+973">🇧🇭 +973</SelectItem>
+                  <SelectItem value="+968">🇴🇲 +968</SelectItem>
+                </SelectContent>
+              </Select>
+              <Input
+                id="phoneNumber"
+                type="tel"
+                placeholder="50 123 4567"
+                value={formData.phoneNumber}
+                onChange={(e) => {
+                  const value = e.target.value.replace(/\D/g, '') // Only allow numbers
+                  setFormData({ ...formData, phoneNumber: value })
+                }}
+                className="flex-1"
+                required
+              />
+            </div>
           </div>
 
           <div className="space-y-2">

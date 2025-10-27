@@ -10,6 +10,8 @@ interface User {
   university: string
   gender: string
   phone: string
+  countryCode?: string
+  phoneNumber?: string
   photo?: string
   rating: number
   totalTrips: number

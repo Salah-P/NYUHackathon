@@ -45,13 +45,19 @@ export function ProfileHeader({ user, isOwnProfile = true }: ProfileHeaderProps)
               </div>
 
               <div className="mb-4 flex items-center justify-center gap-6 md:justify-start">
-                <div className="text-center">
-                  <div className="flex items-center gap-1 text-2xl font-bold text-foreground">
-                    <Star className="h-5 w-5 fill-primary text-primary" />
-                    {user.rating}
-                  </div>
-                  <div className="text-xs text-muted-foreground">Rating</div>
+              <div className="text-center">
+                <div className="flex items-center gap-1 text-2xl font-bold text-foreground">
+                  {user.rating > 0 ? (
+                    <>
+                      <Star className="h-5 w-5 fill-primary text-primary" />
+                      {user.rating}
+                    </>
+                  ) : (
+                    <span className="text-muted-foreground">-</span>
+                  )}
                 </div>
+                <div className="text-xs text-muted-foreground">Rating</div>
+              </div>
                 <div className="h-8 w-px bg-border" />
                 <div className="text-center">
                   <div className="text-2xl font-bold text-foreground">{user.totalTrips}</div>
