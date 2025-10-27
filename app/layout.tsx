@@ -9,6 +9,7 @@ import { SmoothScrollProvider } from "@/components/smooth-scroll-provider"
 import { LayoutWrapper } from "@/components/layout-wrapper"
 import { WebVitalsReporter } from "@/components/web-vitals-reporter"
 import { AuthProvider } from "@/lib/auth-context"
+import { Toaster } from "@/components/ui/toaster"
 import { organizationSchema, websiteSchema, webApplicationSchema } from "./structured-data"
 
 export const metadata: Metadata = {
@@ -169,6 +170,7 @@ export default function RootLayout({
             <LayoutWrapper>
               {children}
             </LayoutWrapper>
+            <Toaster />
             <Analytics />
           </SmoothScrollProvider>
         </AuthProvider>
