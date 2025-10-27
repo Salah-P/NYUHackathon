@@ -397,7 +397,7 @@ const SingleRideMap: React.FC<SingleRideMapProps> = ({
               <div className="flex items-center gap-3">
                 <div className="h-10 w-10 bg-emerald-100 rounded-full flex items-center justify-center">
                   <span className="text-emerald-600 font-semibold text-sm">
-                    {ride.driverName.split(' ').map(n => n[0]).join('')}
+                    {ride.driverName?.split(' ').map(n => n[0]).join('') || 'D'}
                   </span>
                 </div>
                 <div>

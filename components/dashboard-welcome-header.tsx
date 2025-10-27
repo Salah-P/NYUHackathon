@@ -90,7 +90,7 @@ export function DashboardWelcomeHeader() {
         {/* Greeting Section */}
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-primary-dark sm:text-3xl">
-            {isNewUser ? `Welcome to UniRide, ${user.name.split(' ')[0]}!` : `Welcome back, ${user.name.split(' ')[0]}!`}
+            {isNewUser ? `Welcome to UniRide, ${user.name?.split(' ')[0] || 'there'}!` : `Welcome back, ${user.name?.split(' ')[0] || 'there'}!`}
           </h1>
           <p className="mt-1 text-sm text-secondary">
             {isNewUser ? "Let's get you started with your first ride!" : currentDate}

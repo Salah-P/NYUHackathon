@@ -174,7 +174,7 @@ export function EditProfileModal({ isOpen, onClose }: EditProfileModalProps) {
               <Avatar className="h-24 w-24">
                 <AvatarImage src={formData.photo} alt={formData.name} />
                 <AvatarFallback className="text-lg">
-                  {formData.name.split(' ').map(n => n[0]).join('').toUpperCase()}
+                  {formData.name?.split(' ').map(n => n[0]).join('').toUpperCase() || 'U'}
                 </AvatarFallback>
               </Avatar>
               <Button

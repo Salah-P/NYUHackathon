@@ -28,6 +28,7 @@ const avatarColors = [
 
 // Generate consistent color based on name hash
 const getAvatarColor = (name: string): string => {
+  if (!name) return avatarColors[0]
   const hash = name.split('').reduce((acc, char) => {
     return acc + char.charCodeAt(0)
   }, 0)
@@ -36,6 +37,7 @@ const getAvatarColor = (name: string): string => {
 
 // Extract initials from full name
 const getInitials = (name: string): string => {
+  if (!name) return 'U'
   return name
     .split(' ')
     .map(word => word.charAt(0))
