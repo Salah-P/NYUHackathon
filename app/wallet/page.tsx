@@ -29,6 +29,8 @@ const getUserWalletData = (userId: string, userRole: string) => {
       balance: 0.0,
       totalEarnings: 0.0,
       totalSpent: 0.0,
+      thisMonthEarnings: 0.0,
+      thisMonthSpent: 0.0,
       isDriver: userRole === "driver" || userRole === "both",
     }
   }
@@ -38,18 +40,24 @@ const getUserWalletData = (userId: string, userRole: string) => {
       balance: 450.75,
       totalEarnings: 1250.0,
       totalSpent: 799.25,
+      thisMonthEarnings: 135.0,
+      thisMonthSpent: 50.0,
       isDriver: true,
     },
     "test-user-002": { // Fatima Al Zaabi
       balance: 680.50,
       totalEarnings: 2100.0,
       totalSpent: 1419.50,
+      thisMonthEarnings: 245.0,
+      thisMonthSpent: 85.0,
       isDriver: true,
     },
     "test-user-003": { // Mohammed Al Hashimi
       balance: 285.25,
       totalEarnings: 950.0,
       totalSpent: 664.75,
+      thisMonthEarnings: 95.0,
+      thisMonthSpent: 35.0,
       isDriver: true,
     }
   }
@@ -58,6 +66,8 @@ const getUserWalletData = (userId: string, userRole: string) => {
     balance: 0.0,
     totalEarnings: 0.0,
     totalSpent: 0.0,
+    thisMonthEarnings: 0.0,
+    thisMonthSpent: 0.0,
     isDriver: userRole === "driver" || userRole === "both",
   }
 }
@@ -65,9 +75,14 @@ const getUserWalletData = (userId: string, userRole: string) => {
 const getUserTransactions = (userId: string): Transaction[] => {
   const testAccountIds = ["test-user-001", "test-user-002", "test-user-003"]
   
-  // Only return mock data for test accounts, new users get empty transactions
+  // For new users, check localStorage for transactions
   if (!testAccountIds.includes(userId)) {
-    return []
+    try {
+      const storedTransactions = localStorage.getItem('userTransactions')
+      return storedTransactions ? JSON.parse(storedTransactions) : []
+    } catch {
+      return []
+    }
   }
 
   const baseTransactions: Transaction[] = [
@@ -171,7 +186,12 @@ function WalletPageContent() {
             </div>
             <div>
               <p className="text-sm text-muted-foreground">This Month</p>
-              <p className="text-xl font-bold text-foreground">+AED 135</p>
+              <p className="text-xl font-bold text-foreground">
+                {walletData.thisMonthEarnings > 0 ? `+AED ${walletData.thisMonthEarnings.toFixed(0)}` : "AED 0"}
+              </p>
+              {walletData.thisMonthEarnings === 0 && walletData.totalEarnings === 0 && (
+                <p className="text-xs text-muted-foreground mt-1">No data yet</p>
+              )}
             </div>
           </div>
         </Card>
@@ -182,7 +202,12 @@ function WalletPageContent() {
             </div>
             <div>
               <p className="text-sm text-muted-foreground">Spent</p>
-              <p className="text-xl font-bold text-foreground">-AED 50</p>
+              <p className="text-xl font-bold text-foreground">
+                {walletData.thisMonthSpent > 0 ? `-AED ${walletData.thisMonthSpent.toFixed(0)}` : "AED 0"}
+              </p>
+              {walletData.thisMonthSpent === 0 && walletData.totalSpent === 0 && (
+                <p className="text-xs text-muted-foreground mt-1">No data yet</p>
+              )}
             </div>
           </div>
         </Card>
