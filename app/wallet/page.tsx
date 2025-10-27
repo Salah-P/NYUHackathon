@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic"
 import { Card } from "@/components/ui/card"
-import { Wallet, TrendingUp, TrendingDown, Activity } from "lucide-react"
+import { Wallet, TrendingUp, TrendingDown, Activity, CreditCard } from "lucide-react"
 import { TransactionHistory, type Transaction } from "@/components/wallet/transaction-history"
 import { ProtectedRoute } from "@/components/protected-route"
 import { useAuth } from "@/lib/auth-context"
@@ -21,6 +21,18 @@ const WithdrawDialog = dynamic(() => import("@/components/wallet/withdraw-dialog
 
 // User-specific wallet data based on test accounts
 const getUserWalletData = (userId: string, userRole: string) => {
+  const testAccountIds = ["test-user-001", "test-user-002", "test-user-003"]
+  
+  // Only return mock data for test accounts, new users get empty wallet
+  if (!testAccountIds.includes(userId)) {
+    return {
+      balance: 0.0,
+      totalEarnings: 0.0,
+      totalSpent: 0.0,
+      isDriver: userRole === "driver" || userRole === "both",
+    }
+  }
+
   const walletDataMap: Record<string, any> = {
     "test-user-001": { // Ahmed Al Mansouri
       balance: 450.75,
@@ -43,14 +55,21 @@ const getUserWalletData = (userId: string, userRole: string) => {
   }
   
   return walletDataMap[userId] || {
-    balance: 100.0,
-    totalEarnings: 0,
-    totalSpent: 100.0,
+    balance: 0.0,
+    totalEarnings: 0.0,
+    totalSpent: 0.0,
     isDriver: userRole === "driver" || userRole === "both",
   }
 }
 
 const getUserTransactions = (userId: string): Transaction[] => {
+  const testAccountIds = ["test-user-001", "test-user-002", "test-user-003"]
+  
+  // Only return mock data for test accounts, new users get empty transactions
+  if (!testAccountIds.includes(userId)) {
+    return []
+  }
+
   const baseTransactions: Transaction[] = [
     {
       id: "1",
@@ -183,7 +202,33 @@ function WalletPageContent() {
       {/* Transaction History */}
       <div className="space-y-4">
         <h2 className="text-2xl font-bold text-foreground">Transaction History</h2>
-        <TransactionHistory transactions={userTransactions} />
+        {userTransactions.length === 0 ? (
+          <Card className="p-8">
+            <div className="text-center">
+              <CreditCard className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
+              <h3 className="text-lg font-semibold text-foreground mb-2">No transactions yet</h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                Your transaction history will appear here once you start using UniRide.
+              </p>
+              <div className="flex gap-2 justify-center">
+                <a 
+                  href="/find-ride" 
+                  className="inline-flex items-center px-4 py-2 bg-primary text-primary-foreground rounded-md text-sm font-medium hover:bg-primary/90 transition-colors"
+                >
+                  Find a Ride
+                </a>
+                <a 
+                  href="/post-ride" 
+                  className="inline-flex items-center px-4 py-2 border border-primary text-primary rounded-md text-sm font-medium hover:bg-primary/10 transition-colors"
+                >
+                  Post a Ride
+                </a>
+              </div>
+            </div>
+          </Card>
+        ) : (
+          <TransactionHistory transactions={userTransactions} />
+        )}
       </div>
     </div>
   )

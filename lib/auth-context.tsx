@@ -217,8 +217,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           university: universityMap[userData.university] || userData.university,
           gender: userData.gender,
           phone: userData.phone,
-          rating: 5.0,
-          totalTrips: 0,
+          rating: 0, // New users start with no rating
+          totalTrips: 0, // New users start with no trips
           role: "passenger",
         }
         

@@ -7,6 +7,15 @@ import { Wallet, Calendar, User } from "lucide-react"
 
 // Helper function to get user wallet data (matching the pattern from wallet page)
 const getUserWalletData = (userId: string, userRole: string) => {
+  const testAccountIds = ["test-user-001", "test-user-002", "test-user-003"]
+  
+  // Only return mock data for test accounts, new users get empty wallet
+  if (!testAccountIds.includes(userId)) {
+    return {
+      balance: 0.0,
+    }
+  }
+
   const walletDataMap: Record<string, any> = {
     "test-user-001": { // Ahmed Al Mansouri
       balance: 450.75,
@@ -20,7 +29,7 @@ const getUserWalletData = (userId: string, userRole: string) => {
   }
   
   return walletDataMap[userId] || {
-    balance: 150.0,
+    balance: 0.0,
   }
 }
 
@@ -36,13 +45,20 @@ const formatCurrentDate = () => {
 
 // Helper function to get member since date (mock - would come from user data)
 const getMemberSince = (userId: string) => {
+  const testAccountIds = ["test-user-001", "test-user-002", "test-user-003"]
+  
+  // New users get current month
+  if (!testAccountIds.includes(userId)) {
+    return new Date().toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
+  }
+
   const memberDates: Record<string, string> = {
     "test-user-001": "Jan 2024",
     "test-user-002": "Feb 2024", 
     "test-user-003": "Dec 2023"
   }
   
-  return memberDates[userId] || "Jan 2024"
+  return memberDates[userId] || new Date().toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
 }
 
 export function DashboardWelcomeHeader() {
@@ -56,6 +72,8 @@ export function DashboardWelcomeHeader() {
   const walletData = getUserWalletData(user.id, user.role)
   const memberSince = getMemberSince(user.id)
   const currentDate = formatCurrentDate()
+  const testAccountIds = ["test-user-001", "test-user-002", "test-user-003"]
+  const isNewUser = !testAccountIds.includes(user.id)
 
   // Simulate loading wallet data
   useEffect(() => {
@@ -72,11 +90,18 @@ export function DashboardWelcomeHeader() {
         {/* Greeting Section */}
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-primary-dark sm:text-3xl">
-            Welcome back, {user.name.split(' ')[0]}!
+            {isNewUser ? `Welcome to UniRide, ${user.name.split(' ')[0]}!` : `Welcome back, ${user.name.split(' ')[0]}!`}
           </h1>
           <p className="mt-1 text-sm text-secondary">
-            {currentDate}
+            {isNewUser ? "Let's get you started with your first ride!" : currentDate}
           </p>
+          {isNewUser && (
+            <div className="mt-3 p-4 bg-primary/10 border border-primary/20 rounded-lg">
+              <p className="text-sm text-primary-dark">
+                🎉 <strong>New to UniRide?</strong> Start by finding a ride or posting one to connect with other university students!
+              </p>
+            </div>
+          )}
         </div>
 
         {/* Quick Stats */}

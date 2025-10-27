@@ -1,7 +1,8 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { MapPin, Calendar, Star } from "lucide-react"
+import { MapPin, Calendar, Star, Car } from "lucide-react"
+import { useAuth } from "@/lib/auth-context"
 
 interface Trip {
   id: string
@@ -14,35 +15,46 @@ interface Trip {
   review?: string
 }
 
-const mockTrips: Trip[] = [
-  {
-    id: "1",
-    type: "driver",
-    from: "Stanford Campus",
-    to: "San Francisco Airport",
-    date: "2025-01-10",
-    status: "completed",
-    rating: 5,
-    review: "Great passengers, very punctual!",
-  },
-  {
-    id: "2",
-    type: "passenger",
-    from: "Palo Alto",
-    to: "San Jose",
-    date: "2025-01-08",
-    status: "completed",
-    rating: 4.5,
-  },
-  {
-    id: "3",
-    type: "driver",
-    from: "Stanford Campus",
-    to: "Downtown SF",
-    date: "2025-01-20",
-    status: "upcoming",
-  },
-]
+// Get user-specific trip data
+const getUserTrips = (userId: string): Trip[] => {
+  // Only return mock data for test accounts, new users get empty array
+  const testAccountIds = ["test-user-001", "test-user-002", "test-user-003"]
+  
+  if (!testAccountIds.includes(userId)) {
+    return [] // New users start with no trips
+  }
+
+  // Mock data for test accounts
+  return [
+    {
+      id: "1",
+      type: "driver",
+      from: "UAEU Campus",
+      to: "Dubai Mall",
+      date: "2025-01-10",
+      status: "completed",
+      rating: 5,
+      review: "Great passengers, very punctual!",
+    },
+    {
+      id: "2",
+      type: "passenger",
+      from: "AUS Campus",
+      to: "Sharjah City Center",
+      date: "2025-01-08",
+      status: "completed",
+      rating: 4.5,
+    },
+    {
+      id: "3",
+      type: "driver",
+      from: "Zayed University",
+      to: "Abu Dhabi Airport",
+      date: "2025-01-20",
+      status: "upcoming",
+    },
+  ]
+}
 
 function TripCard({ trip }: { trip: Trip }) {
   const statusColors = {
@@ -95,8 +107,35 @@ function TripCard({ trip }: { trip: Trip }) {
 }
 
 export function TripHistory() {
-  const completedTrips = mockTrips.filter((t) => t.status === "completed")
-  const upcomingTrips = mockTrips.filter((t) => t.status === "upcoming")
+  const { user } = useAuth()
+  const userTrips = getUserTrips(user?.id || "")
+  const completedTrips = userTrips.filter((t) => t.status === "completed")
+  const upcomingTrips = userTrips.filter((t) => t.status === "upcoming")
+
+  // Empty state component
+  const EmptyState = () => (
+    <div className="py-12 text-center">
+      <Car className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
+      <h3 className="text-lg font-semibold text-foreground mb-2">No trips yet</h3>
+      <p className="text-sm text-muted-foreground mb-4">
+        Start your journey by finding a ride or posting one!
+      </p>
+      <div className="flex gap-2 justify-center">
+        <a 
+          href="/find-ride" 
+          className="inline-flex items-center px-4 py-2 bg-primary text-primary-foreground rounded-md text-sm font-medium hover:bg-primary/90 transition-colors"
+        >
+          Find a Ride
+        </a>
+        <a 
+          href="/post-ride" 
+          className="inline-flex items-center px-4 py-2 border border-primary text-primary rounded-md text-sm font-medium hover:bg-primary/10 transition-colors"
+        >
+          Post a Ride
+        </a>
+      </div>
+    </div>
+  )
 
   return (
     <Card>
@@ -105,35 +144,39 @@ export function TripHistory() {
         <CardDescription>View your past and upcoming rides</CardDescription>
       </CardHeader>
       <CardContent>
-        <Tabs defaultValue="all" className="w-full">
-          <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="all">All</TabsTrigger>
-            <TabsTrigger value="completed">Completed</TabsTrigger>
-            <TabsTrigger value="upcoming">Upcoming</TabsTrigger>
-          </TabsList>
+        {userTrips.length === 0 ? (
+          <EmptyState />
+        ) : (
+          <Tabs defaultValue="all" className="w-full">
+            <TabsList className="grid w-full grid-cols-3">
+              <TabsTrigger value="all">All</TabsTrigger>
+              <TabsTrigger value="completed">Completed</TabsTrigger>
+              <TabsTrigger value="upcoming">Upcoming</TabsTrigger>
+            </TabsList>
 
-          <TabsContent value="all" className="space-y-4">
-            {mockTrips.map((trip) => (
-              <TripCard key={trip.id} trip={trip} />
-            ))}
-          </TabsContent>
+            <TabsContent value="all" className="space-y-4">
+              {userTrips.map((trip) => (
+                <TripCard key={trip.id} trip={trip} />
+              ))}
+            </TabsContent>
 
-          <TabsContent value="completed" className="space-y-4">
-            {completedTrips.length > 0 ? (
-              completedTrips.map((trip) => <TripCard key={trip.id} trip={trip} />)
-            ) : (
-              <p className="py-8 text-center text-sm text-muted-foreground">No completed trips yet</p>
-            )}
-          </TabsContent>
+            <TabsContent value="completed" className="space-y-4">
+              {completedTrips.length > 0 ? (
+                completedTrips.map((trip) => <TripCard key={trip.id} trip={trip} />)
+              ) : (
+                <p className="py-8 text-center text-sm text-muted-foreground">No completed trips yet</p>
+              )}
+            </TabsContent>
 
-          <TabsContent value="upcoming" className="space-y-4">
-            {upcomingTrips.length > 0 ? (
-              upcomingTrips.map((trip) => <TripCard key={trip.id} trip={trip} />)
-            ) : (
-              <p className="py-8 text-center text-sm text-muted-foreground">No upcoming trips</p>
-            )}
-          </TabsContent>
-        </Tabs>
+            <TabsContent value="upcoming" className="space-y-4">
+              {upcomingTrips.length > 0 ? (
+                upcomingTrips.map((trip) => <TripCard key={trip.id} trip={trip} />)
+              ) : (
+                <p className="py-8 text-center text-sm text-muted-foreground">No upcoming trips</p>
+              )}
+            </TabsContent>
+          </Tabs>
+        )}
       </CardContent>
     </Card>
   )
