@@ -101,6 +101,51 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }
 
+  // Calculate average rating from reviews
+  const calculateAverageRating = (reviews: any[]): number => {
+    if (reviews.length === 0) return 0.0
+    const sum = reviews.reduce((acc, review) => acc + review.rating, 0)
+    return sum / reviews.length
+  }
+
+  // Get user-specific review data (same logic as reviews-section.tsx)
+  const getUserReviews = (userId: string): any[] => {
+    // Only return mock data for test accounts, new users get empty array
+    const testAccountIds = ["test-user-001", "test-user-002", "test-user-003"]
+    
+    if (!testAccountIds.includes(userId)) {
+      return [] // New users start with no reviews
+    }
+
+    // Mock data for test accounts
+    return [
+      {
+        id: "1",
+        reviewerName: "Sarah M.",
+        rating: 5,
+        comment: "Excellent driver! Very safe and friendly. Would definitely ride with again.",
+        date: "2025-01-10",
+        tripType: "driver",
+      },
+      {
+        id: "2",
+        reviewerName: "Michael C.",
+        rating: 5,
+        comment: "Great passenger, on time and respectful.",
+        date: "2025-01-08",
+        tripType: "passenger",
+      },
+      {
+        id: "3",
+        reviewerName: "Emily D.",
+        rating: 4,
+        comment: "Good communication and punctual.",
+        date: "2025-01-05",
+        tripType: "driver",
+      }
+    ]
+  }
+
   // Function to find user by email or ID
   const findUserByCredentials = (emailOrId: string, password: string): User | null => {
     // First check stored users from signups
@@ -177,9 +222,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         const foundUser = findUserByCredentials(emailOrId, password)
         
         if (foundUser) {
-          setUser(foundUser)
+          // Calculate rating from reviews
+          const reviews = getUserReviews(foundUser.id)
+          const calculatedRating = calculateAverageRating(reviews)
+          
+          // Update user with calculated rating
+          const updatedUser = {
+            ...foundUser,
+            rating: calculatedRating
+          }
+          
+          setUser(updatedUser)
           try {
-            localStorage.setItem('user', JSON.stringify(foundUser))
+            localStorage.setItem('user', JSON.stringify(updatedUser))
           } catch (error) {
             console.warn('Failed to save user to localStorage:', error)
           }
@@ -219,7 +274,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           university: universityMap[userData.university] || userData.university,
           gender: userData.gender,
           phone: userData.phone,
-          rating: 0, // New users start with no rating
+          rating: 0.0, // New users start with no rating
           totalTrips: 0, // New users start with no trips
           role: "passenger",
         }

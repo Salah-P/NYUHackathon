@@ -47,14 +47,8 @@ export function ProfileHeader({ user, isOwnProfile = true }: ProfileHeaderProps)
               <div className="mb-4 flex items-center justify-center gap-6 md:justify-start">
               <div className="text-center">
                 <div className="flex items-center gap-1 text-2xl font-bold text-foreground">
-                  {user.rating > 0 ? (
-                    <>
-                      <Star className="h-5 w-5 fill-primary text-primary" />
-                      {user.rating}
-                    </>
-                  ) : (
-                    <span className="text-muted-foreground">-</span>
-                  )}
+                  <Star className="h-5 w-5 fill-primary text-primary" />
+                  {user.rating > 0 ? user.rating.toFixed(1) : "0.0"}
                 </div>
                 <div className="text-xs text-muted-foreground">Rating</div>
               </div>
