@@ -1,6 +1,7 @@
 "use client"
 
 import dynamic from "next/dynamic"
+import { useState, useEffect } from "react"
 import { Card } from "@/components/ui/card"
 import { Wallet, TrendingUp, TrendingDown, Activity, CreditCard } from "lucide-react"
 import { TransactionHistory, type Transaction } from "@/components/wallet/transaction-history"
@@ -23,8 +24,25 @@ const WithdrawDialog = dynamic(() => import("@/components/wallet/withdraw-dialog
 const getUserWalletData = (userId: string, userRole: string) => {
   const testAccountIds = ["test-user-001", "test-user-002", "test-user-003"]
   
-  // Only return mock data for test accounts, new users get empty wallet
+  // For new users, check localStorage for updated balance
   if (!testAccountIds.includes(userId)) {
+    try {
+      const storedUser = localStorage.getItem('user')
+      if (storedUser) {
+        const userData = JSON.parse(storedUser)
+        return {
+          balance: userData.balance || 0.0,
+          totalEarnings: userData.totalEarnings || 0.0,
+          totalSpent: userData.totalSpent || 0.0,
+          thisMonthEarnings: userData.thisMonthEarnings || 0.0,
+          thisMonthSpent: userData.thisMonthSpent || 0.0,
+          isDriver: userRole === "driver" || userRole === "both",
+        }
+      }
+    } catch (error) {
+      console.warn('Failed to parse user data from localStorage:', error)
+    }
+    
     return {
       balance: 0.0,
       totalEarnings: 0.0,
@@ -139,8 +157,64 @@ const getUserTransactions = (userId: string): Transaction[] => {
 
 function WalletPageContent() {
   const { user } = useAuth()
-  const walletData = getUserWalletData(user?.id || "", user?.role || "passenger")
-  const userTransactions = getUserTransactions(user?.id || "")
+  const [walletData, setWalletData] = useState({
+    balance: 0.0,
+    totalEarnings: 0.0,
+    totalSpent: 0.0,
+    thisMonthEarnings: 0.0,
+    thisMonthSpent: 0.0,
+    isDriver: false,
+  })
+  const [userTransactions, setUserTransactions] = useState<Transaction[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+
+  // Function to refresh wallet data
+  const refreshWalletData = () => {
+    if (!user) return
+    
+    const newWalletData = getUserWalletData(user.id, user.role || "passenger")
+    const newTransactions = getUserTransactions(user.id)
+    
+    setWalletData(newWalletData)
+    setUserTransactions(newTransactions)
+    setIsLoading(false)
+  }
+
+  // Initial load and refresh on user change
+  useEffect(() => {
+    refreshWalletData()
+  }, [user])
+
+  // Listen for storage changes (when funds are added from other tabs/components)
+  useEffect(() => {
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'user' || e.key === 'userTransactions') {
+        refreshWalletData()
+      }
+    }
+
+    window.addEventListener('storage', handleStorageChange)
+    return () => window.removeEventListener('storage', handleStorageChange)
+  }, [user])
+
+  if (isLoading) {
+    return (
+      <div className="container mx-auto max-w-4xl space-y-6 px-4 py-8 pb-24 md:pb-8">
+        <div className="space-y-2">
+          <h1 className="text-3xl font-bold text-foreground">My Wallet</h1>
+          <p className="text-muted-foreground">Manage your UniRide wallet and transactions</p>
+        </div>
+        <div className="space-y-4">
+          <div className="h-32 bg-gray-200 animate-pulse rounded-lg"></div>
+          <div className="grid gap-4 md:grid-cols-3">
+            <div className="h-24 bg-gray-200 animate-pulse rounded-lg"></div>
+            <div className="h-24 bg-gray-200 animate-pulse rounded-lg"></div>
+            <div className="h-24 bg-gray-200 animate-pulse rounded-lg"></div>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="container mx-auto max-w-4xl space-y-6 px-4 py-8 pb-24 md:pb-8">
@@ -173,7 +247,7 @@ function WalletPageContent() {
 
       {/* Action Buttons */}
       <div className="grid gap-3 md:grid-cols-2">
-        <AddFundsDialog />
+        <AddFundsDialog onPaymentSuccess={refreshWalletData} />
         {walletData.isDriver && <WithdrawDialog currentBalance={walletData.balance} />}
       </div>
 

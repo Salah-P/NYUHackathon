@@ -17,7 +17,11 @@ import { cn } from "@/lib/utils"
 import { useAuth } from "@/lib/auth-context"
 import { useToast } from "@/hooks/use-toast"
 
-export function AddFundsDialog() {
+interface AddFundsDialogProps {
+  onPaymentSuccess?: () => void
+}
+
+export function AddFundsDialog({ onPaymentSuccess }: AddFundsDialogProps) {
   const { user } = useAuth()
   const { toast } = useToast()
   const [amount, setAmount] = useState("")
@@ -163,6 +167,11 @@ export function AddFundsDialog() {
         description: `AED ${amount} has been added to your wallet.`
       })
       
+      // Trigger wallet data refresh
+      if (onPaymentSuccess) {
+        onPaymentSuccess()
+      }
+      
       // Reset form after success
       setTimeout(() => {
         setOpen(false)
@@ -172,9 +181,6 @@ export function AddFundsDialog() {
         setCardErrors({})
         setShowSuccess(false)
         setIsProcessing(false)
-        
-        // Refresh the page to show updated balance
-        window.location.reload()
       }, 2000)
       
     } catch (error) {
