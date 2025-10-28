@@ -464,7 +464,7 @@ export function PostRideForm() {
                 )}
               </div>
             </div>
-            </div>
+
 
             <div className="space-y-2">
               <Label htmlFor="notes">Additional Notes (Optional)</Label>
