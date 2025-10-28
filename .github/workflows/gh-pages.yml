@@ -7,12 +7,15 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Setup Node
@@ -24,14 +27,21 @@ jobs:
         run: |
           if [ -f package-lock.json ]; then npm ci; else npm i; fi
 
-      - name: Build
+      - name: Build project
         run: |
           npm run build || echo "No build step, continuing..."
 
-      - name: Inject Google Maps API Key into public/index.html
+      # ✅ Inject the API key AFTER build into whichever output dir exists
+      - name: Inject Google Maps API Key
         run: |
-          if [ -f public/index.html ]; then \
-            sed -i "s|__GOOGLE_MAPS_API_KEY__|${{ secrets.GOOGLE_MAPS_API_KEY }}|g" public/index.html; \
+          if [ -f build/index.html ]; then \
+            sed -i "s|__GOOGLE_MAPS_API_KEY__|${{ secrets.GOOGLE_MAPS_API_KEY }}|g" build/index.html; \
+          elif [ -f dist/index.html ]; then \
+            sed -i "s|__GOOGLE_MAPS_API_KEY__|${{ secrets.GOOGLE_MAPS_API_KEY }}|g" dist/index.html; \
+          elif [ -f out/index.html ]; then \
+            sed -i "s|__GOOGLE_MAPS_API_KEY__|${{ secrets.GOOGLE_MAPS_API_KEY }}|g" out/index.html; \
+          else \
+            echo "⚠️ No output index.html found."; \
           fi
 
       - name: Configure Pages
@@ -41,12 +51,9 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: |
+            build
             dist
             out
-            build
-            public
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
-
-
