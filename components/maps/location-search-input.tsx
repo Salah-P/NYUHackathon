@@ -128,29 +128,36 @@ export function LocationSearchInput({
           }
 
           // Handle place selection with the new API
-          autocompleteElement.addEventListener('gmp-placeselect', (event: any) => {
-            const place = event.place
-            
-            if (place && place.geometry && place.geometry.location) {
-              const lat = place.geometry.location.lat()
-              const lng = place.geometry.location.lng()
-              const address = place.formattedAddress || place.displayName || 'Selected location'
-              
-              const locationData: LocationData = {
-                address,
-                latitude: lat,
-                longitude: lng,
-                placeId: place.id
-              }
+          autocompleteElement.addEventListener('gmp-placeselect', async (event: any) => {
+            try {
+              const place = event.place
+              // New Web Component requires fetching fields explicitly
+              await place.fetchFields({ fields: ['id', 'displayName', 'formattedAddress', 'location'] })
 
-              setSelectedLocation(locationData)
-              setInputValue(address)
-              setHasError(false)
-              onSelect(locationData)
-              
-              console.log('Place selected (new API):', locationData)
-            } else {
-              console.warn('Place selection failed - no geometry or location')
+              const loc = place.location
+              if (loc) {
+                const lat = typeof loc.lat === 'function' ? loc.lat() : loc.latitude
+                const lng = typeof loc.lng === 'function' ? loc.lng() : loc.longitude
+                const address = place.formattedAddress || place.displayName || 'Selected location'
+
+                const locationData: LocationData = {
+                  address,
+                  latitude: Number(lat),
+                  longitude: Number(lng),
+                  placeId: place.id
+                }
+
+                setSelectedLocation(locationData)
+                setInputValue(address)
+                setHasError(false)
+                onSelect(locationData)
+
+                console.log('Place selected (new API):', locationData)
+              } else {
+                console.warn('Place selection failed - no location returned (new API)')
+              }
+            } catch (e) {
+              console.error('Failed to fetch place fields (new API):', e)
             }
           })
         } else {
