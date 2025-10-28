@@ -108,7 +108,6 @@ export function PostRideForm() {
     if (!formData.carDetails.trim()) newErrors.carDetails = "Please enter car details"
     if (!formData.carNumberPlate.trim()) newErrors.carNumberPlate = "Please enter your car number plate"
     if (formData.seats < 1) newErrors.seats = "Please select at least 1 seat"
-    if (!formData.contact.trim()) newErrors.contact = "Please enter a contact number"
 
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
@@ -444,30 +443,7 @@ export function PostRideForm() {
               </div>
             </div>
 
-            <div className="grid gap-4 md:grid-cols-2">
-              <div className="space-y-2">
-                <Label htmlFor="contact" className="flex items-center gap-2">
-                  <Phone className="h-4 w-4 text-emerald-600" />
-                  Contact Number
-                </Label>
-                <Input
-                  id="contact"
-                  type="text"
-                  value={formData.contact}
-                  onChange={(e) => setFormData(prev => ({ ...prev, contact: e.target.value }))}
-                  placeholder="+971 50 123 4567"
-                  className={`bg-black text-off-white border ${errors.contact ? "border-red-500" : "border-gray-700"} placeholder-gray-500`}
-                  required
-                />
-                {errors.contact && (
-                  <p className="text-sm text-red-600 flex items-center gap-1">
-                    <AlertCircle className="h-4 w-4" />
-                    {errors.contact}
-                  </p>
-                )}
-              </div>
-
-              <div className="space-y-2">
+            <div className="space-y-2">
                 <Label htmlFor="carNumberPlate" className="flex items-center gap-2">
                   <Car className="h-4 w-4 text-emerald-600" />
                   Car Number Plate
