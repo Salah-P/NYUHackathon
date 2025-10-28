@@ -1,0 +1,52 @@
+name: Deploy to GitHub Pages (Inject Google Maps Key)
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: |
+          if [ -f package-lock.json ]; then npm ci; else npm i; fi
+
+      - name: Build
+        run: |
+          npm run build || echo "No build step, continuing..."
+
+      - name: Inject Google Maps API Key into public/index.html
+        run: |
+          if [ -f public/index.html ]; then \
+            sed -i "s|__GOOGLE_MAPS_API_KEY__|${{ secrets.GOOGLE_MAPS_API_KEY }}|g" public/index.html; \
+          fi
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: |
+            dist
+            out
+            build
+            public
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
+
+
