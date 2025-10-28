@@ -6,7 +6,8 @@
     "build": "next build",
     "dev": "next dev",
     "lint": "next lint",
-    "start": "next start"
+    "start": "next start",
+    "ship": "git add . && git commit -m \"chore: ship - docs + feature updates\" || echo Skipped && git push origin main"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

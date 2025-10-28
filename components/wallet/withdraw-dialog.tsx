@@ -12,26 +12,81 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { ArrowDownToLine, AlertCircle } from "lucide-react"
+import { ArrowDownToLine, AlertCircle, CheckCircle, Loader2 } from "lucide-react"
 import { Alert, AlertDescription } from "@/components/ui/alert"
+import { useToast } from "@/hooks/use-toast"
 
 interface WithdrawDialogProps {
   currentBalance: number
+  onWithdrawSuccess?: () => void
 }
 
-export function WithdrawDialog({ currentBalance }: WithdrawDialogProps) {
+export function WithdrawDialog({ currentBalance, onWithdrawSuccess }: WithdrawDialogProps) {
   const [amount, setAmount] = useState("")
   const [bankAccount, setBankAccount] = useState("")
   const [open, setOpen] = useState(false)
+  const [isProcessing, setIsProcessing] = useState(false)
+  const [showSuccess, setShowSuccess] = useState(false)
+  const { toast } = useToast()
 
-  const handleWithdraw = () => {
-    // Mock withdraw functionality
-    if (process.env.NODE_ENV === 'development') {
-      console.log("[v0] Withdrawing funds:", { amount, bankAccount })
+  const handleWithdraw = async () => {
+    if (!amount || Number.parseFloat(amount) <= 0 || Number.parseFloat(amount) > currentBalance || !bankAccount) return
+
+    setIsProcessing(true)
+    try {
+      // Simulate fast processing for demo
+      await new Promise(resolve => setTimeout(resolve, 800))
+
+      const withdrawAmount = Number.parseFloat(amount)
+
+      // Update user balance in localStorage
+      const storedUserRaw = localStorage.getItem('user')
+      const storedUser = storedUserRaw ? JSON.parse(storedUserRaw) : {}
+      const updatedUser = {
+        ...storedUser,
+        balance: Math.max(0, (storedUser.balance || 0) - withdrawAmount)
+      }
+      localStorage.setItem('user', JSON.stringify(updatedUser))
+
+      // Add transaction
+      const newTransaction = {
+        id: Date.now().toString(),
+        type: "withdraw" as const,
+        amount: withdrawAmount,
+        description: `Withdrawal to bank (${bankAccount})`,
+        date: new Date().toISOString(),
+        status: "completed" as const,
+      }
+      const existingTransactionsRaw = localStorage.getItem('userTransactions')
+      const existingTransactions = existingTransactionsRaw ? JSON.parse(existingTransactionsRaw) : []
+      const updatedTransactions = [newTransaction, ...existingTransactions]
+      localStorage.setItem('userTransactions', JSON.stringify(updatedTransactions))
+
+      setShowSuccess(true)
+      toast({
+        variant: "success",
+        title: "Withdrawal Successful",
+        description: `AED ${withdrawAmount.toFixed(2)} has been withdrawn.`
+      })
+
+      if (onWithdrawSuccess) onWithdrawSuccess()
+
+      // Close after brief success state
+      setTimeout(() => {
+        setOpen(false)
+        setAmount("")
+        setBankAccount("")
+        setIsProcessing(false)
+        setShowSuccess(false)
+      }, 1000)
+    } catch (e) {
+      setIsProcessing(false)
+      toast({
+        variant: "destructive",
+        title: "Withdrawal Failed",
+        description: "Please try again."
+      })
     }
-    setOpen(false)
-    setAmount("")
-    setBankAccount("")
   }
 
   const isValidAmount = amount && Number.parseFloat(amount) > 0 && Number.parseFloat(amount) <= currentBalance
@@ -39,7 +94,7 @@ export function WithdrawDialog({ currentBalance }: WithdrawDialogProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" size="lg" className="w-full bg-transparent">
+        <Button variant="outline" size="lg" className="w-full">
           <ArrowDownToLine className="mr-2 h-5 w-5" />
           Withdraw Funds
         </Button>
@@ -50,6 +105,12 @@ export function WithdrawDialog({ currentBalance }: WithdrawDialogProps) {
           <DialogDescription>Transfer funds from your UniRide wallet to your bank account.</DialogDescription>
         </DialogHeader>
         <div className="space-y-4">
+          {showSuccess && (
+            <div className="flex items-center gap-2 text-green-600">
+              <CheckCircle className="h-5 w-5" />
+              <span>Withdrawal successful</span>
+            </div>
+          )}
           <Alert>
             <AlertCircle className="h-4 w-4" />
             <AlertDescription>Available balance: AED {currentBalance.toFixed(2)}</AlertDescription>
@@ -66,6 +127,7 @@ export function WithdrawDialog({ currentBalance }: WithdrawDialogProps) {
               onChange={(e) => setAmount(e.target.value)}
               min="10"
               max={currentBalance}
+              disabled={isProcessing}
             />
             {amount && Number.parseFloat(amount) > currentBalance && (
               <p className="text-sm text-destructive">Amount exceeds available balance</p>
@@ -81,6 +143,7 @@ export function WithdrawDialog({ currentBalance }: WithdrawDialogProps) {
               placeholder="AE07 0331 2345 6789 0123 456"
               value={bankAccount}
               onChange={(e) => setBankAccount(e.target.value)}
+              disabled={isProcessing}
             />
           </div>
 
@@ -91,8 +154,14 @@ export function WithdrawDialog({ currentBalance }: WithdrawDialogProps) {
             </AlertDescription>
           </Alert>
 
-          <Button onClick={handleWithdraw} disabled={!isValidAmount || !bankAccount} className="w-full" size="lg">
-            Withdraw AED {amount || "0"}
+          <Button onClick={handleWithdraw} disabled={!isValidAmount || !bankAccount || isProcessing} className="w-full" size="lg">
+            {isProcessing ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Processing...
+              </>
+            ) : (
+              <>Withdraw AED {amount || "0"}</>
+            )}
           </Button>
         </div>
       </DialogContent>

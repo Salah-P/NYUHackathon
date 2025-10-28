@@ -248,7 +248,12 @@ function WalletPageContent() {
       {/* Action Buttons */}
       <div className="grid gap-3 md:grid-cols-2">
         <AddFundsDialog onPaymentSuccess={refreshWalletData} />
-        {walletData.isDriver && <WithdrawDialog currentBalance={walletData.balance} />}
+        {walletData.isDriver && (
+          <WithdrawDialog
+            currentBalance={walletData.balance}
+            onWithdrawSuccess={refreshWalletData}
+          />
+        )}
       </div>
 
       {/* Quick Stats */}

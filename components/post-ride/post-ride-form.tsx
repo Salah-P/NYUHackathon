@@ -12,42 +12,47 @@ import { Textarea } from "@/components/ui/textarea"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { LocationSearchInput, LocationData } from "@/components/maps/location-search-input"
 import { RouteSelectionMap } from "@/components/maps/route-selection-map"
-import { CostCalculator } from "./cost-calculator"
-import { Calendar, Clock, Users, MapPin, Car, Phone, DollarSign, AlertCircle } from "lucide-react"
+import { Calendar, Clock, Users, MapPin, Car, Phone, AlertCircle } from "lucide-react"
+import { useAuth } from "@/lib/auth-context"
 
 // Form data structure as specified
 interface PostRideFormData {
   driverName: string
   date: string
-  time: string
+  timeSlot: string
   route: {
-    pickup: { address: string; latitude: number; longitude: number } | null
-    dropoff: { address: string; latitude: number; longitude: number } | null
+    start: { address: string; latitude: number; longitude: number } | null
+    end: { address: string; latitude: number; longitude: number } | null
     distance: number
     duration: number
   }
   carDetails: string
+  carNumberPlate: string
   seats: number
-  pricePerSeat: number
   contact: string
   notes?: string
 }
 
 export function PostRideForm() {
+  const { user } = useAuth()
+  const resolvedContact = (user?.countryCode && user?.phoneNumber)
+    ? `${user.countryCode} ${user.phoneNumber}`
+    : (user?.phone || "")
+
   const [formData, setFormData] = useState<PostRideFormData>({
-    driverName: "John Doe", // Auto-filled - in real app, get from user profile
+    driverName: user?.name || "", // Auto-filled from profile
     date: "",
-    time: "",
+    timeSlot: "",
     route: {
-      pickup: null,
-      dropoff: null,
+      start: null,
+      end: null,
       distance: 0,
       duration: 0
     },
     carDetails: "",
+    carNumberPlate: "",
     seats: 1,
-    pricePerSeat: 0,
-    contact: "",
+    contact: resolvedContact,
     notes: ""
   })
 
@@ -56,35 +61,42 @@ export function PostRideForm() {
   const [pickupLocationData, setPickupLocationData] = useState<LocationData | null>(null)
   const [dropoffLocationData, setDropoffLocationData] = useState<LocationData | null>(null)
 
+  const timeSlots = [
+    "1:00-2:00", "2:00-3:00", "3:00-4:00", "4:00-5:00", "5:00-6:00",
+    "6:00-7:00", "7:00-8:00", "8:00-9:00", "9:00-10:00", "10:00-11:00",
+    "11:00-12:00", "12:00-13:00", "13:00-14:00", "14:00-15:00", "15:00-16:00",
+    "16:00-17:00", "17:00-18:00", "18:00-19:00", "19:00-20:00", "20:00-21:00"
+  ]
+
   // Validation function
   const validateForm = (): boolean => {
     const newErrors: Record<string, string> = {}
 
-    // Validate pickup and dropoff locations
-    if (!formData.route.pickup) {
-      newErrors.pickup = "Please select a pickup location"
+    // Validate start and end locations
+    if (!formData.route.start) {
+      newErrors.pickup = "Please select a start location"
     }
-    if (!formData.route.dropoff) {
-      newErrors.dropoff = "Please select a drop-off location"
+    if (!formData.route.end) {
+      newErrors.dropoff = "Please select an end location"
     }
     
     // Validate that pickup and dropoff are different
-    if (formData.route.pickup && formData.route.dropoff) {
+    if (formData.route.start && formData.route.end) {
       const distance = Math.sqrt(
-        Math.pow(formData.route.pickup.latitude - formData.route.dropoff.latitude, 2) +
-        Math.pow(formData.route.pickup.longitude - formData.route.dropoff.longitude, 2)
+        Math.pow(formData.route.start.latitude - formData.route.end.latitude, 2) +
+        Math.pow(formData.route.start.longitude - formData.route.end.longitude, 2)
       )
       if (distance < 0.001) { // Very close coordinates (approximately 100m)
-        newErrors.route = "Pickup and drop-off locations must be different"
+        newErrors.route = "Start and end locations must be different"
       }
     }
 
     // Validate required fields
     if (!formData.date) newErrors.date = "Please select a travel date"
-    if (!formData.time) newErrors.time = "Please select a travel time"
+    if (!formData.timeSlot) newErrors.time = "Please select a time slot"
     if (!formData.carDetails.trim()) newErrors.carDetails = "Please enter car details"
+    if (!formData.carNumberPlate.trim()) newErrors.carNumberPlate = "Please enter your car number plate"
     if (formData.seats < 1) newErrors.seats = "Please select at least 1 seat"
-    if (formData.pricePerSeat <= 0) newErrors.pricePerSeat = "Please enter a valid price per seat"
     if (!formData.contact.trim()) newErrors.contact = "Please enter a contact number"
 
     setErrors(newErrors)
@@ -98,7 +110,7 @@ export function PostRideForm() {
       ...prev,
       route: {
         ...prev.route,
-        pickup: {
+        start: {
           address: location.address,
           latitude: location.latitude,
           longitude: location.longitude
@@ -119,7 +131,7 @@ export function PostRideForm() {
       ...prev,
       route: {
         ...prev.route,
-        dropoff: {
+        end: {
           address: location.address,
           latitude: location.latitude,
           longitude: location.longitude
@@ -209,6 +221,17 @@ export function PostRideForm() {
                 readOnly
               />
               <p className="text-xs text-muted-foreground">Auto-filled from your profile</p>
+              {formData.contact && (
+                <div className="mt-4">
+                  <Label className="flex items-center gap-2">
+                    <Phone className="h-4 w-4 text-emerald-600" /> Driver Contact
+                  </Label>
+                  <div className="mt-1 text-sm text-foreground bg-gray-50 border rounded-md px-3 py-2">
+                    {formData.contact}
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-1">Fetched automatically from your profile</p>
+                </div>
+              )}
             </div>
           </CardContent>
         </Card>
@@ -245,18 +268,23 @@ export function PostRideForm() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="time" className="flex items-center gap-2">
+                <Label htmlFor="timeSlot" className="flex items-center gap-2">
                   <Clock className="h-4 w-4 text-emerald-600" />
-                  Time
+                  Time Slot
                 </Label>
-                <Input
-                  id="time"
-                  type="time"
-                  value={formData.time}
-                  onChange={(e) => setFormData(prev => ({ ...prev, time: e.target.value }))}
-                  className={errors.time ? "border-red-500" : ""}
-                  required
-                />
+                <Select
+                  value={formData.timeSlot}
+                  onValueChange={(value) => setFormData(prev => ({ ...prev, timeSlot: value }))}
+                >
+                  <SelectTrigger id="timeSlot" className={errors.time ? "border-red-500" : ""}>
+                    <SelectValue placeholder="Select a time slot" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {timeSlots.map(slot => (
+                      <SelectItem key={slot} value={slot}>{slot}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
                 {errors.time && (
                   <p className="text-sm text-red-600 flex items-center gap-1">
                     <AlertCircle className="h-4 w-4" />
@@ -275,14 +303,14 @@ export function PostRideForm() {
               <MapPin className="h-5 w-5" />
               Select Your Route
             </CardTitle>
-            <CardDescription>Choose your pickup and drop-off locations</CardDescription>
+            <CardDescription>Choose your start and end locations</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             {/* Location Inputs */}
             <div className="grid gap-4 md:grid-cols-2">
               <div className="space-y-2">
                 <LocationSearchInput
-                  label="Pickup Location"
+                  label="Start Location"
                   onSelect={handlePickupSelect}
                   placeholder="e.g., UAEU Al Ain Campus, Al Ain"
                   required
@@ -292,7 +320,7 @@ export function PostRideForm() {
 
               <div className="space-y-2">
                 <LocationSearchInput
-                  label="Drop-off Location"
+                  label="End Location"
                   onSelect={handleDropoffSelect}
                   placeholder="e.g., Dubai Mall, Dubai"
                   required
@@ -339,12 +367,12 @@ export function PostRideForm() {
           </CardContent>
         </Card>
 
-        {/* Car Details & Pricing */}
+        {/* Car Details */}
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Car className="h-5 w-5" />
-              Car Details & Pricing
+              Car Details
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -384,7 +412,7 @@ export function PostRideForm() {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    {[1, 2, 3, 4, 5].map((num) => (
+                    {[1, 2, 3, 4, 5, 6, 7].map((num) => (
                       <SelectItem key={num} value={num.toString()}>
                         {num} {num === 1 ? "seat" : "seats"}
                       </SelectItem>
@@ -401,30 +429,6 @@ export function PostRideForm() {
             </div>
 
             <div className="grid gap-4 md:grid-cols-2">
-              <div className="space-y-2">
-                <Label htmlFor="pricePerSeat" className="flex items-center gap-2">
-                  <DollarSign className="h-4 w-4 text-emerald-600" />
-                  Price per Seat (AED)
-                </Label>
-                <Input
-                  id="pricePerSeat"
-                  type="number"
-                  min="0"
-                  step="0.01"
-                  value={formData.pricePerSeat}
-                  onChange={(e) => setFormData(prev => ({ ...prev, pricePerSeat: Number.parseFloat(e.target.value) || 0 }))}
-                  placeholder="0.00"
-                  className={errors.pricePerSeat ? "border-red-500" : ""}
-                  required
-                />
-                {errors.pricePerSeat && (
-                  <p className="text-sm text-red-600 flex items-center gap-1">
-                    <AlertCircle className="h-4 w-4" />
-                    {errors.pricePerSeat}
-                  </p>
-                )}
-              </div>
-
               <div className="space-y-2">
                 <Label htmlFor="contact" className="flex items-center gap-2">
                   <Phone className="h-4 w-4 text-emerald-600" />
@@ -446,6 +450,28 @@ export function PostRideForm() {
                   </p>
                 )}
               </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="carNumberPlate" className="flex items-center gap-2">
+                  <Car className="h-4 w-4 text-emerald-600" />
+                  Car Number Plate
+                </Label>
+                <Input
+                  id="carNumberPlate"
+                  type="text"
+                  value={formData.carNumberPlate}
+                  onChange={(e) => setFormData(prev => ({ ...prev, carNumberPlate: e.target.value }))}
+                  placeholder="e.g., ABC-12345"
+                  className={errors.carNumberPlate ? "border-red-500" : ""}
+                  required
+                />
+                {errors.carNumberPlate && (
+                  <p className="text-sm text-red-600 flex items-center gap-1">
+                    <AlertCircle className="h-4 w-4" />
+                    {errors.carNumberPlate}
+                  </p>
+                )}
+              </div>
             </div>
 
             <div className="space-y-2">
@@ -460,9 +486,6 @@ export function PostRideForm() {
             </div>
           </CardContent>
         </Card>
-
-        {/* Cost Calculator */}
-        <CostCalculator totalCost={formData.pricePerSeat * formData.seats} passengers={formData.seats} />
 
         {/* Submit Button */}
         <Button 

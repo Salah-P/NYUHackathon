@@ -371,6 +371,7 @@ npm start
 - `npm run build` - Build for production
 - `npm start` - Start production server
 - `npm run lint` - Run ESLint
+- `npm run ship` - Commit all changes with a generic message and push to main
 
 ## 🗺️ Google Maps Integration
 
@@ -402,3 +403,18 @@ UniRide is a fully-featured, production-ready carpooling platform with enterpris
 **UniRide** - Connecting students for smarter, cheaper, and safer travel across the UAE! 🚗💨
 
 *Built with Next.js 16, React 19, TypeScript, Tailwind CSS, and Google Maps API.*
+
+## 📦 Recent Updates
+
+- Wallet
+  - Automatic balance refresh after successful payments (no page reload).
+  - Enabled Withdraw flow: instant balance deduction, transaction added, success toast.
+  - Credit Card flow: validation (card, expiry MM/YY, CVV), masks, success state.
+  - New user empty state shows 0 values and subtle guidance.
+- Post Ride
+  - Driver contact auto-fetched from profile and displayed in Driver Information.
+  - Location labels changed to Start/End; validation updated; Google Maps flow maintained.
+  - Time selection replaced with clean Time Slot dropdown (e.g., 1:00-2:00, 2:00-3:00 ...).
+  - Car details improved: seats up to 7, required Car Number Plate.
+  - Removed Price per Seat field (to be auto-calculated later).
+
