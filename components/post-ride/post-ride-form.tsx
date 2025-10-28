@@ -391,29 +391,29 @@ export function PostRideForm() {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="grid gap-4 md:grid-cols-2">
-              <div className="space-y-2">
-                <Label htmlFor="carDetails" className="flex items-center gap-2">
-                  <Car className="h-4 w-4 text-emerald-600" />
-                  Car Details
-                </Label>
-                <Input
-                  id="carDetails"
-                  type="text"
-                  value={formData.carDetails}
-                  onChange={(e) => setFormData(prev => ({ ...prev, carDetails: e.target.value }))}
-                  placeholder="e.g., Toyota Camry 2020, White"
-                  className={`${errors.carDetails ? "border-red-500" : "border-gray-700"} bg-black text-off-white placeholder-gray-500`}
-                  required
-                />
-                {errors.carDetails && (
-                  <p className="text-sm text-red-600 flex items-center gap-1">
-                    <AlertCircle className="h-4 w-4" />
-                    {errors.carDetails}
-                  </p>
-                )}
-              </div>
+            <div className="space-y-2">
+              <Label htmlFor="carDetails" className="flex items-center gap-2">
+                <Car className="h-4 w-4 text-emerald-600" />
+                Car Details
+              </Label>
+              <Input
+                id="carDetails"
+                type="text"
+                value={formData.carDetails}
+                onChange={(e) => setFormData(prev => ({ ...prev, carDetails: e.target.value }))}
+                placeholder="e.g., Toyota Camry 2020, White"
+                className={`${errors.carDetails ? "border-red-500" : "border-gray-700"} bg-black text-off-white placeholder-gray-500`}
+                required
+              />
+              {errors.carDetails && (
+                <p className="text-sm text-red-600 flex items-center gap-1">
+                  <AlertCircle className="h-4 w-4" />
+                  {errors.carDetails}
+                </p>
+              )}
+            </div>
 
+            <div className="grid gap-4 md:grid-cols-2">
               <div className="space-y-2">
                 <Label htmlFor="seats" className="flex items-center gap-2">
                   <Users className="h-4 w-4 text-emerald-600" />
@@ -441,9 +441,8 @@ export function PostRideForm() {
                   </p>
                 )}
               </div>
-            </div>
 
-            <div className="space-y-2">
+              <div className="space-y-2">
                 <Label htmlFor="carNumberPlate" className="flex items-center gap-2">
                   <Car className="h-4 w-4 text-emerald-600" />
                   Car Number Plate
@@ -464,6 +463,7 @@ export function PostRideForm() {
                   </p>
                 )}
               </div>
+            </div>
             </div>
 
             <div className="space-y-2">
