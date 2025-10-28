@@ -306,6 +306,27 @@ a:hover {
     outline-offset: 2px;
   }
 
+  /* Global placeholder styling - subtle, muted, readable */
+  input::placeholder,
+  textarea::placeholder {
+    color: #9ca3af !important; /* gray-400 */
+    opacity: 1 !important;
+  }
+  input:focus::placeholder,
+  textarea:focus::placeholder {
+    opacity: 0 !important; /* Hide placeholder on focus */
+  }
+  input::-ms-input-placeholder,
+  textarea::-ms-input-placeholder {
+    color: #9ca3af !important;
+    opacity: 1 !important;
+  }
+  /* Radix Select placeholder text (SelectValue placeholder) */
+  [data-slot="select-trigger"] [data-placeholder] {
+    color: #9ca3af !important;
+    opacity: 1 !important;
+  }
+
   /* Remove default outline but keep focus-visible */
   *:focus:not(:focus-visible) {
     outline: none;

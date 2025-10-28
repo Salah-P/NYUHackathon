@@ -68,6 +68,17 @@ export function PostRideForm() {
     "16:00-17:00", "17:00-18:00", "18:00-19:00", "19:00-20:00", "20:00-21:00"
   ]
 
+  // Build next 14 days for date dropdown
+  const dateOptions = Array.from({ length: 14 }).map((_, i) => {
+    const d = new Date()
+    d.setDate(d.getDate() + i)
+    const value = d.toISOString().slice(0, 10) // YYYY-MM-DD
+    const label = d.toLocaleDateString(undefined, {
+      weekday: 'short', month: 'short', day: 'numeric'
+    })
+    return { value, label }
+  })
+
   // Validation function
   const validateForm = (): boolean => {
     const newErrors: Record<string, string> = {}
@@ -217,7 +228,7 @@ export function PostRideForm() {
                 type="text"
                 value={formData.driverName}
                 onChange={(e) => setFormData(prev => ({ ...prev, driverName: e.target.value }))}
-                className="bg-gray-50"
+                className="bg-black border border-gray-700 text-off-white placeholder-gray-500"
                 readOnly
               />
               <p className="text-xs text-muted-foreground">Auto-filled from your profile</p>
@@ -226,7 +237,7 @@ export function PostRideForm() {
                   <Label className="flex items-center gap-2">
                     <Phone className="h-4 w-4 text-emerald-600" /> Driver Contact
                   </Label>
-                  <div className="mt-1 text-sm text-foreground bg-gray-50 border rounded-md px-3 py-2">
+                  <div className="mt-1 text-sm text-foreground bg-black border border-gray-700 rounded-md px-3 py-2">
                     {formData.contact}
                   </div>
                   <p className="text-xs text-muted-foreground mt-1">Fetched automatically from your profile</p>
@@ -251,14 +262,19 @@ export function PostRideForm() {
                   <Calendar className="h-4 w-4 text-emerald-600" />
                   Date
                 </Label>
-                <Input
-                  id="date"
-                  type="date"
+                <Select
                   value={formData.date}
-                  onChange={(e) => setFormData(prev => ({ ...prev, date: e.target.value }))}
-                  className={errors.date ? "border-red-500" : ""}
-                  required
-                />
+                  onValueChange={(value) => setFormData(prev => ({ ...prev, date: value }))}
+                >
+                  <SelectTrigger id="date" className={errors.date ? "border-red-500" : ""}>
+                    <SelectValue placeholder="Select a date" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {dateOptions.map(opt => (
+                      <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
                 {errors.date && (
                   <p className="text-sm text-red-600 flex items-center gap-1">
                     <AlertCircle className="h-4 w-4" />
@@ -388,7 +404,7 @@ export function PostRideForm() {
                   value={formData.carDetails}
                   onChange={(e) => setFormData(prev => ({ ...prev, carDetails: e.target.value }))}
                   placeholder="e.g., Toyota Camry 2020, White"
-                  className={errors.carDetails ? "border-red-500" : ""}
+                  className={`${errors.carDetails ? "border-red-500" : "border-gray-700"} bg-black text-off-white placeholder-gray-500`}
                   required
                 />
                 {errors.carDetails && (
@@ -436,11 +452,11 @@ export function PostRideForm() {
                 </Label>
                 <Input
                   id="contact"
-                  type="tel"
+                  type="text"
                   value={formData.contact}
                   onChange={(e) => setFormData(prev => ({ ...prev, contact: e.target.value }))}
                   placeholder="+971 50 123 4567"
-                  className={errors.contact ? "border-red-500" : ""}
+                  className={`bg-black text-off-white border ${errors.contact ? "border-red-500" : "border-gray-700"} placeholder-gray-500`}
                   required
                 />
                 {errors.contact && (
@@ -462,7 +478,7 @@ export function PostRideForm() {
                   value={formData.carNumberPlate}
                   onChange={(e) => setFormData(prev => ({ ...prev, carNumberPlate: e.target.value }))}
                   placeholder="e.g., ABC-12345"
-                  className={errors.carNumberPlate ? "border-red-500" : ""}
+                  className={`${errors.carNumberPlate ? "border-red-500" : "border-gray-700"} bg-black text-off-white placeholder-gray-500`}
                   required
                 />
                 {errors.carNumberPlate && (
@@ -486,6 +502,36 @@ export function PostRideForm() {
             </div>
           </CardContent>
         </Card>
+
+    {/* Pricing Details (Placeholder) */}
+    <Card>
+      <CardHeader>
+        <CardTitle>Pricing Details</CardTitle>
+        <CardDescription>
+          Pricing will be calculated automatically based on distance and time.
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <div className="grid gap-3 md:grid-cols-3">
+          <div>
+            <p className="text-sm text-muted-foreground">Estimated Distance</p>
+            <p className="text-lg font-semibold">
+              {formData.route.distance > 0 ? `${(formData.route.distance / 1000).toFixed(1)} km` : "—"}
+            </p>
+          </div>
+          <div>
+            <p className="text-sm text-muted-foreground">Estimated Duration</p>
+            <p className="text-lg font-semibold">
+              {formData.route.duration > 0 ? `${Math.round(formData.route.duration / 60)} min` : "—"}
+            </p>
+          </div>
+          <div>
+            <p className="text-sm text-muted-foreground">Price per Seat</p>
+            <p className="text-lg font-semibold">Auto-calculated</p>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
 
         {/* Submit Button */}
         <Button 
