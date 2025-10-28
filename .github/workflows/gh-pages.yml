@@ -35,11 +35,11 @@ jobs:
       - name: Inject Google Maps API Key
         run: |
           if [ -f build/index.html ]; then \
-            sed -i "s|__GOOGLE_MAPS_API_KEY__|${{ secrets.GOOGLE_MAPS_API_KEY }}|g" build/index.html; \
+            sed -i "s|__GOOGLE_MAPS_API_KEY__|${{ secrets.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY }}|g" build/index.html; \
           elif [ -f dist/index.html ]; then \
-            sed -i "s|__GOOGLE_MAPS_API_KEY__|${{ secrets.GOOGLE_MAPS_API_KEY }}|g" dist/index.html; \
+            sed -i "s|__GOOGLE_MAPS_API_KEY__|${{ secrets.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY }}|g" dist/index.html; \
           elif [ -f out/index.html ]; then \
-            sed -i "s|__GOOGLE_MAPS_API_KEY__|${{ secrets.GOOGLE_MAPS_API_KEY }}|g" out/index.html; \
+            sed -i "s|__GOOGLE_MAPS_API_KEY__|${{ secrets.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY }}|g" out/index.html; \
           else \
             echo "⚠️ No output index.html found."; \
           fi
