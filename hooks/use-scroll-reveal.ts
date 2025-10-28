@@ -9,6 +9,7 @@ interface UseScrollRevealOptions {
   delay?: number
 }
 
+
 export function useScrollReveal(options: UseScrollRevealOptions = {}) {
   const {
     threshold = 0.1,
