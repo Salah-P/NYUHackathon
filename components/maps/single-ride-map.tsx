@@ -36,6 +36,7 @@ interface Ride {
   estimatedDistance?: number
   carModel?: string
   carColor?: string
+  carNumberPlate?: string
   notes?: string
 }
 
@@ -436,6 +437,14 @@ const SingleRideMap: React.FC<SingleRideMapProps> = ({
                     <div className="text-sm text-gray-500 mb-1">Vehicle</div>
                     <div className="font-medium text-gray-900">
                       {ride.carColor} {ride.carModel}
+                    </div>
+                  </div>
+                )}
+                {ride.carNumberPlate && (
+                  <div>
+                    <div className="text-sm text-gray-500 mb-1">Number Plate</div>
+                    <div className="font-medium text-gray-900">
+                      {ride.carNumberPlate}
                     </div>
                   </div>
                 )}

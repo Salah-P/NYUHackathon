@@ -108,7 +108,7 @@ export function PostRideForm() {
     if (!formData.date) newErrors.date = "Please select a travel date"
     if (!formData.timeSlot) newErrors.time = "Please select a time slot"
     if (!formData.carDetails.trim()) newErrors.carDetails = "Please enter car details"
-    if (!formData.carNumberPlate.trim()) newErrors.carNumberPlate = "Please enter your car number plate"
+    // Car number plate is display-only now
     if (formData.seats < 1) newErrors.seats = "Please select at least 1 seat"
 
     setErrors(newErrors)
@@ -283,7 +283,7 @@ export function PostRideForm() {
                         setFormData(prev => ({ ...prev, date: iso }))
                       }}
                       initialFocus
-                      captionLayout="dropdown"
+                      captionLayout="label"
                     />
                   </PopoverContent>
                 </Popover>
@@ -300,19 +300,22 @@ export function PostRideForm() {
                   <Clock className="h-4 w-4 text-emerald-600" />
                   Time Slot
                 </Label>
-                <Select
-                  value={formData.timeSlot}
-                  onValueChange={(value) => setFormData(prev => ({ ...prev, timeSlot: value }))}
-                >
-                  <SelectTrigger id="timeSlot" className={errors.time ? "border-red-500" : ""}>
-                    <SelectValue placeholder="Select a time slot" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {timeSlots.map(slot => (
-                      <SelectItem key={slot} value={slot}>{slot}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                  {timeSlots.map((slot) => (
+                    <button
+                      key={slot}
+                      type="button"
+                      onClick={() => setFormData(prev => ({ ...prev, timeSlot: slot }))}
+                      className={`rounded-xl border-2 px-3 py-2 text-sm transition-all ${
+                        formData.timeSlot === slot
+                          ? 'border-yellow-400 bg-yellow-400/10 text-white'
+                          : 'border-gray-700 bg-black text-off-white hover:border-gray-500'
+                      }`}
+                    >
+                      {slot}
+                    </button>
+                  ))}
+                </div>
                 {errors.time && (
                   <p className="text-sm text-red-600 flex items-center gap-1">
                     <AlertCircle className="h-4 w-4" />
@@ -340,7 +343,7 @@ export function PostRideForm() {
                 <LocationSearchInput
                   label="Start Location"
                   onSelect={handlePickupSelect}
-                  placeholder="e.g., UAEU Al Ain Campus, Al Ain"
+                  placeholder="Enter start location"
                   required
                   error={errors.pickup}
                 />
@@ -350,7 +353,7 @@ export function PostRideForm() {
                 <LocationSearchInput
                   label="End Location"
                   onSelect={handleDropoffSelect}
-                  placeholder="e.g., Dubai Mall, Dubai"
+                  placeholder="Enter end location"
                   required
                   error={errors.dropoff}
                 />
@@ -458,25 +461,17 @@ export function PostRideForm() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="carNumberPlate" className="flex items-center gap-2">
+                <Label className="flex items-center gap-2">
                   <Car className="h-4 w-4 text-emerald-600" />
                   Car Number Plate
                 </Label>
-                <Input
-                  id="carNumberPlate"
-                  type="text"
-                  value={formData.carNumberPlate}
-                  onChange={(e) => setFormData(prev => ({ ...prev, carNumberPlate: e.target.value }))}
-                  placeholder="e.g., ABC-12345"
-                  className={`${errors.carNumberPlate ? "border-red-500" : "border-gray-700"} bg-black text-off-white placeholder-gray-500`}
-                  required
-                />
-                {errors.carNumberPlate && (
-                  <p className="text-sm text-red-600 flex items-center gap-1">
-                    <AlertCircle className="h-4 w-4" />
-                    {errors.carNumberPlate}
-                  </p>
-                )}
+                <div className="mt-1 text-sm text-foreground bg-black border border-gray-700 rounded-md px-3 py-2">
+                  {/* Display-only from profile if available; else show form value or placeholder */}
+                  {(() => {
+                    const profilePlate = (typeof window !== 'undefined') ? (JSON.parse(localStorage.getItem('user') || '{}')?.carNumberPlate || '') : ''
+                    return profilePlate || formData.carNumberPlate || 'Not set in profile'
+                  })()}
+                </div>
               </div>
             </div>
 

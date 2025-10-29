@@ -26,10 +26,12 @@ export function WalletSection({ balance, isConnected, onConnect }: WalletSection
             </div>
             <CheckCircle2 className="h-8 w-8 text-primary" />
           </div>
-          <Button variant="outline" size="sm" className="mt-3 w-full bg-transparent">
-            <Plus className="mr-2 h-4 w-4" />
-            Add Funds
-          </Button>
+          <a href="/wallet" className="block mt-3 w-full">
+            <Button variant="outline" size="sm" className="w-full bg-transparent">
+              <Plus className="mr-2 h-4 w-4" />
+              Add Funds
+            </Button>
+          </a>
         </div>
       ) : (
         <Button onClick={onConnect} className="w-full" size="lg">

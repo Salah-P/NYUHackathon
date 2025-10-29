@@ -401,6 +401,13 @@ export function RouteSelectionMap({
     if (controlledPickup) {
       setPickup(controlledPickup)
       addPickupMarker(controlledPickup)
+    } else {
+      // Clear pickup marker if parent cleared value
+      if (pickupMarkerRef.current) {
+        pickupMarkerRef.current.setMap(null)
+        pickupMarkerRef.current = null
+      }
+      setPickup(null)
     }
   }, [controlledPickup, addPickupMarker])
 
@@ -408,8 +415,22 @@ export function RouteSelectionMap({
     if (controlledDropoff) {
       setDropoff(controlledDropoff)
       addDropoffMarker(controlledDropoff)
+    } else {
+      // Clear dropoff marker if parent cleared value
+      if (dropoffMarkerRef.current) {
+        dropoffMarkerRef.current.setMap(null)
+        dropoffMarkerRef.current = null
+      }
+      setDropoff(null)
     }
   }, [controlledDropoff, addDropoffMarker])
+
+  // If both controlled points are present and map/services are ready, compute route immediately
+  useEffect(() => {
+    if (mapInstanceRef.current && directionsServiceRef.current && directionsRendererRef.current && controlledPickup && controlledDropoff) {
+      calculateRoute(controlledPickup, controlledDropoff)
+    }
+  }, [controlledPickup, controlledDropoff, calculateRoute])
 
   return (
     <Card className={cn("overflow-hidden", className)}>
