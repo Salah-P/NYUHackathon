@@ -14,7 +14,10 @@ import { LocationSearchInput, LocationData } from "@/components/maps/location-se
 import { RouteSelectionMap } from "@/components/maps/route-selection-map"
 import { Calendar as CalendarIcon, Clock, Users, MapPin, Car, Phone, AlertCircle } from "lucide-react"
 import { useAuth } from "@/lib/auth-context"
-// Removed calendar popover; using simple dropdowns for date and time
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { Button as UIButton } from "@/components/ui/button"
+import { Calendar } from "@/components/ui/calendar"
+import { format } from "date-fns"
 
 // Form data structure as specified
 interface PostRideFormData {
@@ -61,6 +64,17 @@ export function PostRideForm() {
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [pickupLocationData, setPickupLocationData] = useState<LocationData | null>(null)
   const [dropoffLocationData, setDropoffLocationData] = useState<LocationData | null>(null)
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined)
+
+  // Keep local selectedDate in sync with form value
+  useEffect(() => {
+    if (formData.date) {
+      const d = new Date(formData.date)
+      if (!isNaN(d.getTime())) setSelectedDate(d)
+    } else {
+      setSelectedDate(undefined)
+    }
+  }, [formData.date])
 
   const timeSlots = [
     "1:00-2:00", "2:00-3:00", "3:00-4:00", "4:00-5:00", "5:00-6:00",
@@ -69,16 +83,7 @@ export function PostRideForm() {
     "16:00-17:00", "17:00-18:00", "18:00-19:00", "19:00-20:00", "20:00-21:00"
   ]
 
-  // Build next 14 days for date dropdown
-  const dateOptions = Array.from({ length: 14 }).map((_, i) => {
-    const d = new Date()
-    d.setDate(d.getDate() + i)
-    const value = d.toISOString().slice(0, 10) // YYYY-MM-DD
-    const label = d.toLocaleDateString(undefined, {
-      weekday: 'short', month: 'short', day: 'numeric'
-    })
-    return { value, label }
-  })
+  // no dateOptions; using full calendar picker with month/year dropdowns
 
   // Validation function
   const validateForm = (): boolean => {
@@ -262,19 +267,30 @@ export function PostRideForm() {
                   <CalendarIcon className="h-4 w-4 text-emerald-600" />
                   Date
                 </Label>
-                <Select
-                  value={formData.date}
-                  onValueChange={(value) => setFormData(prev => ({ ...prev, date: value }))}
-                >
-                  <SelectTrigger id="date" className={errors.date ? "border-red-500" : ""}>
-                    <SelectValue placeholder="Select a date" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {dateOptions.map(opt => (
-                      <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <UIButton
+                      variant="outline"
+                      id="date"
+                      className={`w-full justify-start text-left font-normal rounded-xl border-2 transition-all duration-200 bg-black text-white hover:bg-black/80 hover:text-white ${errors.date ? 'border-red-500' : 'border-yellow-400'} `}
+                    >
+                      {selectedDate ? format(selectedDate, 'PPP') : <span>Select a date</span>}
+                    </UIButton>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0 bg-black text-white border-yellow-400" align="start">
+                    <Calendar
+                      mode="single"
+                      selected={selectedDate}
+                      onSelect={(date) => {
+                        setSelectedDate(date)
+                        const iso = date ? format(date, 'yyyy-MM-dd') : ''
+                        setFormData(prev => ({ ...prev, date: iso }))
+                      }}
+                      initialFocus
+                      captionLayout="dropdown"
+                    />
+                  </PopoverContent>
+                </Popover>
                 {errors.date && (
                   <p className="text-sm text-red-600 flex items-center gap-1">
                     <AlertCircle className="h-4 w-4" />
