@@ -6,6 +6,11 @@ import { EmptyState } from "@/components/ui/empty-state"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { Button as UIButton } from "@/components/ui/button"
+import { Calendar } from "@/components/ui/calendar"
+import { format } from "date-fns"
+import { Calendar as CalendarIcon } from "lucide-react"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Badge } from "@/components/ui/badge"
@@ -222,12 +227,30 @@ export function FindRidePageClient() {
             {/* Date */}
             <div className="space-y-2">
               <Label htmlFor="date">Date</Label>
-              <Input
-                id="date"
-                type="date"
-                value={filters.date}
-                onChange={(e) => setFilters(prev => ({ ...prev, date: e.target.value }))}
-              />
+              <Popover>
+                <PopoverTrigger asChild>
+                  <UIButton
+                    variant="outline"
+                    id="date"
+                    className="w-full justify-start text-left font-normal rounded-xl border-2 transition-all duration-200 bg-black text-white hover:bg-black/80 hover:text-white border-yellow-400"
+                  >
+                    <CalendarIcon className="mr-2 h-4 w-4" />
+                    {filters.date ? format(new Date(filters.date), 'PPP') : <span>Select a date</span>}
+                  </UIButton>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0 bg-black text-white border-yellow-400" align="start">
+                  <Calendar
+                    mode="single"
+                    selected={filters.date ? new Date(filters.date) : undefined}
+                    onSelect={(date) => {
+                      const iso = date ? format(date, 'yyyy-MM-dd') : ''
+                      setFilters(prev => ({ ...prev, date: iso }))
+                    }}
+                    initialFocus
+                    captionLayout="dropdown"
+                  />
+                </PopoverContent>
+              </Popover>
             </div>
 
             {/* Gender */}

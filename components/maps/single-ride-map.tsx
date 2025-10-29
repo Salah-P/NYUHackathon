@@ -55,10 +55,10 @@ const SingleRideMap: React.FC<SingleRideMapProps> = ({
   className = ''
 }) => {
   const mapRef = useRef<HTMLDivElement>(null)
-  const mapInstanceRef = useRef<google.maps.Map | null>(null)
-  const directionsRendererRef = useRef<google.maps.DirectionsRenderer | null>(null)
-  const pickupMarkerRef = useRef<google.maps.Marker | null>(null)
-  const dropoffMarkerRef = useRef<google.maps.Marker | null>(null)
+  const mapInstanceRef = useRef<window.google.maps.Map | null>(null)
+  const directionsRendererRef = useRef<window.google.maps.DirectionsRenderer | null>(null)
+  const pickupMarkerRef = useRef<window.google.maps.Marker | null>(null)
+  const dropoffMarkerRef = useRef<window.google.maps.Marker | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [hasError, setHasError] = useState(false)
   const [retryCount, setRetryCount] = useState(0)
@@ -244,7 +244,7 @@ const SingleRideMap: React.FC<SingleRideMapProps> = ({
     dropoffMarkerRef.current = dropoffMarker
 
     // Draw route
-    const request: google.maps.DirectionsRequest = {
+    const request: window.google.maps.DirectionsRequest = {
       origin: new window.google.maps.LatLng(ride.pickup.latitude, ride.pickup.longitude),
       destination: new window.google.maps.LatLng(ride.dropoff.latitude, ride.dropoff.longitude),
       travelMode: window.google.maps.TravelMode.DRIVING

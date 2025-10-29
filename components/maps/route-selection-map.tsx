@@ -29,6 +29,8 @@ interface RouteSelectionMapProps {
   }) => void
   initialPickup?: LatLng
   initialDropoff?: LatLng
+  pickup?: LatLng | null
+  dropoff?: LatLng | null
   className?: string
   disabled?: boolean
 }
@@ -51,8 +53,8 @@ const createMarkerIcon = (color: string, isPickup: boolean) => {
         </text>
       </svg>
     `)}`,
-    scaledSize: new google.maps.Size(32, 32),
-    anchor: new google.maps.Point(16, 16)
+    scaledSize: new window.google.maps.Size(32, 32),
+    anchor: new window.google.maps.Point(16, 16)
   }
 }
 
@@ -60,16 +62,18 @@ export function RouteSelectionMap({
   onRouteChange,
   initialPickup,
   initialDropoff,
+  pickup: controlledPickup,
+  dropoff: controlledDropoff,
   className,
   disabled = false
 }: RouteSelectionMapProps) {
   // Refs
   const mapRef = useRef<HTMLDivElement>(null)
-  const mapInstanceRef = useRef<google.maps.Map | null>(null)
-  const pickupMarkerRef = useRef<google.maps.Marker | null>(null)
-  const dropoffMarkerRef = useRef<google.maps.Marker | null>(null)
-  const directionsServiceRef = useRef<google.maps.DirectionsService | null>(null)
-  const directionsRendererRef = useRef<google.maps.DirectionsRenderer | null>(null)
+  const mapInstanceRef = useRef<window.google.maps.Map | null>(null)
+  const pickupMarkerRef = useRef<window.google.maps.Marker | null>(null)
+  const dropoffMarkerRef = useRef<window.google.maps.Marker | null>(null)
+  const directionsServiceRef = useRef<window.google.maps.DirectionsService | null>(null)
+  const directionsRendererRef = useRef<window.google.maps.DirectionsRenderer | null>(null)
 
   // State
   const [isLoading, setIsLoading] = useState(true)
@@ -88,10 +92,10 @@ export function RouteSelectionMap({
 
     try {
       // Create map instance
-      mapInstanceRef.current = new google.maps.Map(mapRef.current, {
+      mapInstanceRef.current = new window.google.maps.Map(mapRef.current, {
         center: pickup || dropoff || DEFAULT_CENTER,
         zoom: 13,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        mapTypeId: window.google.maps.MapTypeId.ROADMAP,
         styles: [
           {
             featureType: 'poi',
@@ -104,13 +108,13 @@ export function RouteSelectionMap({
         fullscreenControl: false,
         zoomControl: true,
         zoomControlOptions: {
-          position: google.maps.ControlPosition.RIGHT_BOTTOM
+          position: window.google.maps.ControlPosition.RIGHT_BOTTOM
         }
       })
 
       // Initialize services
-      directionsServiceRef.current = new google.maps.DirectionsService()
-      directionsRendererRef.current = new google.maps.DirectionsRenderer({
+      directionsServiceRef.current = new window.google.maps.DirectionsService()
+      directionsRendererRef.current = new window.google.maps.DirectionsRenderer({
         suppressMarkers: true, // We'll use our custom markers
         polylineOptions: {
           strokeColor: '#10b981', // emerald-500
@@ -122,7 +126,7 @@ export function RouteSelectionMap({
       directionsRendererRef.current.setMap(mapInstanceRef.current)
 
       // Add click listener to map
-      mapInstanceRef.current.addListener('click', (event: google.maps.MapMouseEvent) => {
+      mapInstanceRef.current.addListener('click', (event: window.google.maps.MapMouseEvent) => {
         if (disabled) return
         
         const lat = event.latLng?.lat()
@@ -169,13 +173,13 @@ export function RouteSelectionMap({
     }
 
     // Create new pickup marker
-    pickupMarkerRef.current = new google.maps.Marker({
+    pickupMarkerRef.current = new window.google.maps.Marker({
       position: location,
       map: mapInstanceRef.current,
       title: 'Pickup Location',
       icon: createMarkerIcon('#10b981', true), // emerald-500
       draggable: !disabled,
-      animation: google.maps.Animation.DROP
+      animation: window.google.maps.Animation.DROP
     })
 
     // Add drag listener
@@ -208,13 +212,13 @@ export function RouteSelectionMap({
     }
 
     // Create new dropoff marker
-    dropoffMarkerRef.current = new google.maps.Marker({
+    dropoffMarkerRef.current = new window.google.maps.Marker({
       position: location,
       map: mapInstanceRef.current,
       title: 'Drop-off Location',
       icon: createMarkerIcon('#ef4444', false), // red-500
       draggable: !disabled,
-      animation: google.maps.Animation.DROP
+      animation: window.google.maps.Animation.DROP
     })
 
     // Add drag listener
@@ -266,18 +270,18 @@ export function RouteSelectionMap({
     setIsCalculatingRoute(true)
 
     try {
-      const request: google.maps.DirectionsRequest = {
+      const request: window.google.maps.DirectionsRequest = {
         origin: start,
         destination: end,
-        travelMode: google.maps.TravelMode.DRIVING,
-        unitSystem: google.maps.UnitSystem.METRIC,
+        travelMode: window.google.maps.TravelMode.DRIVING,
+        unitSystem: window.google.maps.UnitSystem.METRIC,
         avoidHighways: false,
         avoidTolls: false
       }
 
-      const result = await new Promise<google.maps.DirectionsResult>((resolve, reject) => {
+      const result = await new Promise<window.google.maps.DirectionsResult>((resolve, reject) => {
         directionsServiceRef.current!.route(request, (result, status) => {
-          if (status === google.maps.DirectionsStatus.OK && result) {
+          if (status === window.google.maps.DirectionsStatus.OK && result) {
             resolve(result)
           } else {
             reject(new Error(`Directions request failed: ${status}`))
@@ -379,7 +383,7 @@ export function RouteSelectionMap({
   // Update map center when markers change
   useEffect(() => {
     if (mapInstanceRef.current && (pickup || dropoff)) {
-      const bounds = new google.maps.LatLngBounds()
+      const bounds = new window.google.maps.LatLngBounds()
       
       if (pickup) bounds.extend(pickup)
       if (dropoff) bounds.extend(dropoff)
@@ -391,6 +395,21 @@ export function RouteSelectionMap({
       }
     }
   }, [pickup, dropoff])
+
+  // Sync with controlled props from parent (e.g., autocomplete inputs)
+  useEffect(() => {
+    if (controlledPickup) {
+      setPickup(controlledPickup)
+      addPickupMarker(controlledPickup)
+    }
+  }, [controlledPickup, addPickupMarker])
+
+  useEffect(() => {
+    if (controlledDropoff) {
+      setDropoff(controlledDropoff)
+      addDropoffMarker(controlledDropoff)
+    }
+  }, [controlledDropoff, addDropoffMarker])
 
   return (
     <Card className={cn("overflow-hidden", className)}>
