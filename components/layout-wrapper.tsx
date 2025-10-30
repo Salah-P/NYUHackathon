@@ -3,7 +3,7 @@
 import { useAuth } from "@/lib/auth-context"
 import { Header } from "@/components/header"
 import { Navigation } from "@/components/navigation"
-import { Footer } from "@/components/footer"
+import Footer from "@/components/footer"
 import { ScrollToTop } from "@/components/scroll-to-top"
 import { PageLoadingBar } from "@/components/page-loading-bar"
 import { LoadingSplash } from "@/components/loading-splash"
