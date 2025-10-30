@@ -19,31 +19,28 @@ function ActionCard({ icon: Icon, title, description, href, bgColor, iconColor }
     <Link
       href={href}
       className={cn(
-        "group block p-8 rounded-2xl card-animated",
-        "hover:shadow-2xl active:scale-[0.98]",
+        "group block p-8 rounded-2xl card-animated bg-card transition-transform duration-200",
+        "hover:scale-105 hover:shadow-2xl",
         "cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2",
-        "shadow-lg hover:shadow-xl",
         bgColor
       )}
     >
       <div className="flex flex-col items-center text-center h-full">
         {/* Icon */}
         <div className={cn(
-          "flex items-center justify-center w-16 h-16 rounded-full mb-6 action-card-icon",
-          "bg-white shadow-lg group-hover:shadow-xl group-hover:scale-105"
+          "flex items-center justify-center w-16 h-16 rounded-full mb-6 action-card-icon gradient-poolara",
+          "shadow-lg group-hover:shadow-xl"
         )}>
           <Icon className={cn(
-            "w-8 h-8 action-card-text",
-            iconColor,
-            "group-hover:text-primary"
+            "w-8 h-8 text-white action-card-text",
+            iconColor
           )} />
         </div>
-        
         {/* Content */}
-        <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-gray-800 action-card-text">
+        <h3 className="text-xl font-bold text-white mb-3 group-hover:text-white action-card-text">
           {title}
         </h3>
-        <p className="text-gray-600 text-sm leading-relaxed group-hover:text-gray-700 action-card-text">
+        <p className="text-gray-200 text-sm leading-relaxed group-hover:text-white action-card-text">
           {description}
         </p>
       </div>
@@ -63,38 +60,39 @@ export function DashboardActionCards() {
       title: "Find a Ride",
       description: "Browse available rides to your destination",
       href: "/find-ride",
-      bgColor: "bg-red-50 hover:bg-red-100 border border-red-200",
-      iconColor: "text-primary",
+      bgColor: "gradient-poolara",
+      iconColor: ""
     },
     {
       icon: Plus,
       title: "Post a Ride",
       description: "Offer seats to fellow students",
       href: "/post-ride",
-      bgColor: "bg-orange-50 hover:bg-orange-100 border border-orange-200",
-      iconColor: "text-orange-600",
+      bgColor: "bg-coral",
+      iconColor: ""
     },
     {
       icon: Wallet,
       title: "My Wallet",
       description: "Manage balance and transactions",
       href: "/wallet",
-      bgColor: "bg-blue-50 hover:bg-blue-100 border border-blue-200",
-      iconColor: "text-blue-600",
+      bgColor: "bg-primary-dark",
+      iconColor: ""
     },
     {
       icon: User,
       title: "My Profile",
       description: "Update details and view history",
       href: "/profile",
-      bgColor: "bg-purple-50 hover:bg-purple-100 border border-purple-200",
-      iconColor: "text-purple-600",
+      bgColor: "bg-primary-pink",
+      iconColor: ""
     },
   ]
 
   return (
     <div className="px-4 py-8 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
+        <h2 className="text-2xl font-bold text-white mb-8">Quick Actions</h2>
         <div 
           ref={elementRef as any}
           className={cn(

@@ -21,7 +21,7 @@ export function DashboardContent() {
   }, [])
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-navy">
       {/* Main Dashboard Container */}
       <div className="max-w-7xl mx-auto">
         {/* Welcome Header Section */}

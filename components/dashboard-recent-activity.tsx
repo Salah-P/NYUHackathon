@@ -182,8 +182,8 @@ export function DashboardRecentActivity() {
           {/* Upcoming Rides Column */}
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <h2 className="text-xl font-semibold text-primary-dark">Your Upcoming Rides</h2>
-              <Button variant="link" className="p-0 h-auto text-primary hover:text-red-700">
+              <h2 className="text-2xl font-bold text-white">Your Upcoming Rides</h2>
+              <Button variant="link" className="p-0 h-auto text-pink hover:text-primary font-bold">
                 <Link href="/find-ride">View All</Link>
               </Button>
             </div>
@@ -191,47 +191,33 @@ export function DashboardRecentActivity() {
             {isLoading ? (
               <div className="space-y-3">
                 {Array.from({ length: 2 }, (_, index) => (
-                  <Card key={index} className="h-20 animate-pulse">
-                    <div className="flex items-center gap-4 p-4">
-                      <div className="w-10 h-10 rounded-full bg-gray-200"></div>
-                      <div className="flex-1 space-y-2">
-                        <div className="h-4 bg-gray-200 rounded w-3/4"></div>
-                        <div className="h-3 bg-gray-200 rounded w-1/2"></div>
-                      </div>
-                    </div>
-                  </Card>
+                  <Card key={index} className="h-20 animate-pulse bg-card text-white" />
                 ))}
               </div>
             ) : upcomingRides.length > 0 ? (
               <div className="space-y-3">
                 {upcomingRides.map((ride) => (
-                  <Card key={ride.id} className="p-4 hover:shadow-md transition-shadow duration-200">
+                  <Card key={ride.id} className="p-4 bg-card text-white hover:shadow-lg hover:scale-105 transition duration-150">
                     <div className="flex items-start gap-4">
                       <div className="flex-shrink-0">
-                        <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                          ride.role === 'driver' ? 'bg-red-50' : 'bg-blue-50'
-                        }`}>
+                        <div className={`w-10 h-10 rounded-full flex items-center justify-center ${ride.role === 'driver' ? 'bg-pink' : 'bg-purple-50'}` }>
                           {ride.role === 'driver' ? (
-                            <Car className="w-5 h-5 text-primary" />
+                            <Car className="w-5 h-5 text-white" />
                           ) : (
-                            <User className="w-5 h-5 text-blue-600" />
+                            <User className="w-5 h-5 text-primary" />
                           )}
                         </div>
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-1">
-                          <span className="text-sm font-medium text-gray-900">
+                          <span className="text-sm font-bold text-white">
                             {ride.from} → {ride.to}
                           </span>
-                          <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
-                            ride.role === 'driver' 
-                              ? 'bg-red-100 text-red-800' 
-                              : 'bg-blue-100 text-blue-800'
-                          }`}>
+                          <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-bold ${ride.role === 'driver' ? 'bg-pink text-white' : 'bg-purple-200 text-primary-dark'}` }>
                             {ride.role === 'driver' ? 'Driver' : 'Passenger'}
                           </span>
                         </div>
-                        <div className="flex items-center gap-4 text-sm text-gray-600">
+                        <div className="flex items-center gap-4 text-sm text-gray-200">
                           <div className="flex items-center gap-1">
                             <Calendar className="w-4 h-4" />
                             {formatDate(ride.date)}
@@ -247,7 +233,7 @@ export function DashboardRecentActivity() {
                 ))}
               </div>
             ) : (
-              <Card>
+              <Card className="bg-card text-white">
                 <EmptyState
                   icon={Car}
                   title="No upcoming rides"
@@ -265,8 +251,8 @@ export function DashboardRecentActivity() {
           {/* Recent Transactions Column */}
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <h2 className="text-xl font-semibold text-primary-dark">Recent Transactions</h2>
-              <Button variant="link" className="p-0 h-auto text-primary hover:text-red-700">
+              <h2 className="text-2xl font-bold text-white">Recent Transactions</h2>
+              <Button variant="link" className="p-0 h-auto text-pink hover:text-primary font-bold">
                 <Link href="/wallet">View All</Link>
               </Button>
             </div>
@@ -274,15 +260,7 @@ export function DashboardRecentActivity() {
             {isLoading ? (
               <div className="space-y-3">
                 {Array.from({ length: 3 }, (_, index) => (
-                  <Card key={index} className="h-16 animate-pulse">
-                    <div className="flex items-center gap-4 p-4">
-                      <div className="w-10 h-10 rounded-full bg-gray-200"></div>
-                      <div className="flex-1">
-                        <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
-                        <div className="h-3 bg-gray-200 rounded w-1/2"></div>
-                      </div>
-                    </div>
-                  </Card>
+                  <Card key={index} className="h-16 animate-pulse bg-card text-white" />
                 ))}
               </div>
             ) : recentTransactions.length > 0 ? (
@@ -290,9 +268,8 @@ export function DashboardRecentActivity() {
                 {recentTransactions.map((transaction) => {
                   const { icon: Icon, color, bg } = getTransactionIcon(transaction.type)
                   const isPositive = transaction.type === 'ride_earning' || transaction.type === 'add_funds'
-                  
                   return (
-                    <Card key={transaction.id} className="p-4 hover:shadow-md transition-shadow duration-200">
+                    <Card key={transaction.id} className="p-4 bg-card text-white hover:shadow-lg hover:scale-105 transition duration-150">
                       <div className="flex items-start gap-4">
                         <div className="flex-shrink-0">
                           <div className={`w-10 h-10 rounded-full flex items-center justify-center ${bg}`}>
@@ -301,16 +278,14 @@ export function DashboardRecentActivity() {
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center justify-between mb-1">
-                            <p className="text-sm font-medium text-gray-900 truncate">
+                            <p className="text-sm font-bold text-white truncate">
                               {transaction.description}
                             </p>
-                            <span className={`text-sm font-semibold ${
-                              isPositive ? 'text-green-600' : 'text-red-600'
-                            }`}>
+                            <span className={`text-sm font-extrabold ${isPositive ? 'text-green-300' : 'text-red-300'}`}>
                               {isPositive ? '+' : '-'}AED {transaction.amount.toFixed(2)}
                             </span>
                           </div>
-                          <div className="flex items-center gap-1 text-sm text-gray-600">
+                          <div className="flex items-center gap-1 text-sm text-gray-300">
                             <Clock className="w-4 h-4" />
                             {formatTransactionDate(transaction.date)}
                           </div>
@@ -321,7 +296,7 @@ export function DashboardRecentActivity() {
                 })}
               </div>
             ) : (
-              <Card>
+              <Card className="bg-card text-white">
                 <EmptyState
                   icon={Receipt}
                   title="No transactions yet"

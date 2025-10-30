@@ -203,7 +203,7 @@ export function PostRideForm() {
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
-      {/* Page Title */}
+      {/* Single Page Title */}
       <div className="text-center">
         <h1 className="text-3xl font-bold text-primary-dark mb-2">Post a Ride</h1>
         <p className="text-secondary-gray">Share your journey and help others travel together</p>
@@ -265,12 +265,12 @@ export function PostRideForm() {
                     <UIButton
                       variant="outline"
                       id="date"
-                      className={`w-full justify-start text-left font-normal rounded-xl border-2 transition-all duration-200 bg-black text-white hover:bg-black/80 hover:text-white ${errors.date ? 'border-red-500' : 'border-yellow-400'} `}
+                      className={`w-full justify-start text-left font-normal rounded-xl border-2 transition-all duration-200 ${errors.date ? 'border-red-500' : 'border-primary'} text-primary-dark bg-white hover:bg-gray-100 hover:text-primary-dark`}
                     >
                       {selectedDate ? format(selectedDate, 'PPP') : <span>Select a date</span>}
                     </UIButton>
                   </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0 bg-black text-white border-yellow-400" align="start">
+                  <PopoverContent className="w-auto p-0" align="start">
                     <Calendar
                       mode="single"
                       selected={selectedDate}
@@ -453,19 +453,19 @@ export function PostRideForm() {
                   </p>
                 )}
               </div>
-
               <div className="space-y-2">
-                <Label className="flex items-center gap-2">
+                <Label htmlFor="carNumberPlate" className="flex items-center gap-2">
                   <Car className="h-4 w-4 text-emerald-600" />
                   Car Number Plate
                 </Label>
-                <div className="mt-1 text-sm text-foreground bg-black border border-gray-700 rounded-md px-3 py-2">
-                  {/* Display-only from profile if available; else show form value or placeholder */}
-                  {(() => {
-                    const profilePlate = (typeof window !== 'undefined') ? (JSON.parse(localStorage.getItem('user') || '{}')?.carNumberPlate || '') : ''
-                    return profilePlate || formData.carNumberPlate || 'Not set in profile'
-                  })()}
-                </div>
+                <Input
+                  id="carNumberPlate"
+                  type="text"
+                  value={formData.carNumberPlate}
+                  onChange={(e) => setFormData(prev => ({ ...prev, carNumberPlate: e.target.value }))}
+                  placeholder="e.g., ABC 12345"
+                  required
+                />
               </div>
             </div>
 

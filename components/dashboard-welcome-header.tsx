@@ -85,25 +85,24 @@ export function DashboardWelcomeHeader() {
   }, [user.id])
 
   return (
-    <div className="bg-white border-b border-secondary px-4 py-6 sm:px-6 lg:px-8">
+    <div className="bg-card border-b border-secondary px-4 py-6 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         {/* Greeting Section */}
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-primary-dark sm:text-3xl">
-            {isNewUser ? `Welcome to UniRide, ${user.name?.split(' ')[0] || 'there'}!` : `Welcome back, ${user.name?.split(' ')[0] || 'there'}!`}
+          <h1 className="text-3xl font-extrabold text-white sm:text-4xl">
+            {isNewUser ? `Welcome to Poolara, ${user.name?.split(' ')[0] || 'there'}!` : `Welcome back, ${user.name?.split(' ')[0] || 'there'}!`}
           </h1>
-          <p className="mt-1 text-sm text-secondary">
+          <p className="mt-1 text-base font-semibold text-pink">
             {isNewUser ? "Let's get you started with your first ride!" : currentDate}
           </p>
           {isNewUser && (
-            <div className="mt-3 p-4 bg-primary/10 border border-primary/20 rounded-lg">
-              <p className="text-sm text-primary-dark">
-                🎉 <strong>New to UniRide?</strong> Start by finding a ride or posting one to connect with other university students!
+            <div className="mt-3 p-4 bg-primary-pink/10 border border-primary-pink/20 rounded-lg">
+              <p className="text-sm text-primary-pink">
+                🎉 <strong>New to Poolara?</strong> Start by finding a ride or posting one to connect with other university students!
               </p>
             </div>
           )}
         </div>
-
         {/* Quick Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {/* Wallet Balance */}
@@ -118,47 +117,41 @@ export function DashboardWelcomeHeader() {
               </div>
             </div>
           ) : (
-            <div className="bg-background-light rounded-lg p-4 border border-secondary">
+            <div className="bg-peach rounded-lg p-4 border border-secondary">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
-                  <Wallet className="h-5 w-5 text-primary" />
+                  <Wallet className="h-5 w-5 text-primary-pink" />
                 </div>
                 <div className="ml-3">
-                  <p className="text-sm font-medium text-secondary">Wallet Balance</p>
-                  <p className="text-lg font-semibold text-primary-dark">
+                  <p className="text-sm font-semibold text-navy">Wallet Balance</p>
+                  <p className="text-lg font-extrabold text-navy">
                     AED {walletData.balance.toFixed(2)}
                   </p>
                 </div>
               </div>
             </div>
           )}
-
           {/* Total Rides */}
-          <div className="bg-background-light rounded-lg p-4 border border-secondary">
+          <div className="bg-purple-50 rounded-lg p-4 border border-secondary">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <Calendar className="h-5 w-5 text-blue-600" />
+                <Calendar className="h-5 w-5 text-primary" />
               </div>
               <div className="ml-3">
-                <p className="text-sm font-medium text-secondary">Total Rides</p>
-                <p className="text-lg font-semibold text-primary-dark">
-                  {user.totalTrips} rides
-                </p>
+                <p className="text-sm font-semibold text-navy">Total Rides</p>
+                <p className="text-lg font-extrabold text-navy">{user.totalTrips} rides</p>
               </div>
             </div>
           </div>
-
           {/* Member Since */}
-          <div className="bg-background-light rounded-lg p-4 border border-secondary">
+          <div className="bg-coral rounded-lg p-4 border border-secondary">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <User className="h-5 w-5 text-primary" />
+                <User className="h-5 w-5 text-primary-pink" />
               </div>
               <div className="ml-3">
-                <p className="text-sm font-medium text-secondary">Member Since</p>
-                <p className="text-lg font-semibold text-primary-dark">
-                  {memberSince}
-                </p>
+                <p className="text-sm font-semibold text-navy">Member Since</p>
+                <p className="text-lg font-extrabold text-navy">{memberSince}</p>
               </div>
             </div>
           </div>
