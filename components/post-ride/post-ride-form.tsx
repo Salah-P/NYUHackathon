@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -38,8 +38,6 @@ interface PostRideFormData {
 }
 
 export function PostRideForm() {
-  // Load Calendar only on client to avoid SSR-rendered grid markup in build output
-  const Calendar = dynamic(() => import("@/components/ui/calendar").then(m => m.Calendar), { ssr: false })
   const { user } = useAuth()
   const resolvedContact = (user?.countryCode && user?.phoneNumber)
     ? `${user.countryCode} ${user.phoneNumber}`
@@ -68,15 +66,8 @@ export function PostRideForm() {
   const [dropoffLocationData, setDropoffLocationData] = useState<LocationData | null>(null)
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined)
 
-  // Keep local selectedDate in sync with form value
-  useEffect(() => {
-    if (formData.date) {
-      const d = new Date(formData.date)
-      if (!isNaN(d.getTime())) setSelectedDate(d)
-    } else {
-      setSelectedDate(undefined)
-    }
-  }, [formData.date])
+  // Client-only calendar to prevent SSR grid markup
+  const Calendar = dynamic(() => import("@/components/ui/calendar").then(m => m.Calendar), { ssr: false })
 
   const timeSlots = [
     "1:00-2:00", "2:00-3:00", "3:00-4:00", "4:00-5:00", "5:00-6:00",

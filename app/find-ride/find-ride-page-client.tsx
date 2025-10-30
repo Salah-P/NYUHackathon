@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect, lazy, Suspense } from "react"
+import dynamic from "next/dynamic"
 import { RideCard } from "@/components/find-ride/ride-card"
 import { EmptyState } from "@/components/ui/empty-state"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -8,7 +9,8 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Button as UIButton } from "@/components/ui/button"
-import { Calendar } from "@/components/ui/calendar"
+// Use client-only calendar to avoid SSR markup issues
+const Calendar = dynamic(() => import("@/components/ui/calendar").then(m => m.Calendar), { ssr: false })
 import { format } from "date-fns"
 import { Calendar as CalendarIcon } from "lucide-react"
 import { Label } from "@/components/ui/label"
@@ -16,8 +18,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { SearchX, Map, List, ArrowLeft, Filter, X } from "lucide-react"
-import { getRides } from "@/lib/mock-data"
-import type { Ride } from "@/lib/mock-data"
+// Use mock rides with pickup/dropoff + lat/lng for map compatibility
+import { getMockRides } from "@/lib/mock-rides"
+import type { Ride } from "@/lib/mock-rides"
 
 // Lazy load map components
 const RideListMap = lazy(() => import("@/components/maps/ride-list-map"))
@@ -54,7 +57,7 @@ export function FindRidePageClient() {
     // Simulate API call with timeout
     setTimeout(() => {
       try {
-        const mockRides = getRides()
+        const mockRides = getMockRides()
         setRides(mockRides)
         setFilteredRides(mockRides)
         setIsLoading(false)
@@ -73,13 +76,13 @@ export function FindRidePageClient() {
 
     if (filters.from) {
       filtered = filtered.filter(ride => 
-        ride.pickup.address.toLowerCase().includes(filters.from.toLowerCase())
+        ride.pickup?.address?.toLowerCase().includes(filters.from.toLowerCase())
       )
     }
 
     if (filters.to) {
       filtered = filtered.filter(ride => 
-        ride.dropoff.address.toLowerCase().includes(filters.to.toLowerCase())
+        ride.dropoff?.address?.toLowerCase().includes(filters.to.toLowerCase())
       )
     }
 
