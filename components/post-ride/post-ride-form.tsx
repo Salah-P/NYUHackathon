@@ -16,7 +16,7 @@ import { Calendar as CalendarIcon, Clock, Users, MapPin, Car, Phone, AlertCircle
 import { useAuth } from "@/lib/auth-context"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Button as UIButton } from "@/components/ui/button"
-import { Calendar } from "@/components/ui/calendar"
+import dynamic from "next/dynamic"
 import { format } from "date-fns"
 
 // Form data structure as specified
@@ -38,6 +38,8 @@ interface PostRideFormData {
 }
 
 export function PostRideForm() {
+  // Load Calendar only on client to avoid SSR-rendered grid markup in build output
+  const Calendar = dynamic(() => import("@/components/ui/calendar").then(m => m.Calendar), { ssr: false })
   const { user } = useAuth()
   const resolvedContact = (user?.countryCode && user?.phoneNumber)
     ? `${user.countryCode} ${user.phoneNumber}`
