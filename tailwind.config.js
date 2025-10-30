@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+const { fontFamily } = require('tailwindcss/defaultTheme')
 module.exports = {
   darkMode: ["class"],
   content: [
@@ -17,19 +18,31 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ["Poppins", "Nunito", "Quicksand", "Circular", ...fontFamily.sans],
+      },
       colors: {
-        // New color palette - Primary colors
         primary: {
-          dark: '#171717',    // rgb(23, 23, 23)
-          DEFAULT: '#DA0037', // rgb(218, 0, 55) - main red
+          DEFAULT: '#A259F7',
+          dark: '#1F1632',
+          light: '#FF51AE',
         },
-        // Secondary colors
-        secondary: {
-          DEFAULT: '#444444', // rgb(68, 68, 68)
+        accent: {
+          pink: '#FF51AE',
+          coral: '#FFC39E',
+          peach: '#FF9076',
         },
-        // Background colors
+        navy: '#1F1632',
         background: {
-          light: '#EDEDED',   // rgb(237, 237, 237)
+          DEFAULT: '#1F1632',
+          card: '#241A3B',
+          light: '#F1EBFA',
+        },
+        white: '#FFFFFF',
+        gray: {
+          light: '#F3F4F6',
+          DEFAULT: '#AEB0C2',
+          dark: '#23233D',
         },
         // Legacy color palette (keeping for compatibility)
         card: {
@@ -73,10 +86,14 @@ module.exports = {
           ring: "hsl(var(--sidebar-ring))",
         },
       },
+      gradientColorStops: {
+        poolara: ['#A259F7', '#FF51AE'],
+        "poolara-alt": ['#A259F7', '#FFC39E'],
+      },
       borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        lg: "1rem",
+        md: "0.7rem",
+        sm: "0.5rem",
       },
       keyframes: {
         "accordion-down": {

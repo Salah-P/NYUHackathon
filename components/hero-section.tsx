@@ -6,6 +6,7 @@ import { Logo } from "@/components/logo"
 import { Users, Car, Star } from "lucide-react"
 import { useAuth } from "@/lib/auth-context"
 
+// TODO: Enhance background with a campus road, subtle route dots animating across the screen, and two illustrated students sharing a car/ride in the foreground for Poolara branding.
 export function HeroSection() {
   const { isAuthenticated } = useAuth()
 
@@ -39,15 +40,12 @@ export function HeroSection() {
 
           {/* Headline */}
           <h1 className="mb-6 text-4xl font-bold tracking-tight text-white md:text-5xl lg:text-6xl xl:text-7xl">
-            Share Rides, Split Costs,{" "}
-            <span className="bg-gradient-to-r from-white to-red-200 bg-clip-text text-transparent">
-              Make Friends
-            </span>
+            Connecting classmates, one ride at a time.
           </h1>
 
           {/* Subheadline */}
           <p className="mx-auto mb-12 max-w-2xl text-xl font-medium text-gray-200 md:text-2xl lg:text-3xl">
-            Safe carpooling exclusively for UAE university students
+            Poolara makes student ridesharing simple, safe, and social. Share rides, split costs, and make every commute count.
           </p>
 
           {/* Action Buttons - Only show for unauthenticated users */}

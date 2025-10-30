@@ -1,6 +1,6 @@
 "use client"
 
-import { DollarSign, BadgeCheck, Shield, Leaf } from "lucide-react"
+import { DollarSign, BadgeCheck, Shield, Leaf, GraduationCap, Users } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useScrollReveal } from "@/hooks/use-scroll-reveal"
 import { Card } from "@/components/ui/card"
@@ -39,30 +39,28 @@ export function BenefitsSection() {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
   })
-
   const benefits = [
     {
+      icon: GraduationCap,
+      title: "Verified Network",
+      description: "Only students with university email IDs can join."
+    },
+    {
       icon: DollarSign,
-      title: "Save Money",
-      description: "Split fuel costs and travel expenses with other students"
-    },
-    {
-      icon: BadgeCheck,
-      title: "Verified Students",
-      description: "University email verification ensures safe community"
-    },
-    {
-      icon: Shield,
-      title: "Safe & Secure",
-      description: "Rated drivers and verified passengers for peace of mind"
+      title: "Auto-Split Payments",
+      description: "Smart cost-sharing right inside the app."
     },
     {
       icon: Leaf,
       title: "Eco-Friendly",
-      description: "Reduce carbon footprint by sharing rides"
-    }
+      description: "Every shared ride reduces your carbon footprint."
+    },
+    {
+      icon: Users,
+      title: "Community Vibe",
+      description: "Make rides part of your campus life, not just transport."
+    },
   ]
-
   return (
     <section 
       ref={elementRef}
@@ -75,19 +73,17 @@ export function BenefitsSection() {
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            Why Choose UniRide?
+            Built for Students, by Students.
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            The smart way to travel across UAE
+            Why Choose Poolara
           </p>
         </div>
-
         {/* Benefits Grid - 2x2 layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {benefits.map((benefit, index) => {
-            // Stagger timing: 0ms, 100ms, 200ms, 300ms (0.1s, 0.2s, 0.3s delays)
+            // Stagger timing: 0ms, 100ms, ...
             const delay = index * 100
-            
             return (
               <div
                 key={benefit.title}

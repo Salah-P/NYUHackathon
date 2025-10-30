@@ -7,6 +7,7 @@ import { Quote } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useAuth } from "@/lib/auth-context"
 import { useScrollReveal } from "@/hooks/use-scroll-reveal"
+import { useState, useEffect } from "react"
 
 interface TestimonialProps {
   quote: string
@@ -35,21 +36,28 @@ export function CTASection() {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
   })
-  
-  const testimonials = [
-    {
-      quote: "Saved so much money on my daily commute to university!",
-      author: "Sarah M., UAEU"
-    },
-    {
-      quote: "Made genuine friends while traveling between emirates.",
-      author: "Ahmed K., AUS"
-    },
-    {
-      quote: "Super reliable and safe. Love the university verification!",
-      author: "Fatima A., ZU"
+
+  // Animated Counter Logic
+  // TODO: Wire these to live values from backend when available
+  const targetRides = 1283
+  const targetCO2 = 9540
+  const [ridesShared, setRidesShared] = useState(0)
+  const [co2Saved, setCo2Saved] = useState(0)
+
+  useEffect(() => {
+    if (isVisible && ridesShared < targetRides) {
+      const step = Math.max(1, Math.round((targetRides - ridesShared) / 20))
+      const timeout = setTimeout(() => setRidesShared(curr => Math.min(targetRides, curr + step)), 20)
+      return () => clearTimeout(timeout)
     }
-  ]
+  }, [isVisible, ridesShared])
+  useEffect(() => {
+    if (isVisible && co2Saved < targetCO2) {
+      const step = Math.max(1, Math.round((targetCO2 - co2Saved) / 20))
+      const timeout = setTimeout(() => setCo2Saved(curr => Math.min(targetCO2, curr + step)), 20)
+      return () => clearTimeout(timeout)
+    }
+  }, [isVisible, co2Saved])
 
   return (
     <section 
@@ -70,79 +78,26 @@ export function CTASection() {
           }}
         ></div>
       </div>
-
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
-          
-          {/* Headline */}
-          <div
-            className={cn(
-              "transition-all duration-600 ease-out mb-6",
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            )}
-            style={{
-              transitionDelay: isVisible ? '100ms' : '0ms'
-            }}
-          >
+          {/* Impact Banner Headline */}
+          <div className={cn("transition-all duration-600 ease-out mb-4", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}
+            style={{transitionDelay: isVisible ? '100ms' : '0ms'}}>
             <h2 className="text-4xl md:text-5xl font-bold text-white">
-              {isAuthenticated ? "Ready to Find Your Next Ride?" : "Ready to Start Your Journey?"}
+              Join hundreds of students already reducing costs and carbon — one ride at a time.
             </h2>
           </div>
-          
-          {/* Subtext */}
-          <div
-            className={cn(
-              "transition-all duration-600 ease-out mb-12",
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            )}
-            style={{
-              transitionDelay: isVisible ? '150ms' : '0ms'
-            }}
-          >
-            <p className="text-xl text-white/90 max-w-2xl mx-auto leading-relaxed">
-              {isAuthenticated 
-                ? "Browse available rides or post your own to start saving money today"
-                : "Join hundreds of students already saving money and making friends"
-              }
-            </p>
-          </div>
 
-          {/* Testimonials */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12 max-w-4xl mx-auto">
-            {testimonials.map((testimonial, index) => {
-              // Stagger timing: 0ms, 100ms, 200ms (0.1s, 0.2s delays)
-              const delay = index * 100
-              
-              return (
-                <div
-                  key={index}
-                  className={cn(
-                    "stagger-item-hidden transition-all duration-600 ease-out",
-                    isVisible && "stagger-item-visible"
-                  )}
-                  style={{
-                    transitionDelay: isVisible ? `${delay}ms` : '0ms'
-                  }}
-                >
-                  <Testimonial
-                    quote={testimonial.quote}
-                    author={testimonial.author}
-                  />
-                </div>
-              )
-            })}
+          {/* Animated Counter Row */}
+          <div className="flex flex-col md:flex-row items-center justify-center text-white/90 text-lg font-semibold mb-10 gap-2 md:gap-6">
+            <span><span className="tabular-nums text-3xl font-bold">{ridesShared.toLocaleString()}</span> rides shared</span>
+            <span className="hidden md:block text-2xl font-light">|</span>
+            <span><span className="tabular-nums text-3xl font-bold">{co2Saved.toLocaleString()}</span> kg CO₂ saved</span>
           </div>
 
           {/* CTA Button */}
-          <div
-            className={cn(
-              "transition-all duration-600 ease-out",
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            )}
-            style={{
-              transitionDelay: isVisible ? '200ms' : '0ms'
-            }}
-          >
+          <div className={cn("transition-all duration-600 ease-out", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}
+            style={{transitionDelay: isVisible ? '200ms' : '0ms'}}>
             <Button
               asChild
               size="lg"
@@ -154,7 +109,7 @@ export function CTASection() {
             </Button>
           </div>
 
-          {/* Trust indicator */}
+          {/* Trust indicator / Extra info */}
           <p className="text-white/70 text-sm mt-6">
             {isAuthenticated 
               ? "Browse rides • Post your own • Start saving today"

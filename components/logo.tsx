@@ -4,6 +4,7 @@ import Link from "next/link"
 import { Car } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useEffect, useState } from "react"
+import Image from "next/image"
 
 interface LogoProps {
   size?: "sm" | "lg"
@@ -33,32 +34,15 @@ export function Logo({ size = "lg", className, nonClickable = false, wrappedInLi
     className
   )
   
-  const iconClasses = cn(
-    "flex-shrink-0 text-white rounded-lg bg-gradient-to-br from-red-600 to-red-500 shadow-md transition-all duration-300 ease-out",
-    isLarge ? "h-12 w-12 p-3" : "h-8 w-8 p-2 logo-hover-icon",
-    // Hover effects for small logo
-    !isLarge && !nonClickable && "group-hover:shadow-lg"
-  )
-  
   const textClasses = cn(
-    "font-bold bg-gradient-to-r from-red-600 to-red-500 bg-clip-text text-transparent transition-all duration-300 ease-out",
-    isLarge ? "text-3xl md:text-4xl" : "text-xl logo-hover-text",
-    // Hover effects for small logo text
-    !isLarge && !nonClickable && "group-hover:from-red-500 group-hover:to-red-400"
+    "font-bold bg-gradient-to-r from-pink-400 via-purple-500 to-yellow-400 bg-clip-text text-transparent transition-all duration-300 ease-out",
+    isLarge ? "text-3xl md:text-4xl" : "text-xl logo-hover-text"
   )
 
   const logoContent = (
-    <div data-testid="logo">
-      <div className={iconClasses}>
-        <Car className={cn(
-          isLarge ? "h-6 w-6" : "h-4 w-4",
-          "transition-all duration-300 ease-out",
-          !isLarge && !nonClickable && "group-hover:rotate-1"
-        )} />
-      </div>
-      <span className={textClasses}>
-        UniRide
-      </span>
+    <div data-testid="logo" className="flex items-center gap-2">
+      <Image src="/poolara-logo.png" alt="Poolara Logo" width={isLarge ? 64 : 40} height={isLarge ? 64 : 40} priority className="rounded-full" />
+      <span className={textClasses}>POOLARA</span>
     </div>
   )
 
@@ -67,9 +51,7 @@ export function Logo({ size = "lg", className, nonClickable = false, wrappedInLi
   }
 
   return (
-    <Link href="/" className={cn(containerClasses, "group")}>
-      {logoContent}
-    </Link>
+    <Link href="/" className={cn(containerClasses, "group")}>{logoContent}</Link>
   )
 }
 

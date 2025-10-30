@@ -3,7 +3,7 @@ import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { MapPin, Calendar, Clock, Users, Star, Map } from "lucide-react"
 import Link from "next/link"
-import type { Ride } from "@/lib/mock-data"
+import type { Ride } from "@/lib/mock-rides"
 
 interface RideCardProps {
   ride: Ride
@@ -18,11 +18,7 @@ export function RideCard({ ride, isSelected = false, onViewOnMap }: RideCardProp
     year: "numeric",
   })
 
-  const formattedTime = new Date(`2000-01-01T${ride.time}`).toLocaleTimeString("en-US", {
-    hour: "numeric",
-    minute: "2-digit",
-    hour12: true,
-  })
+  const formattedTime = ride.time || ""
 
   return (
     <Card className={`transition-shadow hover:shadow-lg ${isSelected ? 'border-accent-red shadow-md' : ''}`}>
@@ -32,14 +28,14 @@ export function RideCard({ ride, isSelected = false, onViewOnMap }: RideCardProp
             <div className="flex items-start gap-2">
               <MapPin className="mt-1 h-4 w-4 flex-shrink-0 text-accent-red" />
               <div className="flex-1">
-                <p className="text-sm font-medium text-primary-dark">{ride.startLocation}</p>
+                <p className="text-sm font-medium text-primary-dark">{ride.pickup?.address ?? ''}</p>
                 <div className="my-1 ml-2 h-4 w-px bg-secondary-gray" />
-                <p className="text-sm font-medium text-primary-dark">{ride.destination}</p>
+                <p className="text-sm font-medium text-primary-dark">{ride.dropoff?.address ?? ''}</p>
               </div>
             </div>
           </div>
           <div className="text-right">
-            <div className="text-2xl font-bold text-accent-red">${ride.costPerPerson}</div>
+            <div className="text-2xl font-bold text-accent-red">${ride.pricePerSeat ?? '-'}</div>
             <div className="text-xs text-secondary-gray">per person</div>
           </div>
         </div>
@@ -58,7 +54,7 @@ export function RideCard({ ride, isSelected = false, onViewOnMap }: RideCardProp
           <div className="flex items-center gap-1">
             <Users className="h-4 w-4" />
             <span>
-              {ride.availableSeats} of {ride.totalSeats} seats
+              {ride.seatsAvailable ?? '-'} seats
             </span>
           </div>
         </div>
@@ -74,9 +70,6 @@ export function RideCard({ ride, isSelected = false, onViewOnMap }: RideCardProp
               </div>
             </div>
           </div>
-          {ride.genderPreference && ride.genderPreference !== "any" && (
-            <Badge variant="secondary" className="bg-red-50 text-accent-red border-red-200">{ride.genderPreference} only</Badge>
-          )}
         </div>
       </CardContent>
 

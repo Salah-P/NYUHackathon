@@ -61,10 +61,11 @@ export default function AboutPage() {
           {/* Hero Section */}
           <div className="text-center">
             <h1 className="text-5xl font-bold text-gray-900 mb-6">
-              About UniRide
+              The Smarter Way to Get Around Campus
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Connecting students, one ride at a time
+              Poolara was built for students who want easier, cheaper, and greener ways to travel.
+              Whether it’s heading to class, events, or weekend plans — Poolara connects you with verified classmates going your way.
             </p>
           </div>
         </div>

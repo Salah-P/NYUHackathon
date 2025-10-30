@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -7,66 +8,171 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Luxury Color Palette - Black & Gold Dominant with Emerald Support */
-  /* GOLD (#D4AF37) - Primary accent, dominant interactive element */
-  --primary: 43 67% 52%; 
-  --primary-foreground: 0 0% 0%; 
-  
-  /* BLACK (#000000) - Dominant background and structure */
-  --background: 0 0% 0%;
-  --card: 0 0% 5%;
-  --secondary: 0 0% 0%;
-  
-  /* OFF-WHITE (#F8F8F8) - Text on dark backgrounds */
-  --foreground: 0 0% 97%;
-  --card-foreground: 0 0% 97%;
-  --secondary-foreground: 0 0% 97%;
-  
-  /* EMERALD (#046307) - Strong supporting secondary color */
-  --accent: 127 47% 23%;
-  --accent-foreground: 0 0% 97%;
-  
-  /* Muted and borders */
-  --muted: 0 0% 10%;
-  --muted-foreground: 43 67% 60%;
-  --border: 0 0% 20%;
-  
-  /* Supporting variables */
-  --popover: 0 0% 0%;
-  --popover-foreground: 0 0% 97%;
-  --destructive: 0 70% 50%;
-  --destructive-foreground: 0 0% 97%;
-  --input: 0 0% 5%;
-  --ring: 43 67% 52%;
-  --radius: 0.5rem;
-  
-  /* Charts use gold, emerald, and neutral tones */
-  --chart-1: 43 67% 52%;
-  --chart-2: 127 47% 23%;
-  --chart-3: 43 67% 60%;
-  --chart-4: 0 0% 30%;
-  --chart-5: 127 47% 40%;
-  
-  /* Sidebar */
-  --sidebar: 0 0% 0%;
-  --sidebar-foreground: 0 0% 97%;
-  --sidebar-primary: 43 67% 52%;
-  --sidebar-primary-foreground: 0 0% 0%;
-  --sidebar-accent: 0 0% 5%;
-  --sidebar-accent-foreground: 43 67% 52%;
-  --sidebar-border: 0 0% 20%;
-  --sidebar-ring: 43 67% 52%;
-  
-  /* Named palette colors */
-  --gold: #D4AF37;
-  --black: #000000;
-  --emerald: #046307;
-  --off-white: #F8F8F8;
+  --font-sans: 'Poppins', 'Nunito', 'Quicksand', 'Circular', 'system-ui', 'sans-serif';
+  --primary: #A259F7;
+  --primary-dark: #1F1632;
+  --primary-pink: #FF51AE;
+  --accent-coral: #FFC39E;
+  --accent-peach: #FF9076;
+  --secondary-bg: #F1EBFA;
+  --bg-navy: #1F1632;
+  --bg-card: #241A3B;
 }
 
 html, body {
-  background-color: #000000 !important;
-  color: #F8F8F8 !important;
+  font-family: var(--font-sans);
+  background-color: var(--bg-navy);
+  color: #FFFFFF;
+  font-size: 16px;
+  line-height: 1.7;
+  letter-spacing: normal;
+}
+
+section, .bg-section {
+  background-color: var(--bg-navy);
+}
+
+.bg-card, .card-bg {
+  background-color: var(--bg-card);
+  color: #FFFFFF;
+}
+
+.gradient-poolara {
+  background: linear-gradient(90deg, #A259F7 0%, #FF51AE 100%);
+}
+.gradient-poolara-alt {
+  background: linear-gradient(90deg, #A259F7 0%, #FFC39E 100%);
+}
+
+h1, .h1 {
+  font-size: 3rem; /* 48px */
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  line-height: 1.08;
+}
+@media (min-width: 768px) {
+  h1, .h1 { font-size: 4rem; } /* 64px */
+}
+h2, .h2 {
+  font-size: 2.25rem; /* 36px */
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+}
+@media (min-width: 768px) {
+  h2, .h2 { font-size: 3rem; } /* 48px */
+}
+h3, .h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+@media (min-width: 768px) {
+  h3, .h3 { font-size: 2rem; }
+}
+p, .body-text {
+  font-size: 1.125rem; /* 18px */
+  font-weight: 400;
+  line-height: 1.7;
+  color: #fff;
+}
+
+/* Button styles */
+.button, .btn, button, .btn-primary {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  border-radius: 9999px;
+  font-size: 1.125rem;
+  letter-spacing: 0.03em;
+  background: linear-gradient(90deg, #A259F7 0%, #FF51AE 100%);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(162, 89, 247, 0.13);
+  border: none;
+  transition: background 0.2s, color 0.2s;
+}
+.btn-primary:hover, .button:hover, .btn:hover, button:hover {
+  background: linear-gradient(90deg, #FF51AE 0%, #A259F7 100%);
+  color: #FFF;
+}
+a {
+  color: #A259F7;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+a:hover {
+  color: #FF51AE;
+}
+/* Accent Icon/Badge on coral or peach backgrounds */
+.icon-accent, .badge-accent {
+  color: #FF9076;
+  background: #FFC39E;
+  border-radius: 0.875em;
+}
+/* App Footer tagline style */
+.app-footer-tagline {
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #FFF;
+}
+footer {
+  background: #1F1632;
+  color: #FFF;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  margin-top: 5rem;
+}
+/* Logo style: all caps, wide spacing, bold, white */
+.poolara-logo-text {
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  font-weight: 900;
+  letter-spacing: 0.22em;
+  color: #FFF;
+  font-size: 2.5rem;
+}
+label, .label, .caption, .small-text {
+  font-size: 0.87rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+input, textarea, select {
+  font-family: var(--font-sans);
+  background: #241A3B;
+  color: #fff;
+  border: 1.5px solid #A259F7;
+  border-radius: 0.8em;
+}
+input:focus, textarea:focus, select:focus {
+  border-color: #FF51AE;
+  outline: 0;
+}
+.card {
+  border-radius: 1.2em;
+  background: #241A3B;
+  color: #fff;
+  padding: 1.5rem 1.5rem;
+}
+.bg-coral {
+  background: #FFC39E !important;
+  color: #1F1632 !important;
+}
+.bg-peach {
+  background: #FF9076 !important;
+  color: #fff !important;
+}
+.bg-navy {
+  background: #1F1632 !important;
+}
+.text-navy {
+  color: #1F1632 !important;
+}
+.text-purple {
+  color: #A259F7 !important;
+}
+.text-pink {
+  color: #FF51AE !important;
 }
 
 /* Black background as default */
@@ -81,26 +187,6 @@ html, body {
 /* Force text to off-white for readability on black */
 .text-foreground, .text-gray-900, .text-gray-800, .text-gray-700 {
   color: #F8F8F8 !important;
-}
-
-/* Gold as primary - buttons, links, accents */
-.bg-primary {
-  background-color: #D4AF37 !important;
-  color: #000000 !important;
-}
-
-.text-primary {
-  color: #D4AF37 !important;
-}
-
-/* Gold accent elements */
-.bg-accent {
-  background-color: #D4AF37 !important;
-  color: #000000 !important;
-}
-
-.text-accent {
-  color: #D4AF37 !important;
 }
 
 /* Dark borders with gold glow on hover */

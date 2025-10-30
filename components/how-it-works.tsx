@@ -1,6 +1,6 @@
 "use client"
 
-import { GraduationCap, Car, Shield } from "lucide-react"
+import { GraduationCap, Car, Shield, DollarSign, Users } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useScrollReveal } from "@/hooks/use-scroll-reveal"
 import { Card } from "@/components/ui/card"
@@ -34,30 +34,29 @@ function StepCard({ icon: Icon, title, description, className }: StepCardProps) 
   )
 }
 
+// TODO: Designer: consider adding a visual connector/timeline to reinforce the 3-step flow.
 export function HowItWorks() {
   const { elementRef, isVisible } = useScrollReveal({
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
   })
-
   const steps = [
     {
-      icon: GraduationCap,
-      title: "Sign Up",
-      description: "Create your account with your university email"
-    },
-    {
       icon: Car,
-      title: "Find or Post",
-      description: "Browse available rides or offer your own"
+      title: "Post or Join a Ride",
+      description: "Find or offer a trip that matches your route."
     },
     {
-      icon: Shield,
-      title: "Travel Safe",
-      description: "Connect with verified students and hit the road"
+      icon: DollarSign,
+      title: "Split the Cost",
+      description: "Transparent, automatic fare sharing — no awkward math."
+    },
+    {
+      icon: Users,
+      title: "Arrive Together",
+      description: "Save money, reduce traffic, and make new friends."
     }
   ]
-
   return (
     <section 
       ref={elementRef}
@@ -70,19 +69,16 @@ export function HowItWorks() {
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            Getting Started is Easy
+            Ride Together in Three Simple Steps
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Three simple steps to start carpooling
+            Post or join, split the cost, and ride together — it’s that easy!
           </p>
         </div>
-
         {/* Steps Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {steps.map((step, index) => {
-            // Stagger timing: 0ms, 100ms, 200ms (0.1s, 0.2s delays)
             const delay = index * 100
-            
             return (
               <div
                 key={step.title}
