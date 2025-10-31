@@ -164,16 +164,16 @@ export function LoginForm() {
   }
 
   return (
-    <Card className="w-full max-w-md border-none shadow-xl bg-gradient-to-br from-white to-green-50/30">
+    <Card className="w-full max-w-md border-none shadow-xl bg-[#151627] border border-white/10">
       <CardHeader className="space-y-4 text-center">
         {/* Logo */}
         <div className="flex justify-center mb-2">
           <Logo size="lg" nonClickable />
         </div>
-        <CardTitle className="text-2xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
+        <CardTitle className="text-2xl font-bold bg-gradient-to-r from-[#FFD700] to-[#FFD700] bg-clip-text text-transparent">
           Welcome Back
         </CardTitle>
-        <CardDescription className="text-base">Sign in to your UniRide account</CardDescription>
+        <CardDescription className="text-base text-gray-300">Sign in to your Poolara account</CardDescription>
       </CardHeader>
       <CardContent>
         <form data-testid="login-form" onSubmit={handleSubmit} className="space-y-5" noValidate>
@@ -191,7 +191,7 @@ export function LoginForm() {
           )}
 
           <div className="space-y-2">
-            <Label htmlFor="emailOrId" className="text-sm font-medium">
+            <Label htmlFor="emailOrId" className="text-sm font-medium text-gray-200">
               Email or University ID
             </Label>
             <Input
@@ -214,7 +214,7 @@ export function LoginForm() {
 
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <Label htmlFor="password" className="text-sm font-medium">
+              <Label htmlFor="password" className="text-sm font-medium text-gray-200">
                 Password
               </Label>
               <Link
@@ -256,11 +256,11 @@ export function LoginForm() {
         </form>
       </CardContent>
       <CardFooter className="flex justify-center pb-6">
-        <p className="text-sm text-muted-foreground">
+        <p className="text-sm text-gray-300">
           Don't have an account?{" "}
           <Link
             href="/signup"
-            className="text-green-600 hover:text-green-700 font-semibold hover:underline transition-colors"
+            className="text-[#FFD700] hover:text-[#FFC107] font-semibold hover:underline transition-colors"
           >
             Sign up here
           </Link>

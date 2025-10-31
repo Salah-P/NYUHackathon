@@ -65,10 +65,10 @@ export function Header() {
       data-testid="main-header"
       className={cn(
         "sticky top-0 z-40 w-full border-b transition-all duration-300 ease-in-out",
-        "bg-black border-[#FFD700]"
+        "bg-[#000000] border-[#FFD700]"
       )}
     >
-      <div className="container mx-auto flex h-16 items-center justify-between px-4">
+      <div className="container mx-auto flex h-16 items-center justify-around md:justify-center md:gap-8">
         {/* Logo on the left */}
         {isAuthenticated ? (
           <Link href="/dashboard">
@@ -88,13 +88,13 @@ export function Header() {
             variant="ghost"
             size="sm"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden h-9 w-9 p-0"
+            className="md:hidden h-9 w-9 p-0 text-white hover:text-[#00BFFF] transition-all duration-300 hover:shadow-[0_0_10px_rgba(0,191,255,0.5)]"
             aria-label="Toggle mobile menu"
           >
             {isMobileMenuOpen ? (
-              <X className="h-5 w-5 text-secondary" />
+              <X className="h-5 w-5" />
             ) : (
-              <Menu className="h-5 w-5 text-secondary" />
+              <Menu className="h-5 w-5" />
             )}
           </Button>
           
@@ -106,10 +106,10 @@ export function Header() {
                 <Link 
                   href="/dashboard" 
                   className={cn(
-                    "text-sm font-medium transition-colors duration-300 nav-link-blue rounded-md px-2 py-1",
+                    "text-sm font-medium transition-all duration-300 rounded-md px-2 py-1",
                     isActiveLink("/dashboard")
-                      ? "text-gold font-semibold"
-                      : "text-white/85 hover:text-white hover:bg-blue-500/10 hover:shadow-[0_0_15px_rgba(65,105,225,0.6)]"
+                      ? "text-[#FFD700] font-semibold"
+                      : "text-white hover:text-[#00BFFF] hover:shadow-[0_0_10px_rgba(0,191,255,0.6)]"
                   )}
                 >
                   Dashboard
@@ -117,10 +117,10 @@ export function Header() {
                 <Link 
                   href="/find-ride" 
                   className={cn(
-                    "text-sm font-medium transition-colors duration-300 nav-link-blue rounded-md px-2 py-1",
+                    "text-sm font-medium transition-all duration-300 rounded-md px-2 py-1",
                     isActiveLink("/find-ride")
-                      ? "text-gold font-semibold"
-                      : "text-white/85 hover:text-white hover:bg-blue-500/10 hover:shadow-[0_0_15px_rgba(65,105,225,0.6)]"
+                      ? "text-[#FFD700] font-semibold"
+                      : "text-white hover:text-[#00BFFF] hover:shadow-[0_0_10px_rgba(0,191,255,0.6)]"
                   )}
                 >
                   Find Ride
@@ -128,10 +128,10 @@ export function Header() {
                 <Link 
                   href="/post-ride" 
                   className={cn(
-                    "text-sm font-medium transition-colors duration-300 nav-link-blue rounded-md px-2 py-1",
+                    "text-sm font-medium transition-all duration-300 rounded-md px-2 py-1",
                     isActiveLink("/post-ride")
-                      ? "text-gold font-semibold"
-                      : "text-white/85 hover:text-white hover:bg-blue-500/10 hover:shadow-[0_0_15px_rgba(65,105,225,0.6)]"
+                      ? "text-[#FFD700] font-semibold"
+                      : "text-white hover:text-[#00BFFF] hover:shadow-[0_0_10px_rgba(0,191,255,0.6)]"
                   )}
                 >
                   Post Ride
@@ -139,10 +139,10 @@ export function Header() {
                 <Link 
                   href="/wallet" 
                   className={cn(
-                    "text-sm font-medium transition-colors duration-300 nav-link-blue rounded-md px-2 py-1",
+                    "text-sm font-medium transition-all duration-300 rounded-md px-2 py-1",
                     isActiveLink("/wallet")
-                      ? "text-gold font-semibold"
-                      : "text-white/85 hover:text-white hover:bg-blue-500/10 hover:shadow-[0_0_15px_rgba(65,105,225,0.6)]"
+                      ? "text-[#FFD700] font-semibold"
+                      : "text-white hover:text-[#00BFFF] hover:shadow-[0_0_10px_rgba(0,191,255,0.6)]"
                   )}
                 >
                   Wallet
@@ -150,10 +150,10 @@ export function Header() {
                 <Link 
                   href="/profile" 
                   className={cn(
-                    "text-sm font-medium transition-colors duration-300 nav-link-blue rounded-md px-2 py-1",
+                    "text-sm font-medium transition-all duration-300 rounded-md px-2 py-1",
                     isActiveLink("/profile")
-                      ? "text-gold font-semibold"
-                      : "text-white/85 hover:text-white hover:bg-blue-500/10 hover:shadow-[0_0_15px_rgba(65,105,225,0.6)]"
+                      ? "text-[#FFD700] font-semibold"
+                      : "text-white hover:text-[#00BFFF] hover:shadow-[0_0_10px_rgba(0,191,255,0.6)]"
                   )}
                 >
                   Profile
@@ -165,7 +165,7 @@ export function Header() {
                 onClick={handleLogout}
                 variant="outline"
                 size="sm"
-                className="h-9 px-4 text-sm font-medium border-red-200 hover:bg-red-50 hover:border-red-300 text-red-700 transition-all duration-200"
+                className="h-9 px-4 text-sm font-medium border-white/20 text-white hover:text-[#00BFFF] hover:border-[#00BFFF]/50 hover:shadow-[0_0_10px_rgba(0,191,255,0.6)] transition-all duration-300"
                 aria-label="Logout from account"
               >
                 <LogOut className="w-4 h-4 mr-2" aria-hidden="true" />
@@ -180,10 +180,10 @@ export function Header() {
                 <Link 
                   href="/" 
                   className={cn(
-                    "text-sm font-medium transition-colors duration-300 nav-link-blue rounded-md px-2 py-1",
+                    "text-sm font-medium transition-all duration-300 rounded-md px-2 py-1",
                     isActiveLink("/")
-                      ? "text-primary font-semibold"
-                      : "text-white/85 hover:text-white hover:bg-blue-500/10 hover:shadow-[0_0_15px_rgba(65,105,225,0.6)]"
+                      ? "text-[#FFD700] font-semibold"
+                      : "text-white hover:text-[#00BFFF] hover:shadow-[0_0_10px_rgba(0,191,255,0.6)]"
                   )}
                 >
                   Home
@@ -191,10 +191,10 @@ export function Header() {
                 <Link 
                   href="/about" 
                   className={cn(
-                    "text-sm font-medium transition-colors duration-300 nav-link-blue rounded-md px-2 py-1",
+                    "text-sm font-medium transition-all duration-300 rounded-md px-2 py-1",
                     isActiveLink("/about")
-                      ? "text-primary font-semibold"
-                      : "text-white/85 hover:text-white hover:bg-blue-500/10 hover:shadow-[0_0_15px_rgba(65,105,225,0.6)]"
+                      ? "text-[#FFD700] font-semibold"
+                      : "text-white hover:text-[#00BFFF] hover:shadow-[0_0_10px_rgba(0,191,255,0.6)]"
                   )}
                 >
                   About
@@ -202,10 +202,10 @@ export function Header() {
                 <Link 
                   href="/contact" 
                   className={cn(
-                    "text-sm font-medium transition-colors duration-300 nav-link-blue rounded-md px-2 py-1",
+                    "text-sm font-medium transition-all duration-300 rounded-md px-2 py-1",
                     isActiveLink("/contact")
-                      ? "text-primary font-semibold"
-                      : "text-white/85 hover:text-white hover:bg-blue-500/10 hover:shadow-[0_0_15px_rgba(65,105,225,0.6)]"
+                      ? "text-[#FFD700] font-semibold"
+                      : "text-white hover:text-[#00BFFF] hover:shadow-[0_0_10px_rgba(0,191,255,0.6)]"
                   )}
                 >
                   Contact Us
@@ -225,7 +225,7 @@ export function Header() {
                   asChild
                   variant="outline"
                   size="sm"
-                  className="h-9 px-4 text-sm font-medium"
+                  className="h-9 px-4 text-sm font-medium border-white/20 text-white hover:text-[#00BFFF] hover:border-[#00BFFF]/50 hover:shadow-[0_0_10px_rgba(0,191,255,0.6)] transition-all duration-300"
                 >
                   <Link href="/login">Login</Link>
                 </Button>
@@ -235,7 +235,7 @@ export function Header() {
                   asChild
                   variant="primary"
                   size="sm"
-                  className="h-9 px-4 text-sm font-medium"
+                  className="h-9 px-4 text-sm font-medium bg-[#FFD700] text-black hover:text-[#00BFFF] hover:shadow-[0_0_10px_rgba(0,191,255,0.6)] transition-all duration-300"
                 >
                   <Link href="/signup">Sign Up</Link>
                 </Button>
@@ -247,7 +247,7 @@ export function Header() {
       
       {/* Mobile Menu Dropdown */}
       {isMobileMenuOpen && (
-        <div className="md:hidden border-t border-[#333] bg-black shadow-lg">
+        <div className="md:hidden border-t border-white/20 bg-[#000000] shadow-lg">
           <div className="container mx-auto px-4 py-4">
             {isAuthenticated ? (
               /* Authenticated Mobile Navigation */
@@ -256,10 +256,10 @@ export function Header() {
                   href="/dashboard" 
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={cn(
-                    "block px-4 py-3 text-sm font-medium transition-colors duration-300 rounded-lg",
+                    "block px-4 py-3 text-sm font-medium transition-all duration-300 rounded-lg",
                     isActiveLink("/dashboard")
-                      ? "text-gold font-semibold"
-                      : "text-white/85 hover:text-white hover:bg-blue-500/10 hover:shadow-[0_0_15px_rgba(65,105,225,0.6)]"
+                      ? "text-[#FFD700] font-semibold"
+                      : "text-white hover:text-[#00BFFF] hover:shadow-[0_0_10px_rgba(0,191,255,0.6)]"
                   )}
                 >
                   Dashboard
@@ -268,10 +268,10 @@ export function Header() {
                   href="/find-ride" 
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={cn(
-                    "block px-4 py-3 text-sm font-medium transition-colors duration-300 rounded-lg",
+                    "block px-4 py-3 text-sm font-medium transition-all duration-300 rounded-lg",
                     isActiveLink("/find-ride")
-                      ? "text-gold font-semibold"
-                      : "text-white/85 hover:text-white hover:bg-blue-500/10 hover:shadow-[0_0_15px_rgba(65,105,225,0.6)]"
+                      ? "text-[#FFD700] font-semibold"
+                      : "text-white hover:text-[#00BFFF] hover:shadow-[0_0_10px_rgba(0,191,255,0.6)]"
                   )}
                 >
                   Find Ride
@@ -280,10 +280,10 @@ export function Header() {
                   href="/post-ride" 
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={cn(
-                    "block px-4 py-3 text-sm font-medium transition-colors duration-300 rounded-lg",
+                    "block px-4 py-3 text-sm font-medium transition-all duration-300 rounded-lg",
                     isActiveLink("/post-ride")
-                      ? "text-gold font-semibold"
-                      : "text-white/85 hover:text-white hover:bg-blue-500/10 hover:shadow-[0_0_15px_rgba(65,105,225,0.6)]"
+                      ? "text-[#FFD700] font-semibold"
+                      : "text-white hover:text-[#00BFFF] hover:shadow-[0_0_10px_rgba(0,191,255,0.6)]"
                   )}
                 >
                   Post Ride
@@ -292,10 +292,10 @@ export function Header() {
                   href="/wallet" 
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={cn(
-                    "block px-4 py-3 text-sm font-medium transition-colors duration-300 rounded-lg",
+                    "block px-4 py-3 text-sm font-medium transition-all duration-300 rounded-lg",
                     isActiveLink("/wallet")
-                      ? "text-gold font-semibold"
-                      : "text-white/85 hover:text-white hover:bg-blue-500/10 hover:shadow-[0_0_15px_rgba(65,105,225,0.6)]"
+                      ? "text-[#FFD700] font-semibold"
+                      : "text-white hover:text-[#00BFFF] hover:shadow-[0_0_10px_rgba(0,191,255,0.6)]"
                   )}
                 >
                   Wallet
@@ -304,15 +304,15 @@ export function Header() {
                   href="/profile" 
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={cn(
-                    "block px-4 py-3 text-sm font-medium transition-colors duration-300 rounded-lg",
+                    "block px-4 py-3 text-sm font-medium transition-all duration-300 rounded-lg",
                     isActiveLink("/profile")
-                      ? "text-gold font-semibold"
-                      : "text-white/85 hover:text-white hover:bg-blue-500/10 hover:shadow-[0_0_15px_rgba(65,105,225,0.6)]"
+                      ? "text-[#FFD700] font-semibold"
+                      : "text-white hover:text-[#00BFFF] hover:shadow-[0_0_10px_rgba(0,191,255,0.6)]"
                   )}
                 >
                   Profile
                 </Link>
-                <div className="border-t border-secondary pt-2 mt-2">
+                <div className="border-t border-white/20 pt-2 mt-2">
                   <Button
                     onClick={() => {
                       handleLogout()
@@ -320,7 +320,7 @@ export function Header() {
                     }}
                     variant="outline"
                     size="sm"
-                    className="w-full justify-start border-red-200 text-red-700 hover:bg-red-50 hover:border-red-300"
+                    className="w-full justify-start border-white/20 text-white hover:text-[#00BFFF] hover:border-[#00BFFF]/50 hover:shadow-[0_0_10px_rgba(0,191,255,0.6)] transition-all duration-300"
                   >
                     <LogOut className="w-4 h-4 mr-2" />
                     Logout
@@ -334,10 +334,10 @@ export function Header() {
                   href="/" 
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={cn(
-                    "block px-4 py-3 text-sm font-medium transition-colors duration-300 rounded-lg",
+                    "block px-4 py-3 text-sm font-medium transition-all duration-300 rounded-lg",
                     isActiveLink("/")
-                      ? "text-primary font-semibold"
-                      : "text-secondary hover:text-primary"
+                      ? "text-[#FFD700] font-semibold"
+                      : "text-white hover:text-[#00BFFF] hover:shadow-[0_0_10px_rgba(0,191,255,0.6)]"
                   )}
                 >
                   Home
@@ -346,10 +346,10 @@ export function Header() {
                   href="/about" 
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={cn(
-                    "block px-4 py-3 text-sm font-medium transition-colors duration-300 rounded-lg",
+                    "block px-4 py-3 text-sm font-medium transition-all duration-300 rounded-lg",
                     isActiveLink("/about")
-                      ? "text-primary font-semibold"
-                      : "text-secondary hover:text-primary"
+                      ? "text-[#FFD700] font-semibold"
+                      : "text-white hover:text-[#00BFFF] hover:shadow-[0_0_10px_rgba(0,191,255,0.6)]"
                   )}
                 >
                   About
@@ -358,20 +358,20 @@ export function Header() {
                   href="/contact" 
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={cn(
-                    "block px-4 py-3 text-sm font-medium transition-colors duration-300 rounded-lg",
+                    "block px-4 py-3 text-sm font-medium transition-all duration-300 rounded-lg",
                     isActiveLink("/contact")
-                      ? "text-primary font-semibold"
-                      : "text-secondary hover:text-primary"
+                      ? "text-[#FFD700] font-semibold"
+                      : "text-white hover:text-[#00BFFF] hover:shadow-[0_0_10px_rgba(0,191,255,0.6)]"
                   )}
                 >
                   Contact Us
                 </Link>
-                <div className="border-t border-secondary pt-2 mt-2 space-y-2">
+                <div className="border-t border-white/20 pt-2 mt-2 space-y-2">
                   <Button
                     asChild
                     variant="outline"
                     size="sm"
-                    className="w-full"
+                    className="w-full border-white/20 text-white hover:text-[#00BFFF] hover:border-[#00BFFF]/50 hover:shadow-[0_0_10px_rgba(0,191,255,0.6)] transition-all duration-300"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     <Link href="/login">Login</Link>
@@ -380,7 +380,7 @@ export function Header() {
                     asChild
                     variant="primary"
                     size="sm"
-                    className="w-full"
+                    className="w-full bg-[#FFD700] text-black hover:text-[#00BFFF] hover:shadow-[0_0_10px_rgba(0,191,255,0.6)] transition-all duration-300"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     <Link href="/signup">Sign Up</Link>

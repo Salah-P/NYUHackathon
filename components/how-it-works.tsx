@@ -24,10 +24,10 @@ function StepCard({ icon: Icon, title, description, className }: StepCardProps) 
       </div>
       
       {/* Content */}
-      <h3 className="text-xl font-bold text-gray-900 mb-4">
+      <h3 className="text-xl font-bold text-white mb-4">
         {title}
       </h3>
-      <p className="text-gray-600 leading-relaxed">
+      <p className="text-gray-300 leading-relaxed">
         {description}
       </p>
     </Card>
@@ -61,18 +61,18 @@ export function HowItWorks() {
     <section 
       ref={elementRef}
       className={cn(
-        "w-full py-20 bg-gray-50 scroll-reveal",
+        "w-full py-20 bg-[#151627] scroll-reveal",
         isVisible && "visible"
       )}
     >
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-4xl font-bold text-white mb-4">
             Ride Together in Three Simple Steps
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Post or join, split the cost, and ride together — it’s that easy!
+          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+            Post or join, split the cost, and ride together — it's that easy!
           </p>
         </div>
         {/* Steps Grid */}

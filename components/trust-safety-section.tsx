@@ -34,8 +34,8 @@ function SafetyFeature({ icon: Icon, title, description }: SafetyFeatureProps) {
         <Icon className="w-5 h-5 text-emerald-600" />
       </div>
       <div>
-        <h4 className="font-semibold text-gray-900 mb-1">{title}</h4>
-        <p className="text-gray-600 text-sm">{description}</p>
+        <h4 className="font-semibold text-white mb-1">{title}</h4>
+        <p className="text-gray-300 text-sm">{description}</p>
       </div>
     </div>
   )
@@ -82,7 +82,7 @@ export function TrustSafetySection() {
     <section 
       ref={elementRef}
       className={cn(
-        "w-full py-20 bg-gray-50 scroll-reveal",
+        "w-full py-20 bg-[#151627] scroll-reveal",
         isVisible && "visible"
       )}
     >
@@ -92,13 +92,13 @@ export function TrustSafetySection() {
           {/* Left Column - Content */}
           <div className="space-y-8">
             <div>
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              <h2 className="text-4xl font-bold text-white mb-4">
                 Safe & Verified Community
               </h2>
-              <p className="text-xl text-gray-600 mb-6">
+              <p className="text-xl text-gray-300 mb-6">
                 Only for university students with verified .edu or .ac.ae emails
               </p>
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-gray-300 leading-relaxed">
                 We maintain the highest safety standards by exclusively serving verified university students. 
                 Every member must provide a valid university email address, ensuring a trustworthy and 
                 secure carpooling environment for all UAE students.
@@ -107,7 +107,7 @@ export function TrustSafetySection() {
 
             {/* University Badges */}
             <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">
+              <h3 className="text-lg font-semibold text-white mb-4">
                 Trusted by Students From
               </h3>
               <div className="flex flex-wrap gap-4 items-center">
@@ -133,12 +133,12 @@ export function TrustSafetySection() {
           </div>
 
           {/* Right Column - Safety Features */}
-          <div className="bg-white rounded-2xl p-8 shadow-lg">
+          <div className="bg-[#151627] border border-white/10 rounded-2xl p-8 shadow-lg">
             <div className="flex items-center gap-3 mb-8">
               <div className="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500">
                 <Shield className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900">
+              <h3 className="text-2xl font-bold text-white">
                 Safety First
               </h3>
             </div>

@@ -41,7 +41,18 @@ export function Logo({ size = "lg", className, nonClickable = false, wrappedInLi
 
   const logoContent = (
     <div data-testid="logo" className="flex items-center gap-2">
-      <Image src="/poolara-logo.png" alt="Poolara Logo" width={isLarge ? 64 : 40} height={isLarge ? 64 : 40} priority className="rounded-full" />
+      <Image 
+        src="/poolara-logo.png" 
+        alt="Poolara Logo" 
+        width={isLarge ? 64 : 40} 
+        height={isLarge ? 64 : 40} 
+        priority 
+        className="rounded-full"
+        unoptimized
+        onError={(e) => {
+          console.error('Logo failed to load:', e)
+        }}
+      />
       <span className={textClasses}>POOLARA</span>
     </div>
   )

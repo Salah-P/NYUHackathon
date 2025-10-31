@@ -33,7 +33,7 @@ export function HeroSection() {
         <div className="mx-auto max-w-4xl">
           {/* Logo */}
           <div className="mb-8 flex justify-center">
-            <div className="rounded-full bg-white/90 backdrop-blur-sm px-8 py-4 shadow-xl border border-white/20">
+            <div className="rounded-full bg-[#151627]/90 backdrop-blur-sm px-8 py-4 shadow-xl border border-white/20">
               <Logo size="lg" />
             </div>
           </div>
@@ -65,7 +65,7 @@ export function HeroSection() {
               <Button
                 asChild
                 size="lg"
-                className="w-full sm:w-64 h-16 text-lg font-semibold rounded-full bg-white text-primary hover:bg-red-50 hover:text-red-700 shadow-xl hover:shadow-2xl transition-all duration-300 font-bold"
+                className="w-full sm:w-64 h-16 text-lg font-semibold rounded-full bg-white text-[#FFD700] hover:bg-white/90 hover:text-[#FFD700] shadow-xl hover:shadow-2xl transition-all duration-300 font-bold"
               >
                 <Link href="/signup">Sign Up</Link>
               </Button>
@@ -96,21 +96,21 @@ export function HeroSection() {
           {/* Trust Badges */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
             {/* 500+ Students Badge */}
-            <div className="flex flex-col items-center rounded-2xl bg-white/10 backdrop-blur-sm p-6 shadow-lg border border-white/20 hover:bg-white/15 transition-all duration-300">
+            <div className="flex flex-col items-center rounded-2xl bg-[#151627]/80 backdrop-blur-sm p-6 shadow-lg border border-white/20 hover:bg-[#151627]/90 transition-all duration-300">
               <Users className="h-8 w-8 text-white mb-3" />
               <div className="text-3xl font-bold text-white mb-1">500+</div>
               <div className="text-sm font-medium text-gray-200">Students</div>
             </div>
 
             {/* 1,000+ Rides Badge */}
-            <div className="flex flex-col items-center rounded-2xl bg-white/10 backdrop-blur-sm p-6 shadow-lg border border-white/20 hover:bg-white/15 transition-all duration-300">
+            <div className="flex flex-col items-center rounded-2xl bg-[#151627]/80 backdrop-blur-sm p-6 shadow-lg border border-white/20 hover:bg-[#151627]/90 transition-all duration-300">
               <Car className="h-8 w-8 text-white mb-3" />
               <div className="text-3xl font-bold text-white mb-1">1,000+</div>
               <div className="text-sm font-medium text-gray-200">Rides</div>
             </div>
 
             {/* 4.9★ Rating Badge */}
-            <div className="flex flex-col items-center rounded-2xl bg-white/10 backdrop-blur-sm p-6 shadow-lg border border-white/20 hover:bg-white/15 transition-all duration-300">
+            <div className="flex flex-col items-center rounded-2xl bg-[#151627]/80 backdrop-blur-sm p-6 shadow-lg border border-white/20 hover:bg-[#151627]/90 transition-all duration-300">
               <Star className="h-8 w-8 text-white mb-3 fill-current" />
               <div className="text-3xl font-bold text-white mb-1">4.9★</div>
               <div className="text-sm font-medium text-gray-200">Rating</div>

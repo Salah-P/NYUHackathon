@@ -24,10 +24,10 @@ function BenefitCard({ icon: Icon, title, description, className }: BenefitCardP
       </div>
       
       {/* Content */}
-      <h3 className="text-xl font-bold text-gray-900 mb-4">
+      <h3 className="text-xl font-bold text-white mb-4">
         {title}
       </h3>
-      <p className="text-gray-600 leading-relaxed">
+      <p className="text-gray-300 leading-relaxed">
         {description}
       </p>
     </Card>
@@ -65,17 +65,17 @@ export function BenefitsSection() {
     <section 
       ref={elementRef}
       className={cn(
-        "w-full py-20 bg-white scroll-reveal",
+        "w-full py-20 bg-[#151627] scroll-reveal",
         isVisible && "visible"
       )}
     >
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-4xl font-bold text-white mb-4">
             Built for Students, by Students.
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
             Why Choose Poolara
           </p>
         </div>
