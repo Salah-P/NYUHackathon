@@ -106,10 +106,10 @@ export function Header() {
                 <Link 
                   href="/dashboard" 
                   className={cn(
-                    "text-sm font-medium transition-colors duration-300 nav-link-blue",
+                    "text-sm font-medium transition-colors duration-300 nav-link-blue rounded-md px-2 py-1",
                     isActiveLink("/dashboard")
                       ? "text-gold font-semibold"
-                      : "text-gray-400 hover:text-accent"
+                      : "text-white/85 hover:text-white hover:bg-blue-500/10 hover:shadow-[0_0_15px_rgba(65,105,225,0.6)]"
                   )}
                 >
                   Dashboard
@@ -117,10 +117,10 @@ export function Header() {
                 <Link 
                   href="/find-ride" 
                   className={cn(
-                    "text-sm font-medium transition-colors duration-300 nav-link-blue",
+                    "text-sm font-medium transition-colors duration-300 nav-link-blue rounded-md px-2 py-1",
                     isActiveLink("/find-ride")
                       ? "text-gold font-semibold"
-                      : "text-gray-400 hover:text-accent"
+                      : "text-white/85 hover:text-white hover:bg-blue-500/10 hover:shadow-[0_0_15px_rgba(65,105,225,0.6)]"
                   )}
                 >
                   Find Ride
@@ -128,10 +128,10 @@ export function Header() {
                 <Link 
                   href="/post-ride" 
                   className={cn(
-                    "text-sm font-medium transition-colors duration-300 nav-link-blue",
+                    "text-sm font-medium transition-colors duration-300 nav-link-blue rounded-md px-2 py-1",
                     isActiveLink("/post-ride")
                       ? "text-gold font-semibold"
-                      : "text-gray-400 hover:text-accent"
+                      : "text-white/85 hover:text-white hover:bg-blue-500/10 hover:shadow-[0_0_15px_rgba(65,105,225,0.6)]"
                   )}
                 >
                   Post Ride
@@ -139,10 +139,10 @@ export function Header() {
                 <Link 
                   href="/wallet" 
                   className={cn(
-                    "text-sm font-medium transition-colors duration-300 nav-link-blue",
+                    "text-sm font-medium transition-colors duration-300 nav-link-blue rounded-md px-2 py-1",
                     isActiveLink("/wallet")
                       ? "text-gold font-semibold"
-                      : "text-gray-400 hover:text-accent"
+                      : "text-white/85 hover:text-white hover:bg-blue-500/10 hover:shadow-[0_0_15px_rgba(65,105,225,0.6)]"
                   )}
                 >
                   Wallet
@@ -150,10 +150,10 @@ export function Header() {
                 <Link 
                   href="/profile" 
                   className={cn(
-                    "text-sm font-medium transition-colors duration-300 nav-link-blue",
+                    "text-sm font-medium transition-colors duration-300 nav-link-blue rounded-md px-2 py-1",
                     isActiveLink("/profile")
                       ? "text-gold font-semibold"
-                      : "text-gray-400 hover:text-accent"
+                      : "text-white/85 hover:text-white hover:bg-blue-500/10 hover:shadow-[0_0_15px_rgba(65,105,225,0.6)]"
                   )}
                 >
                   Profile
@@ -180,10 +180,10 @@ export function Header() {
                 <Link 
                   href="/" 
                   className={cn(
-                    "text-sm font-medium transition-colors duration-300 nav-link-blue",
+                    "text-sm font-medium transition-colors duration-300 nav-link-blue rounded-md px-2 py-1",
                     isActiveLink("/")
                       ? "text-primary font-semibold"
-                      : "text-secondary hover:text-primary"
+                      : "text-white/85 hover:text-white hover:bg-blue-500/10 hover:shadow-[0_0_15px_rgba(65,105,225,0.6)]"
                   )}
                 >
                   Home
@@ -191,10 +191,10 @@ export function Header() {
                 <Link 
                   href="/about" 
                   className={cn(
-                    "text-sm font-medium transition-colors duration-300 nav-link-blue",
+                    "text-sm font-medium transition-colors duration-300 nav-link-blue rounded-md px-2 py-1",
                     isActiveLink("/about")
                       ? "text-primary font-semibold"
-                      : "text-secondary hover:text-primary"
+                      : "text-white/85 hover:text-white hover:bg-blue-500/10 hover:shadow-[0_0_15px_rgba(65,105,225,0.6)]"
                   )}
                 >
                   About
@@ -202,10 +202,10 @@ export function Header() {
                 <Link 
                   href="/contact" 
                   className={cn(
-                    "text-sm font-medium transition-colors duration-300 nav-link-blue",
+                    "text-sm font-medium transition-colors duration-300 nav-link-blue rounded-md px-2 py-1",
                     isActiveLink("/contact")
                       ? "text-primary font-semibold"
-                      : "text-secondary hover:text-primary"
+                      : "text-white/85 hover:text-white hover:bg-blue-500/10 hover:shadow-[0_0_15px_rgba(65,105,225,0.6)]"
                   )}
                 >
                   Contact Us
@@ -247,7 +247,7 @@ export function Header() {
       
       {/* Mobile Menu Dropdown */}
       {isMobileMenuOpen && (
-        <div className="md:hidden border-t border-secondary bg-white shadow-lg">
+        <div className="md:hidden border-t border-[#333] bg-black shadow-lg">
           <div className="container mx-auto px-4 py-4">
             {isAuthenticated ? (
               /* Authenticated Mobile Navigation */
@@ -258,8 +258,8 @@ export function Header() {
                   className={cn(
                     "block px-4 py-3 text-sm font-medium transition-colors duration-300 rounded-lg",
                     isActiveLink("/dashboard")
-                      ? "text-primary font-semibold"
-                      : "text-secondary hover:text-primary"
+                      ? "text-gold font-semibold"
+                      : "text-white/85 hover:text-white hover:bg-blue-500/10 hover:shadow-[0_0_15px_rgba(65,105,225,0.6)]"
                   )}
                 >
                   Dashboard
@@ -270,8 +270,8 @@ export function Header() {
                   className={cn(
                     "block px-4 py-3 text-sm font-medium transition-colors duration-300 rounded-lg",
                     isActiveLink("/find-ride")
-                      ? "text-primary font-semibold"
-                      : "text-secondary hover:text-primary"
+                      ? "text-gold font-semibold"
+                      : "text-white/85 hover:text-white hover:bg-blue-500/10 hover:shadow-[0_0_15px_rgba(65,105,225,0.6)]"
                   )}
                 >
                   Find Ride
@@ -282,8 +282,8 @@ export function Header() {
                   className={cn(
                     "block px-4 py-3 text-sm font-medium transition-colors duration-300 rounded-lg",
                     isActiveLink("/post-ride")
-                      ? "text-primary font-semibold"
-                      : "text-secondary hover:text-primary"
+                      ? "text-gold font-semibold"
+                      : "text-white/85 hover:text-white hover:bg-blue-500/10 hover:shadow-[0_0_15px_rgba(65,105,225,0.6)]"
                   )}
                 >
                   Post Ride
@@ -294,8 +294,8 @@ export function Header() {
                   className={cn(
                     "block px-4 py-3 text-sm font-medium transition-colors duration-300 rounded-lg",
                     isActiveLink("/wallet")
-                      ? "text-primary font-semibold"
-                      : "text-secondary hover:text-primary"
+                      ? "text-gold font-semibold"
+                      : "text-white/85 hover:text-white hover:bg-blue-500/10 hover:shadow-[0_0_15px_rgba(65,105,225,0.6)]"
                   )}
                 >
                   Wallet
@@ -306,8 +306,8 @@ export function Header() {
                   className={cn(
                     "block px-4 py-3 text-sm font-medium transition-colors duration-300 rounded-lg",
                     isActiveLink("/profile")
-                      ? "text-primary font-semibold"
-                      : "text-secondary hover:text-primary"
+                      ? "text-gold font-semibold"
+                      : "text-white/85 hover:text-white hover:bg-blue-500/10 hover:shadow-[0_0_15px_rgba(65,105,225,0.6)]"
                   )}
                 >
                   Profile

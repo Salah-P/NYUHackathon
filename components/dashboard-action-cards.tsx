@@ -20,7 +20,7 @@ function ActionCard({ icon: Icon, title, description, href, bgColor, iconColor }
       href={href}
       className={cn(
         "group block p-8 rounded-2xl transition-transform duration-200",
-        "bg-[#4169E1] border-2 border-[#FFD700]",
+        "bg-[#03045e] border-2 border-[#FFD700]",
         "hover:scale-105 hover:shadow-2xl",
         "cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2",
         bgColor
@@ -30,7 +30,7 @@ function ActionCard({ icon: Icon, title, description, href, bgColor, iconColor }
         {/* Icon */}
         <div className={cn(
           "flex items-center justify-center w-16 h-16 rounded-full mb-6 action-card-icon border-2 border-[#FFD700]",
-          "bg-[#4169E1] shadow-lg group-hover:shadow-xl"
+          "bg-[#03045e] shadow-lg group-hover:shadow-xl"
         )}>
           <Icon className={cn(
             "w-8 h-8 text-[#FFD700] action-card-text",
