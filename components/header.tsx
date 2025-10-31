@@ -65,10 +65,7 @@ export function Header() {
       data-testid="main-header"
       className={cn(
         "sticky top-0 z-40 w-full border-b transition-all duration-300 ease-in-out",
-        // Dynamic classes based on scroll state
-        isScrolled
-          ? "bg-background-light/80 backdrop-blur-md shadow-sm border-border"
-          : "bg-transparent border-transparent"
+        "bg-black border-[#FFD700]"
       )}
     >
       <div className="container mx-auto flex h-16 items-center justify-between px-4">

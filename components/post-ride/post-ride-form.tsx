@@ -203,11 +203,11 @@ export function PostRideForm() {
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
-      {/* Header */}
-      <header className="text-center pt-6 pb-4 bg-black rounded-2xl shadow-md">
+      {/* Header (no card) */}
+      <div className="text-center pt-4 pb-2">
         <h1 className="h1 tracking-wide">POST A RIDE</h1>
         <p className="text-white/80 mt-2">Share your journey and help others travel together</p>
-      </header>
+      </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Driver Information */}
@@ -278,7 +278,7 @@ export function PostRideForm() {
                       {selectedDate ? format(selectedDate, 'PPP') : <span>Select a date</span>}
                     </UIButton>
                   </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0" align="start">
+                  <PopoverContent className="w-auto p-0 bg-black text-white border border-[#FFD700]" align="start">
                     <Calendar
                       mode="single"
                       selected={selectedDate}

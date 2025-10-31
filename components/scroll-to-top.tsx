@@ -43,10 +43,10 @@ export function ScrollToTop() {
       className={cn(
         "fixed bottom-6 right-6 z-50 scroll-to-top-btn",
         "flex items-center justify-center w-12 h-12",
-        "bg-gradient-to-r from-emerald-500 to-teal-500",
+        "bg-gradient-poolara-blue border-2 border-[#FFD700]",
         "text-white rounded-full shadow-lg",
         "hover:shadow-xl",
-        "focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2",
+        "focus:outline-none focus:ring-2 focus:ring-[#FFD700] focus:ring-offset-2",
         isVisible 
           ? "opacity-100 translate-y-0 scale-100" 
           : "opacity-0 translate-y-4 scale-95 pointer-events-none"
