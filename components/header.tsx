@@ -65,8 +65,9 @@ export function Header() {
       data-testid="main-header"
       className={cn(
         "sticky top-0 z-40 w-full border-b transition-all duration-300 ease-in-out",
-        "bg-[#000000] border-[#FFD700]"
+        "border-[#FFD700]"
       )}
+      style={{ backgroundColor: '#000000' }}
     >
       <div className="container mx-auto flex h-16 items-center justify-around md:justify-center md:gap-8">
         {/* Logo on the left */}
@@ -247,7 +248,7 @@ export function Header() {
       
       {/* Mobile Menu Dropdown */}
       {isMobileMenuOpen && (
-        <div className="md:hidden border-t border-white/20 bg-[#000000] shadow-lg">
+        <div className="md:hidden border-t border-white/20 shadow-lg" style={{ backgroundColor: '#000000' }}>
           <div className="container mx-auto px-4 py-4">
             {isAuthenticated ? (
               /* Authenticated Mobile Navigation */

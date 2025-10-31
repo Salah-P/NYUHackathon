@@ -239,6 +239,12 @@ input:focus, textarea:focus, select:focus {
   text-underline-offset: 3px;
 }
 
+/* Force header background to black - override any other styles */
+header[data-testid="main-header"] {
+  background-color: #000000 !important;
+  background: #000000 !important;
+}
+
 /* Animated lines for login page */
 @keyframes move-line {
   0% {
