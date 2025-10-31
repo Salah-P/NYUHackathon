@@ -5,8 +5,8 @@ import { FAQSection } from "@/components/faq-section"
 import { Logo } from "@/components/logo"
 
 export const metadata: Metadata = {
-  title: "Contact Us | UniRide",
-  description: "Get in touch with UniRide support team",
+  title: "Contact Us | Poolara",
+  description: "Get in touch with Poolara support team",
 }
 
 // Cache control for contact page

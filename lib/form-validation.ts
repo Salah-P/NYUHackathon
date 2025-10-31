@@ -1,5 +1,5 @@
 /**
- * Form validation utilities for UniRide
+ * Form validation utilities for Poolara
  */
 
 // Email validation for university domains

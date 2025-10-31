@@ -3,7 +3,7 @@ import { ProtectedRoute } from "@/components/protected-route"
 import { DashboardContent } from "./dashboard-content"
 
 export const metadata: Metadata = {
-  title: "Dashboard | UniRide",
+  title: "Dashboard | Poolara",
   description: "Manage your rides, wallet, and profile",
   robots: {
     index: false,

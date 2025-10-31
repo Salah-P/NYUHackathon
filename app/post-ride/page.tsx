@@ -3,7 +3,7 @@ import { ProtectedRoute } from "@/components/protected-route"
 import { PostRidePageClient } from "./post-ride-page-client"
 
 export const metadata: Metadata = {
-  title: "Post a Ride | UniRide",
+  title: "Post a Ride | Poolara",
   robots: {
     index: false,
     follow: true,

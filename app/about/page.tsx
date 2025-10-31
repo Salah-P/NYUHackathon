@@ -5,8 +5,8 @@ import { Card } from "@/components/ui/card"
 import { Logo } from "@/components/logo"
 
 export const metadata = {
-  title: "About Us | UniRide",
-  description: "Learn about UniRide's mission to connect university students through safe, affordable, and sustainable carpooling",
+  title: "About Us | Poolara",
+  description: "Learn about Poolara's mission to connect university students through safe, affordable, and sustainable carpooling",
 }
 
 // Cache control for about page - can be cached for longer as it's static content
@@ -83,7 +83,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
               <p className="text-lg text-gray-700 leading-relaxed">
-                UniRide was born from a simple observation: university students in the UAE face significant 
+                Poolara was born from a simple observation: university students in the UAE face significant 
                 transportation challenges that affect both their wallets and the environment. Whether commuting 
                 between emirates or navigating busy city roads, students were struggling with expensive ride-hailing 
                 costs and unreliable public transport schedules.
@@ -95,7 +95,7 @@ export default function AboutPage() {
                 convenient, and sustainable.
               </p>
               <p className="text-lg text-gray-700 leading-relaxed">
-                Today, UniRide has grown into the UAE's first student-exclusive carpooling platform, connecting 
+                Today, Poolara has grown into the UAE's first student-exclusive carpooling platform, connecting 
                 verified university students across multiple emirates and making transportation more affordable 
                 while reducing our collective environmental impact.
               </p>
@@ -157,7 +157,7 @@ export default function AboutPage() {
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">How It Works</h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Getting started with UniRide is simple and straightforward
+              Getting started with Poolara is simple and straightforward
             </p>
             <div className="w-24 h-1 bg-gradient-to-r from-emerald-500 to-teal-500 mx-auto rounded-full mt-6"></div>
           </div>
@@ -200,7 +200,7 @@ export default function AboutPage() {
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Values</h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              The principles that guide everything we do at UniRide
+              The principles that guide everything we do at Poolara
             </p>
             <div className="w-24 h-1 bg-gradient-to-r from-emerald-500 to-teal-500 mx-auto rounded-full mt-6"></div>
           </div>
@@ -221,7 +221,7 @@ export default function AboutPage() {
         {/* Join Us Section */}
         <section className="bg-gradient-to-br from-emerald-600 to-teal-600 rounded-2xl p-12 text-white">
           <div className="max-w-4xl mx-auto text-center space-y-8">
-            <h2 className="text-4xl font-bold mb-4">Join the UniRide Community</h2>
+            <h2 className="text-4xl font-bold mb-4">Join the Poolara Community</h2>
             <p className="text-xl opacity-90 max-w-2xl mx-auto leading-relaxed">
               Be part of the growing community of students making transportation more sustainable, affordable, and connected across the UAE.
             </p>

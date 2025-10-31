@@ -4,8 +4,8 @@ import { Button } from "@/components/ui/button"
 import { Logo } from "@/components/logo"
 
 export const metadata = {
-  title: "Terms of Service | UniRide",
-  description: "Terms of Service for UniRide student carpooling platform",
+  title: "Terms of Service | Poolara",
+  description: "Terms of Service for Poolara student carpooling platform",
 }
 
 // Cache control for terms page - can be cached for longer as it's legal content
@@ -86,9 +86,9 @@ export default function TermsOfService() {
             {/* Introduction */}
             <div className="mb-8">
               <p className="text-lg text-gray-700 leading-relaxed">
-                Welcome to UniRide, a student carpooling platform that connects university students for safe, 
+                Welcome to Poolara, a student carpooling platform that connects university students for safe, 
                 affordable, and sustainable transportation. These Terms of Service ("Terms") govern your use of 
-                our platform and services. By accessing or using UniRide, you agree to be bound by these Terms.
+                our platform and services. By accessing or using Poolara, you agree to be bound by these Terms.
               </p>
             </div>
 
@@ -97,12 +97,12 @@ export default function TermsOfService() {
               <h2 className="text-2xl font-semibold text-gray-900 mb-4">1. Acceptance of Terms</h2>
               <div className="space-y-4 text-gray-700">
                 <p>
-                  By accessing, browsing, or using the UniRide platform, you acknowledge that you have read, 
+                  By accessing, browsing, or using the Poolara platform, you acknowledge that you have read, 
                   understood, and agree to be bound by these Terms and our Privacy Policy. If you do not agree 
                   to these Terms, you may not use our services.
                 </p>
                 <p>
-                  These Terms constitute a legally binding agreement between you and UniRide. We reserve the 
+                  These Terms constitute a legally binding agreement between you and Poolara. We reserve the 
                   right to modify these Terms at any time, and your continued use of the platform constitutes 
                   acceptance of any changes.
                 </p>
@@ -114,7 +114,7 @@ export default function TermsOfService() {
               <h2 className="text-2xl font-semibold text-gray-900 mb-4">2. User Eligibility</h2>
               <div className="space-y-4 text-gray-700">
                 <p>
-                  To use UniRide, you must meet the following eligibility requirements:
+                  To use Poolara, you must meet the following eligibility requirements:
                 </p>
                 <ul className="list-disc pl-6 space-y-2">
                   <li>
@@ -139,7 +139,7 @@ export default function TermsOfService() {
                   </li>
                 </ul>
                 <p>
-                  UniRide reserves the right to verify your student status and may request additional 
+                  Poolara reserves the right to verify your student status and may request additional 
                   documentation at any time to confirm your eligibility.
                 </p>
               </div>
@@ -151,21 +151,21 @@ export default function TermsOfService() {
               <div className="space-y-4 text-gray-700">
                 <h3 className="text-xl font-medium text-gray-900">Account Creation</h3>
                 <p>
-                  To use UniRide, you must create an account by providing accurate, current, and complete 
+                  To use Poolara, you must create an account by providing accurate, current, and complete 
                   information including your name, university email, phone number, and other requested details.
                 </p>
                 
                 <h3 className="text-xl font-medium text-gray-900">Account Security</h3>
                 <ul className="list-disc pl-6 space-y-2">
                   <li>You are responsible for maintaining the confidentiality of your account credentials.</li>
-                  <li>You must notify UniRide immediately of any unauthorized use of your account.</li>
+                  <li>You must notify Poolara immediately of any unauthorized use of your account.</li>
                   <li>You are responsible for all activities that occur under your account.</li>
                   <li>Do not share your account credentials with others or allow others to use your account.</li>
                 </ul>
 
                 <h3 className="text-xl font-medium text-gray-900">Account Verification</h3>
                 <p>
-                  UniRide may require verification of your identity and student status through various methods, 
+                  Poolara may require verification of your identity and student status through various methods, 
                   including but not limited to email verification, phone number verification, and university ID verification.
                 </p>
               </div>
@@ -243,7 +243,7 @@ export default function TermsOfService() {
               <div className="space-y-4 text-gray-700">
                 <h3 className="text-xl font-medium text-gray-900">Payment Methods</h3>
                 <p>
-                  All payments on UniRide are processed securely through our integrated wallet system and 
+                  All payments on Poolara are processed securely through our integrated wallet system and 
                   verified payment processors. You may add funds to your wallet using various payment methods.
                 </p>
 
@@ -277,7 +277,7 @@ export default function TermsOfService() {
               <h2 className="text-2xl font-semibold text-gray-900 mb-4">7. Safety and Conduct</h2>
               <div className="space-y-4 text-gray-700">
                 <h3 className="text-xl font-medium text-gray-900">Prohibited Behavior</h3>
-                <p>The following behaviors are strictly prohibited on UniRide:</p>
+                <p>The following behaviors are strictly prohibited on Poolara:</p>
                 <ul className="list-disc pl-6 space-y-2">
                   <li>Harassment, discrimination, or mistreatment of any kind</li>
                   <li>Use of alcohol or drugs during rides</li>
@@ -299,7 +299,7 @@ export default function TermsOfService() {
                 <h3 className="text-xl font-medium text-gray-900">Emergency Procedures</h3>
                 <ul className="list-disc pl-6 space-y-2">
                   <li>In case of emergency, contact local emergency services immediately.</li>
-                  <li>Report emergency situations to UniRide as soon as it is safe to do so.</li>
+                  <li>Report emergency situations to Poolara as soon as it is safe to do so.</li>
                   <li>Follow emergency protocols as instructed by authorities.</li>
                 </ul>
               </div>
@@ -311,25 +311,25 @@ export default function TermsOfService() {
               <div className="space-y-4 text-gray-700">
                 <h3 className="text-xl font-medium text-gray-900">Limitation of Liability</h3>
                 <p>
-                  UniRide serves as a platform connecting students for carpooling services. We do not provide 
+                  Poolara serves as a platform connecting students for carpooling services. We do not provide 
                   transportation services directly and are not responsible for the actions of individual users.
                 </p>
 
                 <h3 className="text-xl font-medium text-gray-900">User Interactions</h3>
                 <p>
                   Users are solely responsible for their interactions with other users on the platform. 
-                  UniRide does not guarantee the safety, reliability, or quality of services provided by users.
+                  Poolara does not guarantee the safety, reliability, or quality of services provided by users.
                 </p>
 
                 <h3 className="text-xl font-medium text-gray-900">Vehicle and Insurance</h3>
                 <p>
                   Drivers are responsible for maintaining their own vehicle insurance and ensuring their vehicles 
-                  meet safety requirements. UniRide does not provide auto insurance coverage.
+                  meet safety requirements. Poolara does not provide auto insurance coverage.
                 </p>
 
                 <h3 className="text-xl font-medium text-gray-900">Platform Availability</h3>
                 <p>
-                  While we strive to maintain continuous platform availability, UniRide does not guarantee 
+                  While we strive to maintain continuous platform availability, Poolara does not guarantee 
                   uninterrupted service and is not liable for temporary outages or technical issues.
                 </p>
               </div>
@@ -345,9 +345,9 @@ export default function TermsOfService() {
                   features in your profile settings.
                 </p>
 
-                <h3 className="text-xl font-medium text-gray-900">Termination by UniRide</h3>
+                <h3 className="text-xl font-medium text-gray-900">Termination by Poolara</h3>
                 <p>
-                  UniRide reserves the right to suspend or terminate your account immediately, without notice, 
+                  Poolara reserves the right to suspend or terminate your account immediately, without notice, 
                   for violations of these Terms, including but not limited to:
                 </p>
                 <ul className="list-disc pl-6 space-y-2">
@@ -371,7 +371,7 @@ export default function TermsOfService() {
               <h2 className="text-2xl font-semibold text-gray-900 mb-4">10. Changes to Terms</h2>
               <div className="space-y-4 text-gray-700">
                 <p>
-                  UniRide may update these Terms of Service from time to time. We will notify users of 
+                  Poolara may update these Terms of Service from time to time. We will notify users of 
                   significant changes through email, platform notifications, or prominent website notices.
                 </p>
                 <p>
@@ -389,13 +389,13 @@ export default function TermsOfService() {
               <h2 className="text-2xl font-semibold text-gray-900 mb-4">11. Contact Information</h2>
               <div className="space-y-4 text-gray-700">
                 <p>
-                  If you have questions about these Terms of Service or need to contact UniRide, please use 
+                  If you have questions about these Terms of Service or need to contact Poolara, please use 
                   the following methods:
                 </p>
                 <div className="bg-gray-50 p-6 rounded-lg">
-                  <h3 className="text-lg font-medium text-gray-900 mb-3">UniRide Support</h3>
+                  <h3 className="text-lg font-medium text-gray-900 mb-3">Poolara Support</h3>
                   <ul className="space-y-2">
-                    <li><strong>Email:</strong> support@uniride.ae</li>
+                    <li><strong>Email:</strong> support@poolara.ae</li>
                     <li><strong>Website:</strong> <a href="/contact" className="text-emerald-600 hover:text-emerald-700">Contact Us Page</a></li>
                     <li><strong>Response Time:</strong> We typically respond within 24-48 hours</li>
                   </ul>

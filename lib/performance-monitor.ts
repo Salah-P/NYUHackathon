@@ -1,5 +1,5 @@
 /**
- * Performance monitoring utilities for UniRide
+ * Performance monitoring utilities for Poolara
  * Tracks Core Web Vitals and custom performance metrics
  */
 

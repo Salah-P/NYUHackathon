@@ -4,8 +4,8 @@ import { Button } from "@/components/ui/button"
 import { Logo } from "@/components/logo"
 
 export const metadata = {
-  title: "Privacy Policy | UniRide",
-  description: "Privacy Policy for UniRide student carpooling platform - How we protect and handle your data",
+  title: "Privacy Policy | Poolara",
+  description: "Privacy Policy for Poolara student carpooling platform - How we protect and handle your data",
 }
 
 // Cache control for privacy page - can be cached for longer as it's legal content
@@ -88,7 +88,7 @@ export default function PrivacyPolicy() {
               <div className="mb-8">
                 <h2 className="text-2xl font-semibold text-gray-900 mb-4">Our Commitment to Your Privacy</h2>
                 <p className="text-lg text-gray-700 leading-relaxed">
-                  At UniRide, we are committed to protecting your privacy and ensuring the security of your personal information. 
+                  At Poolara, we are committed to protecting your privacy and ensuring the security of your personal information. 
                   As a student-focused carpooling platform, we understand the importance of maintaining trust and transparency 
                   when handling your data. This Privacy Policy explains how we collect, use, store, and protect your information 
                   when you use our services.
@@ -410,7 +410,7 @@ export default function PrivacyPolicy() {
                 </p>
                 <ul className="list-disc pl-6 space-y-2">
                   <li>Update information directly through your account settings</li>
-                  <li>Contact our support team through the platform or at privacy@uniride.ae</li>
+                  <li>Contact our support team through the platform or at privacy@poolara.ae</li>
                   <li>Use account deletion features in your profile settings</li>
                 </ul>
               </div>
@@ -511,7 +511,7 @@ export default function PrivacyPolicy() {
                 <div className="bg-green-50 p-4 rounded-lg border border-green-200">
                   <p className="text-green-800">
                     <strong>Important:</strong> All third-party partners are bound by strict data protection 
-                    agreements and may only use your information for the specific services they provide to UniRide. 
+                    agreements and may only use your information for the specific services they provide to Poolara. 
                     We regularly audit our partners to ensure compliance with our privacy standards.
                   </p>
                 </div>
@@ -524,7 +524,7 @@ export default function PrivacyPolicy() {
               <div className="space-y-4 text-gray-700">
                 <div className="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
                   <p className="text-yellow-800">
-                    <strong>University Students Only:</strong> UniRide is designed exclusively for university 
+                    <strong>University Students Only:</strong> Poolara is designed exclusively for university 
                     students and is not intended for use by children under 18 without appropriate supervision.
                   </p>
                 </div>
@@ -587,7 +587,7 @@ export default function PrivacyPolicy() {
 
                 <h3 className="text-xl font-medium text-gray-900">Your Continued Use</h3>
                 <p>
-                  Your continued use of UniRide after any changes to this Privacy Policy constitutes your 
+                  Your continued use of Poolara after any changes to this Privacy Policy constitutes your 
                   acceptance of the updated terms. If you do not agree with the changes, you should 
                   discontinue use of our platform and may request account deletion if desired.
                 </p>
@@ -614,10 +614,10 @@ export default function PrivacyPolicy() {
                   <h3 className="text-lg font-medium text-gray-900 mb-3">Privacy Contact Information</h3>
                   <ul className="space-y-3">
                     <li>
-                      <strong>Privacy Officer Email:</strong> privacy@uniride.ae
+                      <strong>Privacy Officer Email:</strong> privacy@poolara.ae
                     </li>
                     <li>
-                      <strong>General Support:</strong> support@uniride.ae
+                      <strong>General Support:</strong> support@poolara.ae
                     </li>
                     <li>
                       <strong>Contact Form:</strong> <a href="/contact" className="text-emerald-600 hover:text-emerald-700">Use our Contact Us page</a>

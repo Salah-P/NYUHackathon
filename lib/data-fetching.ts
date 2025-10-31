@@ -1,5 +1,5 @@
 /**
- * Data fetching utilities with caching for UniRide
+ * Data fetching utilities with caching for Poolara
  * Uses the caching system for API responses and data
  */
 

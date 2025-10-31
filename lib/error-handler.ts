@@ -1,5 +1,5 @@
 /**
- * Global error handling utilities for UniRide
+ * Global error handling utilities for Poolara
  */
 
 export interface ErrorInfo {
@@ -28,7 +28,7 @@ export function logError(error: Error, errorInfo?: any) {
 
   // Console logging for development only
   if (process.env.NODE_ENV === 'development') {
-    console.error("UniRide Error:", errorData)
+    console.error("Poolara Error:", errorData)
   }
 
   // TODO: Future error tracking service integration

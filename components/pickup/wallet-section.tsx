@@ -40,7 +40,7 @@ export function WalletSection({ balance, isConnected, onConnect }: WalletSection
         </Button>
       )}
       <p className="text-xs text-muted-foreground">
-        {isConnected ? "Your wallet is connected and ready for payment" : "Connect your UniRide wallet to proceed"}
+        {isConnected ? "Your wallet is connected and ready for payment" : "Connect your Poolara wallet to proceed"}
       </p>
     </div>
   )

@@ -202,7 +202,7 @@ function WalletPageContent() {
       <div className="container mx-auto max-w-4xl space-y-6 px-4 py-8 pb-24 md:pb-8">
         <div className="space-y-2">
           <h1 className="text-3xl font-bold text-foreground">My Wallet</h1>
-          <p className="text-muted-foreground">Manage your UniRide wallet and transactions</p>
+          <p className="text-muted-foreground">Manage your Poolara wallet and transactions</p>
         </div>
         <div className="space-y-4">
           <div className="h-32 bg-gray-200 animate-pulse rounded-lg"></div>
@@ -221,7 +221,7 @@ function WalletPageContent() {
       {/* Header */}
       <div className="space-y-2">
         <h1 className="text-3xl font-bold text-foreground">My Wallet</h1>
-        <p className="text-muted-foreground">Manage your UniRide wallet and transactions</p>
+        <p className="text-muted-foreground">Manage your Poolara wallet and transactions</p>
       </div>
 
       {/* Balance Card */}
@@ -312,7 +312,7 @@ function WalletPageContent() {
               <CreditCard className="mx-auto h-12 w-12 text-[#FFD700] mb-4" />
               <h3 className="text-lg font-semibold text-foreground mb-2">No transactions yet</h3>
               <p className="text-sm text-muted-foreground mb-4">
-                Your transaction history will appear here once you start using UniRide.
+                Your transaction history will appear here once you start using Poolara.
               </p>
               <div className="flex gap-2 justify-center">
                 <a 

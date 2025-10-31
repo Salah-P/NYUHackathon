@@ -17,7 +17,7 @@ const faqData = [
   },
   {
     id: "safety",
-    question: "Is UniRide safe to use?",
+    question: "Is Poolara safe to use?",
     answer: "Yes! All users are verified students, and drivers are rated by passengers. We prioritize your safety."
   },
   {
@@ -40,7 +40,7 @@ export function FAQSection() {
           Frequently Asked Questions
         </h2>
         <p className="text-lg text-gray-600">
-          Find answers to common questions about UniRide
+          Find answers to common questions about Poolara
         </p>
       </div>
 

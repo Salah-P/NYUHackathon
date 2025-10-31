@@ -2,8 +2,8 @@ import type { Metadata } from "next"
 import { LoginPageClient } from "./login-page-client"
 
 export const metadata: Metadata = {
-  title: "Login | UniRide",
-  description: "Sign in to your UniRide account",
+  title: "Login | Poolara",
+  description: "Sign in to your Poolara account",
 }
 
 export default function LoginPage() {

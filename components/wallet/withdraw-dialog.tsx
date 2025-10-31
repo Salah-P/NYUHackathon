@@ -123,7 +123,7 @@ export function WithdrawDialog({ currentBalance, onWithdrawSuccess }: WithdrawDi
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle>Withdraw Funds</DialogTitle>
-          <DialogDescription>Transfer funds from your UniRide wallet to your bank account.</DialogDescription>
+          <DialogDescription>Transfer funds from your Poolara wallet to your bank account.</DialogDescription>
         </DialogHeader>
         <div className="space-y-4">
           {showSuccess && (

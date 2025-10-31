@@ -13,10 +13,10 @@ import { Toaster } from "@/components/ui/toaster"
 import { organizationSchema, websiteSchema, webApplicationSchema } from "./structured-data"
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NODE_ENV === 'production' ? 'https://uniride.ae' : 'http://localhost:3000'),
+  metadataBase: new URL(process.env.NODE_ENV === 'production' ? 'https://poolara.ae' : 'http://localhost:3000'),
   title: {
-    default: "UniRide - Student Carpooling Across UAE",
-    template: "%s | UniRide"
+    default: "Poolara - Student Carpooling Across UAE",
+    template: "%s | Poolara"
   },
   description: "Connect with verified university students for safe, affordable carpooling across UAE emirates. Save money, meet friends, travel sustainably.",
   keywords: [
@@ -43,11 +43,11 @@ export const metadata: Metadata = {
     "safe rides",
     "affordable transport"
   ],
-  authors: [{ name: "UniRide" }],
-  creator: "UniRide",
-  publisher: "UniRide",
+  authors: [{ name: "Poolara" }],
+  creator: "Poolara",
+  publisher: "Poolara",
   generator: "Next.js",
-  applicationName: "UniRide",
+  applicationName: "Poolara",
   referrer: "origin-when-cross-origin",
   robots: {
     index: true,
@@ -63,34 +63,34 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://uniride.ae", // Update with your actual domain
-    siteName: "UniRide",
-    title: "UniRide - Student Carpooling Across UAE",
+    url: "https://poolara.ae", // Update with your actual domain
+    siteName: "Poolara",
+    title: "Poolara - Student Carpooling Across UAE",
     description: "Connect with verified university students for safe, affordable carpooling across UAE emirates. Save money, meet friends, travel sustainably.",
     images: [
       {
         url: "/og-image.svg", // Generated social share image
         width: 1200,
         height: 630,
-        alt: "UniRide - Student Carpooling Across UAE",
+        alt: "Poolara - Student Carpooling Across UAE",
         type: "image/svg+xml",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "UniRide - Student Carpooling Across UAE",
+    title: "Poolara - Student Carpooling Across UAE",
     description: "Connect with verified university students for safe, affordable carpooling across UAE emirates. Save money, meet friends, travel sustainably.",
     images: ["/og-image.svg"], // Using the same OG image for Twitter
-    creator: "@uniride_ae", // Update with your actual Twitter handle
-    site: "@uniride_ae", // Update with your actual Twitter handle
+    creator: "@poolara_ae", // Update with your actual Twitter handle
+    site: "@poolara_ae", // Update with your actual Twitter handle
   },
   verification: {
     google: "your-google-verification-code", // Add your Google Search Console verification code
     yandex: "your-yandex-verification-code", // Add if you use Yandex
   },
   alternates: {
-    canonical: "https://uniride.ae", // Update with your actual domain
+    canonical: "https://poolara.ae", // Update with your actual domain
   },
   category: "transportation",
   classification: "Student Transportation Service",

@@ -1,6 +1,6 @@
 {
-  "name": "UniRide - Student Carpooling",
-  "short_name": "UniRide",
+  "name": "Poolara - Student Carpooling",
+  "short_name": "Poolara",
   "description": "Connect with verified university students for safe, affordable carpooling across UAE emirates",
   "start_url": "/",
   "display": "standalone",
@@ -30,7 +30,7 @@
       "sizes": "1200x630",
       "type": "image/svg+xml",
       "form_factor": "wide",
-      "label": "UniRide landing page"
+      "label": "Poolara landing page"
     }
   ]
 }

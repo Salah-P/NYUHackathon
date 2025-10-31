@@ -103,7 +103,7 @@ export function SignupForm() {
         setSuccess(true)
         toast({
           variant: "success",
-          title: "Account created! Welcome to UniRide",
+          title: "Account created! Welcome to Poolara",
           description: "You can now start finding and posting rides."
         })
         // Redirect after showing toast
@@ -142,7 +142,7 @@ export function SignupForm() {
         <CardTitle className="text-2xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
           Create Account
         </CardTitle>
-        <CardDescription>Join UniRide with your university email</CardDescription>
+        <CardDescription>Join Poolara with your university email</CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -336,7 +336,7 @@ export function SignupForm() {
               onCheckedChange={(checked) => setFormData({ ...formData, termsAccepted: checked as boolean })}
             />
             <Label htmlFor="terms" className="text-sm font-normal leading-relaxed">
-              I agree to UniRide's{" "}
+              I agree to Poolara's{" "}
               <Link href="/terms" className="text-primary underline-offset-4 hover:underline">
                 Terms & Conditions
               </Link>

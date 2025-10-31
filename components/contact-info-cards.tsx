@@ -58,8 +58,8 @@ export function ContactInfoCards() {
     {
       icon: Mail,
       label: "Email Us",
-      value: "support@uniride.ae",
-      href: "mailto:support@uniride.ae"
+      value: "support@poolara.ae",
+      href: "mailto:support@poolara.ae"
     },
     {
       icon: Phone,

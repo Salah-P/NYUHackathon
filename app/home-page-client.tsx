@@ -69,7 +69,7 @@ export function HomePageClient() {
       {/* How It Works Section */}
       <HowItWorks />
 
-      {/* Why Choose UniRide (Benefits) Section */}
+      {/* Why Choose Poolara (Benefits) Section */}
       <BenefitsSection />
 
       {/* Statistics Section */}

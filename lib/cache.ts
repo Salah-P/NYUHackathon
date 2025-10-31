@@ -1,5 +1,5 @@
 /**
- * Caching utilities for UniRide
+ * Caching utilities for Poolara
  * Implements stale-while-revalidate strategy and browser caching
  */
 
@@ -11,28 +11,28 @@ export const CACHE_CONFIG = {
   USER_PROFILE: {
     maxAge: 300, // 5 minutes
     staleWhileRevalidate: 1800, // 30 minutes
-    key: 'uniride:user:',
+    key: 'poolara:user:',
   },
   
   // Ride listings cache (medium-term, public data)
   RIDE_LISTINGS: {
     maxAge: 120, // 2 minutes
     staleWhileRevalidate: 3600, // 1 hour
-    key: 'uniride:rides:',
+    key: 'poolara:rides:',
   },
   
   // Static content cache (long-term)
   STATIC_CONTENT: {
     maxAge: 86400, // 24 hours
     staleWhileRevalidate: 604800, // 7 days
-    key: 'uniride:static:',
+    key: 'poolara:static:',
   },
   
   // API responses cache
   API_RESPONSES: {
     maxAge: 300, // 5 minutes
     staleWhileRevalidate: 3600, // 1 hour
-    key: 'uniride:api:',
+    key: 'poolara:api:',
   },
 } as const
 
@@ -54,7 +54,7 @@ interface CacheOptions {
  */
 class BrowserCache {
   private memoryCache = new Map<string, CacheEntry>()
-  private readonly STORAGE_PREFIX = 'uniride_cache_'
+  private readonly STORAGE_PREFIX = 'poolara_cache_'
   private readonly MAX_MEMORY_ENTRIES = 100
 
   /**

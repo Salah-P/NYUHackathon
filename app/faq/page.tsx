@@ -27,12 +27,12 @@ export default function FAQPage() {
         {
           id: "universities",
           question: "What universities are supported?",
-          answer: "UniRide currently supports major universities across the UAE including United Arab Emirates University (UAEU), American University of Sharjah (AUS), University of Sharjah (UOS), Zayed University (ZU), American University in Dubai (AUD), Higher Colleges of Technology (HCT), Ajman University (AU), and RAK Medical & Health Sciences University. We're continuously working to add more universities."
+          answer: "Poolara currently supports major universities across the UAE including United Arab Emirates University (UAEU), American University of Sharjah (AUS), University of Sharjah (UOS), Zayed University (ZU), American University in Dubai (AUD), Higher Colleges of Technology (HCT), Ajman University (AU), and RAK Medical & Health Sciences University. We're continuously working to add more universities."
         },
         {
           id: "free-to-use",
-          question: "Is UniRide free to use?",
-          answer: "Yes, UniRide is free to use! There are no membership fees or subscription costs. You only pay for the rides you take, which helps split costs with other students. We may charge a small platform fee on transactions to maintain and improve our service."
+          question: "Is Poolara free to use?",
+          answer: "Yes, Poolara is free to use! There are no membership fees or subscription costs. You only pay for the rides you take, which helps split costs with other students. We may charge a small platform fee on transactions to maintain and improve our service."
         }
       ]
     },
@@ -44,11 +44,11 @@ export default function FAQPage() {
         {
           id: "verify-email",
           question: "How do I verify my student email?",
-          answer: "When you sign up, we automatically send a verification email to your university email address. Click the verification link in the email to confirm your student status. This helps us ensure only verified university students can use UniRide."
+          answer: "When you sign up, we automatically send a verification email to your university email address. Click the verification link in the email to confirm your student status. This helps us ensure only verified university students can use Poolara."
         },
         {
           id: "is-safe",
-          question: "Is UniRide safe?",
+          question: "Is Poolara safe?",
           answer: "Yes, safety is our top priority. All users must verify their university student status, and we have comprehensive reporting and blocking systems. We also encourage users to rate and review each other after rides. If you ever feel unsafe or encounter inappropriate behavior, please report it immediately through our platform."
         },
         {
@@ -98,7 +98,7 @@ export default function FAQPage() {
         {
           id: "wallet-work",
           question: "How does the wallet work?",
-          answer: "Your UniRide wallet is a secure digital payment system. You can add money to your wallet using various payment methods, and it will be used automatically for ride payments. The wallet makes transactions seamless and secure, eliminating the need to exchange cash during rides."
+          answer: "Your Poolara wallet is a secure digital payment system. You can add money to your wallet using various payment methods, and it will be used automatically for ride payments. The wallet makes transactions seamless and secure, eliminating the need to exchange cash during rides."
         },
         {
           id: "add-money",
@@ -170,7 +170,7 @@ export default function FAQPage() {
               Frequently Asked Questions
             </h1>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Find answers to common questions about UniRide
+              Find answers to common questions about Poolara
             </p>
           </div>
         </div>
@@ -263,7 +263,7 @@ export default function FAQPage() {
               Still have questions?
             </h2>
             <p className="text-gray-600 mb-6">
-              Can't find the answer you're looking for? Our support team is here to help you get the most out of UniRide.
+              Can't find the answer you're looking for? Our support team is here to help you get the most out of Poolara.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild variant="primary" size="lg">

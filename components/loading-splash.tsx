@@ -33,7 +33,7 @@ export function LoadingSplash({ isLoading, children }: LoadingSplashProps) {
           </div>
           
           {/* Loading Spinner */}
-          <LoadingSpinner size="lg" text="Loading UniRide..." />
+          <LoadingSpinner size="lg" text="Loading Poolara..." />
           
           {/* Subtle animation */}
           <div className="flex space-x-1 mt-4">

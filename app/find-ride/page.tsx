@@ -3,7 +3,7 @@ import { ProtectedRoute } from "@/components/protected-route"
 import { FindRidePageClient } from "./find-ride-page-client"
 
 export const metadata: Metadata = {
-  title: "Find a Ride | UniRide",
+  title: "Find a Ride | Poolara",
   robots: {
     index: false,
     follow: true,

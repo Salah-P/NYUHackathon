@@ -1,12 +1,12 @@
 export const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  "name": "UniRide",
+  "name": "Poolara",
   "description": "Student carpooling platform connecting university students across UAE for safe, affordable, and sustainable travel",
-  "url": "https://uniride.ae",
+  "url": "https://poolara.ae",
   "logo": {
     "@type": "ImageObject",
-    "url": "https://uniride.ae/logo.png",
+    "url": "https://poolara.ae/logo.png",
     "width": 200,
     "height": 200
   },
@@ -14,14 +14,14 @@ export const organizationSchema = {
     "@type": "ContactPoint",
     "telephone": "+971-50-123-4567",
     "contactType": "customer service",
-    "email": "support@uniride.ae",
+    "email": "support@poolara.ae",
     "availableLanguage": ["English", "Arabic"]
   },
   "sameAs": [
-    "https://twitter.com/uniride_ae",
-    "https://facebook.com/uniride.ae",
-    "https://instagram.com/uniride.ae",
-    "https://linkedin.com/company/uniride"
+    "https://twitter.com/poolara_ae",
+    "https://facebook.com/poolara.ae",
+    "https://instagram.com/poolara.ae",
+    "https://linkedin.com/company/poolara"
   ],
   "address": {
     "@type": "PostalAddress",
@@ -45,23 +45,23 @@ export const organizationSchema = {
 export const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "name": "UniRide",
-  "url": "https://uniride.ae",
+  "name": "Poolara",
+  "url": "https://poolara.ae",
   "description": "Connect with verified university students for safe, affordable carpooling across UAE emirates",
   "publisher": {
     "@type": "Organization",
-    "name": "UniRide",
-    "url": "https://uniride.ae",
+    "name": "Poolara",
+    "url": "https://poolara.ae",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://uniride.ae/logo.png"
+      "url": "https://poolara.ae/logo.png"
     }
   },
   "potentialAction": {
     "@type": "SearchAction",
     "target": {
       "@type": "EntryPoint",
-      "urlTemplate": "https://uniride.ae/find-ride?q={search_term_string}"
+      "urlTemplate": "https://poolara.ae/find-ride?q={search_term_string}"
     },
     "query-input": "required name=search_term_string"
   },
@@ -73,8 +73,8 @@ export const websiteSchema = {
 export const webApplicationSchema = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  "name": "UniRide",
-  "url": "https://uniride.ae",
+  "name": "Poolara",
+  "url": "https://poolara.ae",
   "description": "Student carpooling platform for UAE universities",
   "applicationCategory": "TravelApplication",
   "operatingSystem": "Web Browser",
@@ -85,9 +85,9 @@ export const webApplicationSchema = {
   },
   "author": {
     "@type": "Organization",
-    "name": "UniRide"
+    "name": "Poolara"
   },
   "browserRequirements": "Requires JavaScript. Requires HTML5.",
   "softwareVersion": "1.0",
-  "releaseNotes": "Initial release of UniRide student carpooling platform"
+  "releaseNotes": "Initial release of Poolara student carpooling platform"
 }

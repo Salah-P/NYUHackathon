@@ -205,7 +205,7 @@ export function AddFundsDialog({ onPaymentSuccess }: AddFundsDialogProps) {
         <DialogHeader>
           <DialogTitle>Add Funds to Wallet</DialogTitle>
           <DialogDescription>
-            Choose an amount and payment method to add funds to your UniRide wallet.
+            Choose an amount and payment method to add funds to your Poolara wallet.
           </DialogDescription>
         </DialogHeader>
         
