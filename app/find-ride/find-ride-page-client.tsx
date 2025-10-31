@@ -165,7 +165,7 @@ export function FindRidePageClient() {
         </div>
 
         {/* Search Filters */}
-        <Card className="mb-8 shadow-sm border-0 bg-white">
+        <Card className="mb-8 shadow-sm border-0 text-white" style={{ backgroundColor: '#000000', background: '#000000' }}>
           <CardHeader className="pb-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
@@ -173,8 +173,8 @@ export function FindRidePageClient() {
                   <Filter className="h-5 w-5 text-accent-red" />
                 </div>
                 <div>
-                  <CardTitle className="text-xl text-primary-dark">Search Filters</CardTitle>
-                  <CardDescription className="mt-1 text-secondary-gray">Refine your search to find the perfect ride</CardDescription>
+                  <CardTitle className="text-xl text-white">Search Filters</CardTitle>
+                  <CardDescription className="mt-1 text-gray-300">Refine your search to find the perfect ride</CardDescription>
                 </div>
               </div>
             <div className="flex items-center gap-2">
@@ -207,29 +207,31 @@ export function FindRidePageClient() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
             {/* From */}
             <div className="space-y-2">
-              <Label htmlFor="from">From</Label>
+              <Label htmlFor="from" className="text-white">From</Label>
               <Input
                 id="from"
                 placeholder="Pickup location"
                 value={filters.from}
                 onChange={(e) => setFilters(prev => ({ ...prev, from: e.target.value }))}
+                className="bg-black text-white border-[#FFD700]"
               />
             </div>
 
             {/* To */}
             <div className="space-y-2">
-              <Label htmlFor="to">To</Label>
+              <Label htmlFor="to" className="text-white">To</Label>
               <Input
                 id="to"
                 placeholder="Destination"
                 value={filters.to}
                 onChange={(e) => setFilters(prev => ({ ...prev, to: e.target.value }))}
+                className="bg-black text-white border-[#FFD700]"
               />
             </div>
 
             {/* Date */}
             <div className="space-y-2">
-              <Label htmlFor="date">Date</Label>
+              <Label htmlFor="date" className="text-white">Date</Label>
               <Popover>
                 <PopoverTrigger asChild>
                   <UIButton
@@ -258,31 +260,31 @@ export function FindRidePageClient() {
 
             {/* Gender */}
             <div className="space-y-2">
-              <Label htmlFor="gender">Gender</Label>
+              <Label htmlFor="gender" className="text-white">Gender</Label>
               <Select value={filters.gender} onValueChange={(value) => setFilters(prev => ({ ...prev, gender: value }))}>
-                <SelectTrigger>
+                <SelectTrigger className="bg-black text-white border-[#FFD700]">
                   <SelectValue placeholder="Any" />
                 </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="any">Any</SelectItem>
-                  <SelectItem value="male">Male</SelectItem>
-                  <SelectItem value="female">Female</SelectItem>
+                <SelectContent className="bg-black text-white border-[#FFD700]">
+                  <SelectItem value="any" className="text-white hover:bg-gray-800">Any</SelectItem>
+                  <SelectItem value="male" className="text-white hover:bg-gray-800">Male</SelectItem>
+                  <SelectItem value="female" className="text-white hover:bg-gray-800">Female</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             {/* University */}
             <div className="space-y-2">
-              <Label htmlFor="university">University</Label>
+              <Label htmlFor="university" className="text-white">University</Label>
               <Select value={filters.university} onValueChange={(value) => setFilters(prev => ({ ...prev, university: value }))}>
-                <SelectTrigger>
+                <SelectTrigger className="bg-black text-white border-[#FFD700]">
                   <SelectValue placeholder="All" />
                 </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Universities</SelectItem>
-                  <SelectItem value="nyu">NYU Abu Dhabi</SelectItem>
-                  <SelectItem value="uaeu">UAE University</SelectItem>
-                  <SelectItem value="aus">American University of Sharjah</SelectItem>
+                <SelectContent className="bg-black text-white border-[#FFD700]">
+                  <SelectItem value="all" className="text-white hover:bg-gray-800">All Universities</SelectItem>
+                  <SelectItem value="nyu" className="text-white hover:bg-gray-800">NYU Abu Dhabi</SelectItem>
+                  <SelectItem value="uaeu" className="text-white hover:bg-gray-800">UAE University</SelectItem>
+                  <SelectItem value="aus" className="text-white hover:bg-gray-800">American University of Sharjah</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -293,13 +295,13 @@ export function FindRidePageClient() {
         {/* View Toggle and Results */}
         <div className="space-y-6">
           {/* View Toggle */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 bg-white rounded-lg shadow-sm border">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 text-white rounded-lg shadow-sm border border-[#FFD700]" style={{ backgroundColor: '#000000', background: '#000000' }}>
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-2">
-                <span className="text-lg font-semibold text-primary-dark">
+                <span className="text-lg font-semibold text-white">
                   {filteredRides.length}
                 </span>
-                <span className="text-secondary-gray">
+                <span className="text-gray-300">
                   {filteredRides.length === 1 ? "ride" : "rides"} found
                 </span>
               </div>
@@ -330,8 +332,8 @@ export function FindRidePageClient() {
                   onClick={() => setViewMode("list")}
                   className={`flex items-center gap-2 transition-all duration-200 ${
                     viewMode === "list" 
-                      ? "bg-white shadow-sm text-accent-red" 
-                      : "text-secondary-gray hover:text-primary-dark"
+                      ? "bg-[#FFD700] shadow-sm text-black" 
+                      : "text-gray-300 hover:text-[#FFD700]"
                   }`}
                 >
                   <List className="h-4 w-4" />
@@ -343,8 +345,8 @@ export function FindRidePageClient() {
                   onClick={() => setViewMode("map")}
                   className={`flex items-center gap-2 transition-all duration-200 ${
                     viewMode === "map" 
-                      ? "bg-white shadow-sm text-accent-red" 
-                      : "text-secondary-gray hover:text-primary-dark"
+                      ? "bg-[#FFD700] shadow-sm text-black" 
+                      : "text-gray-300 hover:text-[#FFD700]"
                   }`}
                 >
                   <Map className="h-4 w-4" />

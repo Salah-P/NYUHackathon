@@ -48,7 +48,7 @@ export function Navigation() {
   }
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-secondary bg-white md:top-0 md:bottom-auto">
+    <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-[#FFD700] md:top-0 md:bottom-auto" style={{ backgroundColor: '#000000' }}>
       <div className="container mx-auto flex h-16 items-center justify-around md:justify-center md:gap-8">
         {links.map((link) => {
           const Icon = link.icon
@@ -58,15 +58,15 @@ export function Navigation() {
               key={link.href}
               href={link.href}
               className={cn(
-                "flex flex-col items-center gap-1 px-4 py-2 text-sm font-medium transition-colors duration-300 md:flex-row md:gap-2",
+                "flex flex-col items-center gap-1 px-4 py-2 text-sm font-medium transition-all duration-300 rounded-md md:flex-row md:gap-2",
                 isActive 
-                  ? "text-gold font-semibold" 
-                  : "text-gray-400 hover:text-accent",
+                  ? "text-[#FFD700] font-semibold" 
+                  : "text-white hover:text-[#00BFFF] hover:shadow-[0_0_10px_rgba(0,191,255,0.6)]",
               )}
             >
               <Icon className={cn(
                 "h-5 w-5",
-                isActive ? "text-gold" : "text-gray-400"
+                isActive ? "text-[#FFD700]" : "text-white"
               )} />
               <span className="text-xs md:text-sm">{link.label}</span>
             </Link>
@@ -77,7 +77,7 @@ export function Navigation() {
             variant="ghost"
             size="sm"
             onClick={handleLogout}
-            className="flex flex-col items-center gap-1 px-4 py-2 text-sm font-medium text-gray-400 hover:text-accent md:flex-row md:gap-2"
+            className="flex flex-col items-center gap-1 px-4 py-2 text-sm font-medium text-white hover:text-[#00BFFF] hover:shadow-[0_0_10px_rgba(0,191,255,0.6)] transition-all duration-300 rounded-md md:flex-row md:gap-2"
           >
             <LogOut className="h-5 w-5" />
             <span className="text-xs md:text-sm">Logout</span>

@@ -4,7 +4,6 @@ import Link from "next/link"
 import { Car } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useEffect, useState } from "react"
-import Image from "next/image"
 
 interface LogoProps {
   size?: "sm" | "lg"
@@ -46,18 +45,31 @@ export function Logo({ size = "lg", className, nonClickable = false, wrappedInLi
         alt="Poolara Logo" 
         width={isLarge ? 64 : 40} 
         height={isLarge ? 64 : 40} 
-        className="rounded-full object-contain"
-        style={{ display: 'block', maxWidth: '100%', height: 'auto' }}
+        className="rounded-full flex-shrink-0"
+        style={{ 
+          display: 'block', 
+          width: `${isLarge ? 64 : 40}px`, 
+          height: `${isLarge ? 64 : 40}px`,
+          objectFit: 'contain',
+          visibility: 'visible',
+          imageRendering: 'auto'
+        }}
         loading="eager"
         onError={(e) => {
           console.error('Logo failed to load:', e)
           const target = e.target as HTMLImageElement
           if (target) {
-            target.style.opacity = '0'
+            target.style.display = 'none'
           }
         }}
-        onLoad={() => {
+        onLoad={(e) => {
           console.log('Logo loaded successfully')
+          const target = e.target as HTMLImageElement
+          if (target) {
+            target.style.display = 'block'
+            target.style.visibility = 'visible'
+            target.style.opacity = '1'
+          }
         }}
       />
       <span className={textClasses}>POOLARA</span>

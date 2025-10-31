@@ -245,6 +245,20 @@ header[data-testid="main-header"] {
   background: #000000 !important;
 }
 
+/* Force navigation background to black - override any other styles */
+nav {
+  background-color: #000000 !important;
+  background: #000000 !important;
+}
+
+/* Ensure logo displays properly */
+img[src="/poolara-logo.png"],
+img[alt="Poolara Logo"] {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
 /* Animated lines for login page */
 @keyframes move-line {
   0% {
