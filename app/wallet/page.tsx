@@ -1,7 +1,7 @@
 "use client"
 
 import dynamic from "next/dynamic"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { Card } from "@/components/ui/card"
 import { Wallet, TrendingUp, TrendingDown, Activity, CreditCard } from "lucide-react"
 import { TransactionHistory, type Transaction } from "@/components/wallet/transaction-history"
@@ -24,37 +24,47 @@ const WithdrawDialog = dynamic(() => import("@/components/wallet/withdraw-dialog
 const getUserWalletData = (userId: string, userRole: string) => {
   const testAccountIds = ["test-user-001", "test-user-002", "test-user-003"]
   
-  // For new users, check localStorage for updated balance
-  if (!testAccountIds.includes(userId)) {
-    try {
-      const storedUser = localStorage.getItem('user')
-      if (storedUser) {
-        const userData = JSON.parse(storedUser)
+  // Always check localStorage first for the most up-to-date balance
+  try {
+    const storedUser = localStorage.getItem('user')
+    if (storedUser) {
+      const userData = JSON.parse(storedUser)
+      // If this is a test account, merge localStorage updates with base data
+      if (testAccountIds.includes(userId)) {
+        const baseData = {
+          "test-user-001": { balance: 450.75, totalEarnings: 1250.0, totalSpent: 799.25, thisMonthEarnings: 135.0, thisMonthSpent: 50.0 },
+          "test-user-002": { balance: 680.50, totalEarnings: 2100.0, totalSpent: 1419.50, thisMonthEarnings: 245.0, thisMonthSpent: 85.0 },
+          "test-user-003": { balance: 285.25, totalEarnings: 950.0, totalSpent: 664.75, thisMonthEarnings: 95.0, thisMonthSpent: 35.0 },
+        }[userId] || {}
+        
         return {
-          balance: userData.balance || 0.0,
-          totalEarnings: userData.totalEarnings || 0.0,
-          totalSpent: userData.totalSpent || 0.0,
-          thisMonthEarnings: userData.thisMonthEarnings || 0.0,
-          thisMonthSpent: userData.thisMonthSpent || 0.0,
+          ...baseData,
+          balance: userData.balance !== undefined ? userData.balance : baseData.balance,
+          totalEarnings: userData.totalEarnings !== undefined ? userData.totalEarnings : baseData.totalEarnings,
+          totalSpent: userData.totalSpent !== undefined ? userData.totalSpent : baseData.totalSpent,
+          thisMonthEarnings: userData.thisMonthEarnings !== undefined ? userData.thisMonthEarnings : baseData.thisMonthEarnings,
+          thisMonthSpent: userData.thisMonthSpent !== undefined ? userData.thisMonthSpent : baseData.thisMonthSpent,
           isDriver: userRole === "driver" || userRole === "both",
         }
       }
-    } catch (error) {
-      console.warn('Failed to parse user data from localStorage:', error)
+      
+      // For new users, use localStorage data
+      return {
+        balance: userData.balance || 0.0,
+        totalEarnings: userData.totalEarnings || 0.0,
+        totalSpent: userData.totalSpent || 0.0,
+        thisMonthEarnings: userData.thisMonthEarnings || 0.0,
+        thisMonthSpent: userData.thisMonthSpent || 0.0,
+        isDriver: userRole === "driver" || userRole === "both",
+      }
     }
-    
-    return {
-      balance: 0.0,
-      totalEarnings: 0.0,
-      totalSpent: 0.0,
-      thisMonthEarnings: 0.0,
-      thisMonthSpent: 0.0,
-      isDriver: userRole === "driver" || userRole === "both",
-    }
+  } catch (error) {
+    console.warn('Failed to parse user data from localStorage:', error)
   }
-
+  
+  // Fallback for test accounts if no localStorage
   const walletDataMap: Record<string, any> = {
-    "test-user-001": { // Ahmed Al Mansouri
+    "test-user-001": {
       balance: 450.75,
       totalEarnings: 1250.0,
       totalSpent: 799.25,
@@ -62,7 +72,7 @@ const getUserWalletData = (userId: string, userRole: string) => {
       thisMonthSpent: 50.0,
       isDriver: true,
     },
-    "test-user-002": { // Fatima Al Zaabi
+    "test-user-002": {
       balance: 680.50,
       totalEarnings: 2100.0,
       totalSpent: 1419.50,
@@ -70,7 +80,7 @@ const getUserWalletData = (userId: string, userRole: string) => {
       thisMonthSpent: 85.0,
       isDriver: true,
     },
-    "test-user-003": { // Mohammed Al Hashimi
+    "test-user-003": {
       balance: 285.25,
       totalEarnings: 950.0,
       totalSpent: 664.75,
@@ -93,16 +103,89 @@ const getUserWalletData = (userId: string, userRole: string) => {
 const getUserTransactions = (userId: string): Transaction[] => {
   const testAccountIds = ["test-user-001", "test-user-002", "test-user-003"]
   
-  // For new users, check localStorage for transactions
-  if (!testAccountIds.includes(userId)) {
-    try {
-      const storedTransactions = localStorage.getItem('userTransactions')
-      return storedTransactions ? JSON.parse(storedTransactions) : []
-    } catch {
-      return []
+  // Always check localStorage first for the most up-to-date transactions
+  try {
+    const storedTransactions = localStorage.getItem('userTransactions')
+    if (storedTransactions) {
+      const parsedTransactions = JSON.parse(storedTransactions)
+      // If this is a test account, merge localStorage transactions with base transactions
+      if (testAccountIds.includes(userId)) {
+        const baseTransactions: Transaction[] = [
+          {
+            id: "1",
+            type: "ride_earning",
+            amount: 75.0,
+            description: "Ride to Dubai Mall - 3 passengers",
+            date: "2025-01-14T15:30:00",
+            status: "completed",
+          },
+          {
+            id: "2",
+            type: "add_funds",
+            amount: 200.0,
+            description: "Added funds via Credit Card",
+            date: "2025-01-13T10:15:00",
+            status: "completed",
+          },
+          {
+            id: "3",
+            type: "ride_payment",
+            amount: 25.0,
+            description: "Ride from UAEU to Dubai Mall",
+            date: "2025-01-12T14:20:00",
+            status: "completed",
+          },
+        ]
+        
+        // For test-user-002, add extra transactions
+        const extraTransactions = userId === "test-user-002" ? [
+          {
+            id: "4",
+            type: "ride_earning" as const,
+            amount: 120.0,
+            description: "Ride to Abu Dhabi Airport - 4 passengers",
+            date: "2025-01-11T09:00:00",
+            status: "completed" as const,
+          },
+          {
+            id: "5",
+            type: "withdraw" as const,
+            amount: 400.0,
+            description: "Withdrawal to Bank Account",
+            date: "2025-01-10T09:00:00",
+            status: "completed" as const,
+          },
+        ] : []
+        
+        // Merge base transactions with localStorage transactions
+        // Remove duplicates based on ID and prioritize localStorage entries
+        const allTransactions = [...baseTransactions, ...extraTransactions]
+        const transactionMap = new Map<string, Transaction>()
+        
+        // First add base transactions
+        allTransactions.forEach(t => transactionMap.set(t.id, t))
+        
+        // Then add/overwrite with localStorage transactions (these are newer)
+        parsedTransactions.forEach((t: Transaction) => {
+          transactionMap.set(t.id, t)
+        })
+        
+        // Sort by date (newest first)
+        return Array.from(transactionMap.values()).sort((a, b) => 
+          new Date(b.date).getTime() - new Date(a.date).getTime()
+        )
+      }
+      
+      // For new users, return localStorage transactions only
+      return parsedTransactions.sort((a: Transaction, b: Transaction) => 
+        new Date(b.date).getTime() - new Date(a.date).getTime()
+      )
     }
+  } catch (error) {
+    console.warn('Failed to parse transactions from localStorage:', error)
   }
 
+  // Fallback for test accounts if no localStorage
   const baseTransactions: Transaction[] = [
     {
       id: "1",
@@ -169,7 +252,7 @@ function WalletPageContent() {
   const [isLoading, setIsLoading] = useState(true)
 
   // Function to refresh wallet data
-  const refreshWalletData = () => {
+  const refreshWalletData = useCallback(() => {
     if (!user) return
     
     const newWalletData = getUserWalletData(user.id, user.role || "passenger")
@@ -178,14 +261,14 @@ function WalletPageContent() {
     setWalletData(newWalletData)
     setUserTransactions(newTransactions)
     setIsLoading(false)
-  }
+  }, [user])
 
   // Initial load and refresh on user change
   useEffect(() => {
     refreshWalletData()
-  }, [user])
+  }, [refreshWalletData])
 
-  // Listen for storage changes (when funds are added from other tabs/components)
+  // Listen for storage changes and custom wallet update events
   useEffect(() => {
     const handleStorageChange = (e: StorageEvent) => {
       if (e.key === 'user' || e.key === 'userTransactions') {
@@ -193,9 +276,20 @@ function WalletPageContent() {
       }
     }
 
+    const handleWalletUpdate = () => {
+      refreshWalletData()
+    }
+
+    // Listen for storage events (cross-tab updates)
     window.addEventListener('storage', handleStorageChange)
-    return () => window.removeEventListener('storage', handleStorageChange)
-  }, [user])
+    // Listen for custom wallet update events (same-tab updates)
+    window.addEventListener('walletUpdate', handleWalletUpdate)
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange)
+      window.removeEventListener('walletUpdate', handleWalletUpdate)
+    }
+  }, [refreshWalletData])
 
   if (isLoading) {
     return (

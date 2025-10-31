@@ -61,12 +61,37 @@ export function WithdrawDialog({ currentBalance, onWithdrawSuccess }: WithdrawDi
 
       // Update user balance in localStorage
       const storedUserRaw = localStorage.getItem('user')
-      const storedUser = storedUserRaw ? JSON.parse(storedUserRaw) : {}
+      if (!storedUserRaw) {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "User data not found. Please log in again."
+        })
+        setIsProcessing(false)
+        return
+      }
+      
+      const storedUser = JSON.parse(storedUserRaw)
+      const currentBalance = parseFloat(storedUser.balance) || 0
+      const newBalance = Math.max(0, currentBalance - withdrawAmount)
+      
+      // Calculate totals
+      const currentTotalSpent = parseFloat(storedUser.totalSpent) || 0
+      const currentTotalEarnings = parseFloat(storedUser.totalEarnings) || 0
+      
+      // Withdrawal increases totalSpent (money going out)
       const updatedUser = {
         ...storedUser,
-        balance: Math.max(0, (storedUser.balance || 0) - withdrawAmount)
+        balance: newBalance,
+        totalSpent: currentTotalSpent + withdrawAmount,
+        // Keep existing values for other fields
+        totalEarnings: currentTotalEarnings,
+        thisMonthSpent: (parseFloat(storedUser.thisMonthSpent) || 0) + withdrawAmount,
       }
       localStorage.setItem('user', JSON.stringify(updatedUser))
+      
+      // Trigger a custom event to notify other components
+      window.dispatchEvent(new CustomEvent('walletUpdate', { detail: updatedUser }))
 
       // Add transaction
       const newTransaction = {
@@ -89,7 +114,13 @@ export function WithdrawDialog({ currentBalance, onWithdrawSuccess }: WithdrawDi
         description: `AED ${withdrawAmount.toFixed(2)} has been withdrawn.`
       })
 
-      if (onWithdrawSuccess) onWithdrawSuccess()
+      // Trigger wallet data refresh immediately
+      if (onWithdrawSuccess) {
+        // Use setTimeout to ensure localStorage is updated before refresh
+        setTimeout(() => {
+          onWithdrawSuccess()
+        }, 100)
+      }
 
       // Close after brief success state
       setTimeout(() => {

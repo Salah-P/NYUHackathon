@@ -226,10 +226,43 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           const reviews = getUserReviews(foundUser.id)
           const calculatedRating = calculateAverageRating(reviews)
           
-          // Update user with calculated rating
+          // Check if user already has balance in localStorage
+          const storedUser = localStorage.getItem('user')
+          let existingBalance = 0
+          let existingTotals = {
+            totalEarnings: 0,
+            totalSpent: 0,
+            thisMonthEarnings: 0,
+            thisMonthSpent: 0
+          }
+          
+          if (storedUser) {
+            try {
+              const parsedStoredUser = JSON.parse(storedUser)
+              if (parsedStoredUser.id === foundUser.id) {
+                // Preserve existing wallet data
+                existingBalance = parsedStoredUser.balance || 0
+                existingTotals = {
+                  totalEarnings: parsedStoredUser.totalEarnings || 0,
+                  totalSpent: parsedStoredUser.totalSpent || 0,
+                  thisMonthEarnings: parsedStoredUser.thisMonthEarnings || 0,
+                  thisMonthSpent: parsedStoredUser.thisMonthSpent || 0
+                }
+              }
+            } catch (e) {
+              // Ignore parse errors
+            }
+          }
+          
+          // Update user with calculated rating and preserve wallet data
           const updatedUser = {
             ...foundUser,
-            rating: calculatedRating
+            rating: calculatedRating,
+            balance: existingBalance,
+            totalEarnings: existingTotals.totalEarnings,
+            totalSpent: existingTotals.totalSpent,
+            thisMonthEarnings: existingTotals.thisMonthEarnings,
+            thisMonthSpent: existingTotals.thisMonthSpent
           }
           
           setUser(updatedUser)
@@ -267,7 +300,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // Simulate API call
     return new Promise((resolve) => {
       setTimeout(() => {
-        const newUser: User = {
+        const newUser: User & { balance?: number; totalEarnings?: number; totalSpent?: number; thisMonthEarnings?: number; thisMonthSpent?: number } = {
           id: Date.now().toString(),
           name: userData.name,
           email: userData.email,
@@ -277,6 +310,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           rating: 0.0, // New users start with no rating
           totalTrips: 0, // New users start with no trips
           role: "passenger",
+          balance: 0.0, // Initialize balance to 0
+          totalEarnings: 0.0,
+          totalSpent: 0.0,
+          thisMonthEarnings: 0.0,
+          thisMonthSpent: 0.0
         }
         
         // Create user with password for storage

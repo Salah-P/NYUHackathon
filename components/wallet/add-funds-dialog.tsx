@@ -134,15 +134,40 @@ export function AddFundsDialog({ onPaymentSuccess }: AddFundsDialogProps) {
       await new Promise(resolve => setTimeout(resolve, 2000))
       
       // Update user's wallet balance in localStorage
-      const currentUser = JSON.parse(localStorage.getItem('user') || '{}')
-      const newBalance = currentUser.balance + parseFloat(amount)
+      const currentUserStr = localStorage.getItem('user')
+      if (!currentUserStr) {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "User data not found. Please log in again."
+        })
+        setIsProcessing(false)
+        return
+      }
       
+      const currentUser = JSON.parse(currentUserStr)
+      const addAmount = parseFloat(amount)
+      const currentBalance = parseFloat(currentUser.balance) || 0
+      const newBalance = currentBalance + addAmount
+      
+      // Calculate totals
+      const currentTotalEarnings = parseFloat(currentUser.totalEarnings) || 0
+      const currentTotalSpent = parseFloat(currentUser.totalSpent) || 0
+      
+      // Add funds increases totalEarnings (money coming in)
       const updatedUser = {
         ...currentUser,
-        balance: newBalance
+        balance: newBalance,
+        totalEarnings: currentTotalEarnings + addAmount,
+        // Keep existing values for other fields
+        totalSpent: currentTotalSpent,
+        thisMonthEarnings: (parseFloat(currentUser.thisMonthEarnings) || 0) + addAmount,
       }
       
       localStorage.setItem('user', JSON.stringify(updatedUser))
+      
+      // Trigger a custom event to notify other components
+      window.dispatchEvent(new CustomEvent('walletUpdate', { detail: updatedUser }))
       
       // Add transaction to history
       const newTransaction = {
@@ -167,9 +192,12 @@ export function AddFundsDialog({ onPaymentSuccess }: AddFundsDialogProps) {
         description: `AED ${amount} has been added to your wallet.`
       })
       
-      // Trigger wallet data refresh
+      // Trigger wallet data refresh immediately
       if (onPaymentSuccess) {
-        onPaymentSuccess()
+        // Use setTimeout to ensure localStorage is updated before refresh
+        setTimeout(() => {
+          onPaymentSuccess()
+        }, 100)
       }
       
       // Reset form after success
