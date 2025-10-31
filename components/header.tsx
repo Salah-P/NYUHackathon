@@ -106,7 +106,7 @@ export function Header() {
                 <Link 
                   href="/dashboard" 
                   className={cn(
-                    "text-sm font-medium transition-colors duration-300",
+                    "text-sm font-medium transition-colors duration-300 nav-link-blue",
                     isActiveLink("/dashboard")
                       ? "text-gold font-semibold"
                       : "text-gray-400 hover:text-accent"
@@ -117,7 +117,7 @@ export function Header() {
                 <Link 
                   href="/find-ride" 
                   className={cn(
-                    "text-sm font-medium transition-colors duration-300",
+                    "text-sm font-medium transition-colors duration-300 nav-link-blue",
                     isActiveLink("/find-ride")
                       ? "text-gold font-semibold"
                       : "text-gray-400 hover:text-accent"
@@ -128,7 +128,7 @@ export function Header() {
                 <Link 
                   href="/post-ride" 
                   className={cn(
-                    "text-sm font-medium transition-colors duration-300",
+                    "text-sm font-medium transition-colors duration-300 nav-link-blue",
                     isActiveLink("/post-ride")
                       ? "text-gold font-semibold"
                       : "text-gray-400 hover:text-accent"
@@ -139,7 +139,7 @@ export function Header() {
                 <Link 
                   href="/wallet" 
                   className={cn(
-                    "text-sm font-medium transition-colors duration-300",
+                    "text-sm font-medium transition-colors duration-300 nav-link-blue",
                     isActiveLink("/wallet")
                       ? "text-gold font-semibold"
                       : "text-gray-400 hover:text-accent"
@@ -150,7 +150,7 @@ export function Header() {
                 <Link 
                   href="/profile" 
                   className={cn(
-                    "text-sm font-medium transition-colors duration-300",
+                    "text-sm font-medium transition-colors duration-300 nav-link-blue",
                     isActiveLink("/profile")
                       ? "text-gold font-semibold"
                       : "text-gray-400 hover:text-accent"

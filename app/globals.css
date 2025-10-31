@@ -230,3 +230,11 @@ input:focus, textarea:focus, select:focus {
 @media (max-width: 600px) {
   h1, h2, h3 { font-size: 1.45rem !important; }
 }
+
+/* Header link blue glow */
+.nav-link-blue:hover {
+  text-shadow: 0 0 6px rgba(0, 198, 255, 0.85), 0 0 12px rgba(0, 198, 255, 0.35);
+  text-decoration: underline;
+  text-decoration-color: #00C6FF;
+  text-underline-offset: 3px;
+}

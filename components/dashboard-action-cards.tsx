@@ -19,7 +19,8 @@ function ActionCard({ icon: Icon, title, description, href, bgColor, iconColor }
     <Link
       href={href}
       className={cn(
-        "group block p-8 rounded-2xl card-animated bg-card transition-transform duration-200",
+        "group block p-8 rounded-2xl transition-transform duration-200",
+        "bg-[#4169E1] border-2 border-[#FFD700]",
         "hover:scale-105 hover:shadow-2xl",
         "cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2",
         bgColor
@@ -28,19 +29,19 @@ function ActionCard({ icon: Icon, title, description, href, bgColor, iconColor }
       <div className="flex flex-col items-center text-center h-full">
         {/* Icon */}
         <div className={cn(
-          "flex items-center justify-center w-16 h-16 rounded-full mb-6 action-card-icon gradient-poolara",
-          "shadow-lg group-hover:shadow-xl"
+          "flex items-center justify-center w-16 h-16 rounded-full mb-6 action-card-icon",
+          "bg-white shadow-lg group-hover:shadow-xl"
         )}>
           <Icon className={cn(
-            "w-8 h-8 text-white action-card-text",
+            "w-8 h-8 text-[#4169E1] action-card-text",
             iconColor
           )} />
         </div>
         {/* Content */}
-        <h3 className="text-xl font-bold text-white mb-3 group-hover:text-white action-card-text">
+        <h3 className="text-xl font-bold text-white mb-3 action-card-text">
           {title}
         </h3>
-        <p className="text-gray-200 text-sm leading-relaxed group-hover:text-white action-card-text">
+        <p className="text-white text-sm leading-relaxed action-card-text">
           {description}
         </p>
       </div>
@@ -60,7 +61,7 @@ export function DashboardActionCards() {
       title: "Find a Ride",
       description: "Browse available rides to your destination",
       href: "/find-ride",
-      bgColor: "gradient-poolara",
+      bgColor: "",
       iconColor: ""
     },
     {
@@ -68,7 +69,7 @@ export function DashboardActionCards() {
       title: "Post a Ride",
       description: "Offer seats to fellow students",
       href: "/post-ride",
-      bgColor: "bg-coral",
+      bgColor: "",
       iconColor: ""
     },
     {
@@ -76,7 +77,7 @@ export function DashboardActionCards() {
       title: "My Wallet",
       description: "Manage balance and transactions",
       href: "/wallet",
-      bgColor: "bg-primary-dark",
+      bgColor: "",
       iconColor: ""
     },
     {
@@ -84,7 +85,7 @@ export function DashboardActionCards() {
       title: "My Profile",
       description: "Update details and view history",
       href: "/profile",
-      bgColor: "bg-primary-pink",
+      bgColor: "",
       iconColor: ""
     },
   ]
