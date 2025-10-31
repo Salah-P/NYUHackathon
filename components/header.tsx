@@ -180,7 +180,7 @@ export function Header() {
                 <Link 
                   href="/" 
                   className={cn(
-                    "text-sm font-medium transition-colors duration-300",
+                    "text-sm font-medium transition-colors duration-300 nav-link-blue",
                     isActiveLink("/")
                       ? "text-primary font-semibold"
                       : "text-secondary hover:text-primary"
@@ -191,7 +191,7 @@ export function Header() {
                 <Link 
                   href="/about" 
                   className={cn(
-                    "text-sm font-medium transition-colors duration-300",
+                    "text-sm font-medium transition-colors duration-300 nav-link-blue",
                     isActiveLink("/about")
                       ? "text-primary font-semibold"
                       : "text-secondary hover:text-primary"
@@ -202,7 +202,7 @@ export function Header() {
                 <Link 
                   href="/contact" 
                   className={cn(
-                    "text-sm font-medium transition-colors duration-300",
+                    "text-sm font-medium transition-colors duration-300 nav-link-blue",
                     isActiveLink("/contact")
                       ? "text-primary font-semibold"
                       : "text-secondary hover:text-primary"

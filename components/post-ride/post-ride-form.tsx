@@ -203,12 +203,6 @@ export function PostRideForm() {
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
-      {/* Header (no card) */}
-      <div className="text-center pt-4 pb-2">
-        <h1 className="h1 tracking-wide">POST A RIDE</h1>
-        <p className="text-white/80 mt-2">Share your journey and help others travel together</p>
-      </div>
-
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Driver Information */}
         <Card className="bg-black text-white rounded-2xl shadow-md">

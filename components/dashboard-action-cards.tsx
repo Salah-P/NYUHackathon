@@ -29,19 +29,19 @@ function ActionCard({ icon: Icon, title, description, href, bgColor, iconColor }
       <div className="flex flex-col items-center text-center h-full">
         {/* Icon */}
         <div className={cn(
-          "flex items-center justify-center w-16 h-16 rounded-full mb-6 action-card-icon",
-          "bg-white shadow-lg group-hover:shadow-xl"
+          "flex items-center justify-center w-16 h-16 rounded-full mb-6 action-card-icon border-2 border-[#FFD700]",
+          "bg-[#4169E1] shadow-lg group-hover:shadow-xl"
         )}>
           <Icon className={cn(
-            "w-8 h-8 text-[#4169E1] action-card-text",
+            "w-8 h-8 text-[#FFD700] action-card-text",
             iconColor
           )} />
         </div>
         {/* Content */}
-        <h3 className="text-xl font-bold text-white mb-3 action-card-text">
+        <h3 className="text-xl font-bold text-[#FFD700] mb-3 action-card-text">
           {title}
         </h3>
-        <p className="text-white text-sm leading-relaxed action-card-text">
+        <p className="text-[#FFD700] text-sm leading-relaxed action-card-text">
           {description}
         </p>
       </div>

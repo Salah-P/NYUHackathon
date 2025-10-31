@@ -117,14 +117,14 @@ export function DashboardWelcomeHeader() {
               </div>
             </div>
           ) : (
-            <div className="bg-peach rounded-lg p-4 border border-secondary">
+            <div className="bg-card rounded-lg p-4 border border-secondary">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
-                  <Wallet className="h-5 w-5 text-primary-pink" />
+                  <Wallet className="h-5 w-5 text-white" />
                 </div>
                 <div className="ml-3">
-                  <p className="text-sm font-semibold text-navy">Wallet Balance</p>
-                  <p className="text-lg font-extrabold text-navy">
+                  <p className="text-sm font-semibold text-white/80">Wallet Balance</p>
+                  <p className="text-lg font-extrabold text-white">
                     AED {walletData.balance.toFixed(2)}
                   </p>
                 </div>
@@ -132,26 +132,26 @@ export function DashboardWelcomeHeader() {
             </div>
           )}
           {/* Total Rides */}
-          <div className="bg-purple-50 rounded-lg p-4 border border-secondary">
+          <div className="bg-card rounded-lg p-4 border border-secondary">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <Calendar className="h-5 w-5 text-primary" />
+                <Calendar className="h-5 w-5 text-white" />
               </div>
               <div className="ml-3">
-                <p className="text-sm font-semibold text-navy">Total Rides</p>
-                <p className="text-lg font-extrabold text-navy">{user.totalTrips} rides</p>
+                <p className="text-sm font-semibold text-white/80">Total Rides</p>
+                <p className="text-lg font-extrabold text-white">{user.totalTrips} rides</p>
               </div>
             </div>
           </div>
           {/* Member Since */}
-          <div className="bg-coral rounded-lg p-4 border border-secondary">
+          <div className="bg-card rounded-lg p-4 border border-secondary">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <User className="h-5 w-5 text-primary-pink" />
+                <User className="h-5 w-5 text-white" />
               </div>
               <div className="ml-3">
-                <p className="text-sm font-semibold text-navy">Member Since</p>
-                <p className="text-lg font-extrabold text-navy">{memberSince}</p>
+                <p className="text-sm font-semibold text-white/80">Member Since</p>
+                <p className="text-lg font-extrabold text-white">{memberSince}</p>
               </div>
             </div>
           </div>
