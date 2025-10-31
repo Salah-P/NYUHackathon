@@ -203,42 +203,50 @@ export function PostRideForm() {
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
-      {/* Single Page Title */}
-      <div className="text-center">
-        <h1 className="text-3xl font-bold text-primary-dark mb-2">Post a Ride</h1>
-        <p className="text-secondary-gray">Share your journey and help others travel together</p>
-      </div>
+      {/* Header */}
+      <header className="text-center pt-6 pb-4">
+        <h1 className="h1 tracking-wide">POST A RIDE</h1>
+        <p className="text-white/80 mt-2">Share your journey and help others travel together</p>
+      </header>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Driver Information */}
-        <Card>
+        <Card className="bg-white text-navy rounded-2xl shadow-md">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Users className="h-5 w-5" />
+            <CardTitle className="flex items-center gap-2 text-navy">
+              <Users className="h-5 w-5 icon-gold" />
               Driver Information
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-2">
-              <Label htmlFor="driverName">Driver Name</Label>
-              <Input
-                id="driverName"
-                type="text"
-                value={formData.driverName}
-                onChange={(e) => setFormData(prev => ({ ...prev, driverName: e.target.value }))}
-                className="bg-black border border-gray-700 text-off-white placeholder-gray-500"
-                readOnly
-              />
-              <p className="text-xs text-muted-foreground">Auto-filled from your profile</p>
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="driverName" className="text-navy">Driver Name</Label>
+                <Input
+                  id="driverName"
+                  type="text"
+                  value={formData.driverName}
+                  onChange={(e) => setFormData(prev => ({ ...prev, driverName: e.target.value }))}
+                  placeholder="Your full name"
+                  className="bg-white text-navy border-[#D1D5DB] h-12 rounded-xl"
+                  readOnly
+                />
+              </div>
+
               {formData.contact && (
-                <div className="mt-4">
-                  <Label className="flex items-center gap-2">
-                    <Phone className="h-4 w-4 text-emerald-600" /> Driver Contact
+                <div className="space-y-2">
+                  <Label htmlFor="contact" className="flex items-center gap-2 text-navy">
+                    <Phone className="h-4 w-4 text-[#007BFF]" /> Driver Contact
                   </Label>
-                  <div className="mt-1 text-sm text-foreground bg-black border border-gray-700 rounded-md px-3 py-2">
-                    {formData.contact}
-                  </div>
-                  <p className="text-xs text-muted-foreground mt-1">Fetched automatically from your profile</p>
+                  <Input
+                    id="contact"
+                    type="text"
+                    value={formData.contact}
+                    onChange={() => {}}
+                    readOnly
+                    className="bg-white text-navy border-[#D1D5DB] h-12 rounded-xl"
+                  />
+                  <p className="text-xs text-navy/70">Fetched automatically from your profile</p>
                 </div>
               )}
             </div>
@@ -246,18 +254,18 @@ export function PostRideForm() {
         </Card>
 
         {/* Travel Date & Time */}
-        <Card>
+        <Card className="bg-white text-navy rounded-2xl shadow-md">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Calendar className="h-5 w-5" />
+            <CardTitle className="flex items-center gap-2 text-navy">
+              <Calendar className="h-5 w-5 icon-gold" />
               Travel Date & Time
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid gap-4 md:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="date" className="flex items-center gap-2">
-                  <CalendarIcon className="h-4 w-4 text-emerald-600" />
+                <Label htmlFor="date" className="flex items-center gap-2 text-navy">
+                  <CalendarIcon className="h-4 w-4 text-[#007BFF]" />
                   Date
                 </Label>
                 <Popover>
@@ -265,7 +273,7 @@ export function PostRideForm() {
                     <UIButton
                       variant="outline"
                       id="date"
-                      className={`w-full justify-start text-left font-normal rounded-xl border-2 transition-all duration-200 ${errors.date ? 'border-red-500' : 'border-primary'} text-primary-dark bg-white hover:bg-gray-100 hover:text-primary-dark`}
+                      className={`w-full justify-start text-left font-medium rounded-xl border border-[#D1D5DB] bg-white text-navy hover:bg-gray-50 ${errors.date ? 'border-red-500' : ''}`}
                     >
                       {selectedDate ? format(selectedDate, 'PPP') : <span>Select a date</span>}
                     </UIButton>
@@ -293,15 +301,15 @@ export function PostRideForm() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="timeSlot" className="flex items-center gap-2">
-                  <Clock className="h-4 w-4 text-emerald-600" />
+                <Label htmlFor="timeSlot" className="flex items-center gap-2 text-navy">
+                  <Clock className="h-4 w-4 text-[#007BFF]" />
                   Time Slot
                 </Label>
                 <Select
                   value={formData.timeSlot}
                   onValueChange={(value) => setFormData(prev => ({ ...prev, timeSlot: value }))}
                 >
-                  <SelectTrigger id="timeSlot" className={errors.time ? "border-red-500" : ""}>
+                  <SelectTrigger id="timeSlot" className={errors.time ? "border-red-500" : "border-[#D1D5DB] bg-white text-navy h-12 rounded-xl"}>
                     <SelectValue placeholder="Select a time slot" />
                   </SelectTrigger>
                   <SelectContent>
@@ -322,13 +330,13 @@ export function PostRideForm() {
         </Card>
 
         {/* Route Selection Section */}
-        <Card>
+        <Card className="bg-white text-navy rounded-2xl shadow-md">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <MapPin className="h-5 w-5" />
+            <CardTitle className="flex items-center gap-2 text-navy">
+              <MapPin className="h-5 w-5 icon-gold" />
               Select Your Route
             </CardTitle>
-            <CardDescription>Choose your start and end locations</CardDescription>
+            <CardDescription className="text-navy/70">Choose your start and end locations</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             {/* Location Inputs */}
@@ -342,7 +350,6 @@ export function PostRideForm() {
                   error={errors.pickup}
                 />
               </div>
-
               <div className="space-y-2">
                 <LocationSearchInput
                   label="End Location"
@@ -353,7 +360,6 @@ export function PostRideForm() {
                 />
               </div>
             </div>
-
             {/* Route Map */}
             <div className="space-y-2">
               <RouteSelectionMap
@@ -365,7 +371,6 @@ export function PostRideForm() {
                 disabled={loading}
               />
             </div>
-
             {/* Route Error */}
             {errors.route && (
               <Alert variant="destructive">
@@ -373,39 +378,21 @@ export function PostRideForm() {
                 <AlertDescription>{errors.route}</AlertDescription>
               </Alert>
             )}
-
-            {/* Distance and Duration Display */}
-            {formData.route.distance > 0 && formData.route.duration > 0 && (
-              <div className="flex items-center gap-4 p-3 bg-emerald-50 rounded-lg border border-emerald-200">
-                <div className="flex items-center gap-2">
-                  <MapPin className="h-4 w-4 text-emerald-600" />
-                  <span className="text-sm font-medium text-emerald-700">
-                    Distance: {(formData.route.distance / 1000).toFixed(1)} km
-                  </span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Clock className="h-4 w-4 text-emerald-600" />
-                  <span className="text-sm font-medium text-emerald-700">
-                    Duration: {Math.round(formData.route.duration / 60)} min
-                  </span>
-                </div>
-              </div>
-            )}
           </CardContent>
         </Card>
 
         {/* Car Details */}
-        <Card>
+        <Card className="bg-white text-navy rounded-2xl shadow-md">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Car className="h-5 w-5" />
+            <CardTitle className="flex items-center gap-2 text-navy">
+              <Car className="h-5 w-5 icon-gold" />
               Car Details
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="carDetails" className="flex items-center gap-2">
-                <Car className="h-4 w-4 text-emerald-600" />
+              <Label htmlFor="carDetails" className="flex items-center gap-2 text-navy">
+                <Car className="h-4 w-4 text-[#007BFF]" />
                 Car Details
               </Label>
               <Input
@@ -414,7 +401,7 @@ export function PostRideForm() {
                 value={formData.carDetails}
                 onChange={(e) => setFormData(prev => ({ ...prev, carDetails: e.target.value }))}
                 placeholder="e.g., Toyota Camry 2020, White"
-                className={`${errors.carDetails ? "border-red-500" : "border-gray-700"} bg-black text-off-white placeholder-gray-500`}
+                className={`${errors.carDetails ? "border-red-500" : "border-[#D1D5DB]"} bg-white text-navy h-12 rounded-xl`}
                 required
               />
               {errors.carDetails && (
@@ -427,15 +414,15 @@ export function PostRideForm() {
 
             <div className="grid gap-4 md:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="seats" className="flex items-center gap-2">
-                  <Users className="h-4 w-4 text-emerald-600" />
+                <Label htmlFor="seats" className="flex items-center gap-2 text-navy">
+                  <Users className="h-4 w-4 text-[#007BFF]" />
                   Available Seats
                 </Label>
                 <Select
                   value={formData.seats.toString()}
                   onValueChange={(value) => setFormData(prev => ({ ...prev, seats: Number.parseInt(value) }))}
                 >
-                  <SelectTrigger className={errors.seats ? "border-red-500" : ""}>
+                  <SelectTrigger className={errors.seats ? "border-red-500" : "border-[#D1D5DB] bg-white text-navy h-12 rounded-xl"}>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -453,9 +440,10 @@ export function PostRideForm() {
                   </p>
                 )}
               </div>
+
               <div className="space-y-2">
-                <Label htmlFor="carNumberPlate" className="flex items-center gap-2">
-                  <Car className="h-4 w-4 text-emerald-600" />
+                <Label htmlFor="carNumberPlate" className="flex items-center gap-2 text-navy">
+                  <Car className="h-4 w-4 text-[#007BFF]" />
                   Car Number Plate
                 </Label>
                 <Input
@@ -464,64 +452,67 @@ export function PostRideForm() {
                   value={formData.carNumberPlate}
                   onChange={(e) => setFormData(prev => ({ ...prev, carNumberPlate: e.target.value }))}
                   placeholder="e.g., ABC 12345"
+                  className="bg-white text-navy border-[#D1D5DB] h-12 rounded-xl"
                   required
                 />
               </div>
             </div>
 
-
             <div className="space-y-2">
-              <Label htmlFor="notes">Additional Notes (Optional)</Label>
+              <Label htmlFor="notes" className="text-navy">Additional Notes (Optional)</Label>
               <Textarea
                 id="notes"
                 value={formData.notes}
                 onChange={(e) => setFormData(prev => ({ ...prev, notes: e.target.value }))}
                 placeholder="Any special instructions, preferences, or additional information..."
                 rows={3}
+                className="bg-white text-navy border-[#D1D5DB] rounded-xl"
               />
             </div>
           </CardContent>
         </Card>
 
-    {/* Pricing Details (Placeholder) */}
-    <Card>
-      <CardHeader>
-        <CardTitle>Pricing Details</CardTitle>
-        <CardDescription>
-          Pricing will be calculated automatically based on distance and time.
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className="grid gap-3 md:grid-cols-3">
-          <div>
-            <p className="text-sm text-muted-foreground">Estimated Distance</p>
-            <p className="text-lg font-semibold">
-              {formData.route.distance > 0 ? `${(formData.route.distance / 1000).toFixed(1)} km` : "—"}
-            </p>
-          </div>
-          <div>
-            <p className="text-sm text-muted-foreground">Estimated Duration</p>
-            <p className="text-lg font-semibold">
-              {formData.route.duration > 0 ? `${Math.round(formData.route.duration / 60)} min` : "—"}
-            </p>
-          </div>
-          <div>
-            <p className="text-sm text-muted-foreground">Price per Seat</p>
-            <p className="text-lg font-semibold">Auto-calculated</p>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
+        {/* Pricing Details (Placeholder) */}
+        <Card className="bg-white text-navy rounded-2xl shadow-md">
+          <CardHeader>
+            <CardTitle className="text-navy">Pricing Details</CardTitle>
+            <CardDescription className="text-navy/70">
+              Pricing will be calculated automatically based on distance and time.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid gap-3 md:grid-cols-3">
+              <div>
+                <p className="text-sm text-navy/70">Estimated Distance</p>
+                <p className="text-lg font-semibold text-navy">
+                  {formData.route.distance > 0 ? `${(formData.route.distance / 1000).toFixed(1)} km` : "—"}
+                </p>
+              </div>
+              <div>
+                <p className="text-sm text-navy/70">Estimated Duration</p>
+                <p className="text-lg font-semibold text-navy">
+                  {formData.route.duration > 0 ? `${Math.round(formData.route.duration / 60)} min` : "—"}
+                </p>
+              </div>
+              <div>
+                <p className="text-sm text-navy/70">Price per Seat</p>
+                <p className="text-lg font-semibold text-navy">Auto-calculated</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Submit Button */}
-        <Button 
-          type="submit" 
-          size="lg" 
-          className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3"
-          disabled={loading}
-        >
-          {loading ? "Posting Ride..." : "Post Ride"}
-        </Button>
+        <div className="pt-2">
+          <Button
+            type="submit"
+            size="lg"
+            className="btn-primary w-full font-bold"
+            disabled={loading}
+          >
+            {loading ? "Posting Ride..." : "Post Ride"}
+          </Button>
+        </div>
       </form>
     </div>
   )
