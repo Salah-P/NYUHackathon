@@ -142,15 +142,15 @@ const formatTransactionDate = (dateString: string) => {
 const getTransactionIcon = (type: string) => {
   switch (type) {
     case 'ride_payment':
-      return { icon: TrendingDown, color: 'text-red-600', bg: 'bg-red-50' }
+      return { icon: TrendingDown, color: 'text-[#FFD700]', bg: 'bg-red-50' }
     case 'ride_earning':
-      return { icon: TrendingUp, color: 'text-green-600', bg: 'bg-green-50' }
+      return { icon: TrendingUp, color: 'text-[#FFD700]', bg: 'bg-green-50' }
     case 'add_funds':
-      return { icon: CreditCard, color: 'text-blue-600', bg: 'bg-blue-50' }
+      return { icon: CreditCard, color: 'text-[#FFD700]', bg: 'bg-blue-50' }
     case 'withdraw':
-      return { icon: TrendingDown, color: 'text-orange-600', bg: 'bg-orange-50' }
+      return { icon: TrendingDown, color: 'text-[#FFD700]', bg: 'bg-orange-50' }
     default:
-      return { icon: CreditCard, color: 'text-gray-600', bg: 'bg-gray-50' }
+      return { icon: CreditCard, color: 'text-[#FFD700]', bg: 'bg-gray-50' }
   }
 }
 
@@ -281,12 +281,12 @@ export function DashboardRecentActivity() {
                             <p className="text-sm font-bold text-white truncate">
                               {transaction.description}
                             </p>
-                            <span className={`text-sm font-extrabold ${isPositive ? 'text-green-300' : 'text-red-300'}`}>
+                            <span className={`text-sm font-extrabold ${isPositive ? 'text-green-500' : 'text-red-500'}`}>
                               {isPositive ? '+' : '-'}AED {transaction.amount.toFixed(2)}
                             </span>
                           </div>
                           <div className="flex items-center gap-1 text-sm text-gray-300">
-                            <Clock className="w-4 h-4" />
+                            <Clock className="w-4 h-4 text-[#FFD700]" />
                             {formatTransactionDate(transaction.date)}
                           </div>
                         </div>

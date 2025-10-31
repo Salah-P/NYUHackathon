@@ -76,7 +76,7 @@ function TripCard({ trip }: { trip: Trip }) {
             </div>
 
             <div className="flex items-start gap-2">
-              <MapPin className="mt-1 h-4 w-4 flex-shrink-0 text-muted-foreground" />
+              <MapPin className="mt-1 h-4 w-4 flex-shrink-0 text-[#FFD700]" />
               <div className="flex-1">
                 <p className="text-sm font-medium text-foreground">{trip.from}</p>
                 <div className="my-1 ml-2 h-4 w-px bg-border" />
@@ -85,7 +85,7 @@ function TripCard({ trip }: { trip: Trip }) {
             </div>
 
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Calendar className="h-4 w-4" />
+              <Calendar className="h-4 w-4 text-[#FFD700]" />
               <span>
                 {new Date(trip.date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
               </span>
@@ -93,7 +93,7 @@ function TripCard({ trip }: { trip: Trip }) {
 
             {trip.rating && (
               <div className="flex items-center gap-1 text-sm">
-                <Star className="h-4 w-4 fill-primary text-primary" />
+                <Star className="h-4 w-4 fill-[#FFD700] text-[#FFD700]" />
                 <span className="font-medium text-foreground">{trip.rating}</span>
               </div>
             )}
@@ -115,7 +115,7 @@ export function TripHistory() {
   // Empty state component
   const EmptyState = () => (
     <div className="py-12 text-center">
-      <Car className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
+      <Car className="mx-auto h-12 w-12 text-[#FFD700] mb-4" />
       <h3 className="text-lg font-semibold text-foreground mb-2">No trips yet</h3>
       <p className="text-sm text-muted-foreground mb-4">
         Start your journey by finding a ride or posting one!
@@ -149,9 +149,9 @@ export function TripHistory() {
         ) : (
           <Tabs defaultValue="all" className="w-full">
             <TabsList className="grid w-full grid-cols-3">
-              <TabsTrigger value="all">All</TabsTrigger>
-              <TabsTrigger value="completed">Completed</TabsTrigger>
-              <TabsTrigger value="upcoming">Upcoming</TabsTrigger>
+              <TabsTrigger value="all" className="border-2 border-[#FFD700] hover:bg-[#FFD700]/10 hover:border-[#FFD700] data-[state=active]:border-[#FFD700] data-[state=active]:bg-[#FFD700]/20">All</TabsTrigger>
+              <TabsTrigger value="completed" className="border-2 border-[#FFD700] hover:bg-[#FFD700]/10 hover:border-[#FFD700] data-[state=active]:border-[#FFD700] data-[state=active]:bg-[#FFD700]/20">Completed</TabsTrigger>
+              <TabsTrigger value="upcoming" className="border-2 border-[#FFD700] hover:bg-[#FFD700]/10 hover:border-[#FFD700] data-[state=active]:border-[#FFD700] data-[state=active]:bg-[#FFD700]/20">Upcoming</TabsTrigger>
             </TabsList>
 
             <TabsContent value="all" className="space-y-4">

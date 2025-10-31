@@ -24,12 +24,12 @@ export function TransactionHistory({ transactions }: TransactionHistoryProps) {
       case "ride_earning":
       case "add_funds":
       case "refund":
-        return <ArrowDownLeft className="h-5 w-5 text-primary" />
+        return <ArrowDownLeft className="h-5 w-5 text-[#FFD700]" />
       case "ride_payment":
       case "withdraw":
-        return <ArrowUpRight className="h-5 w-5 text-destructive" />
+        return <ArrowUpRight className="h-5 w-5 text-[#FFD700]" />
       default:
-        return <Plus className="h-5 w-5" />
+        return <Plus className="h-5 w-5 text-[#FFD700]" />
     }
   }
 
@@ -38,10 +38,10 @@ export function TransactionHistory({ transactions }: TransactionHistoryProps) {
       case "ride_earning":
       case "add_funds":
       case "refund":
-        return "text-primary"
+        return "text-green-500"
       case "ride_payment":
       case "withdraw":
-        return "text-destructive"
+        return "text-red-500"
       default:
         return "text-foreground"
     }
@@ -67,7 +67,7 @@ export function TransactionHistory({ transactions }: TransactionHistoryProps) {
         <EmptyState
           icon={Receipt}
           title="No transactions yet"
-          description="Your payment history will appear here once you start making transactions on UniRide."
+          description="Your payment history will appear here once you start making transactions on Poolara."
         />
       </Card>
     )

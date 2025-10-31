@@ -196,8 +196,8 @@ export function AddFundsDialog({ onPaymentSuccess }: AddFundsDialogProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button size="lg" className="w-full bg-gradient-to-r from-primary to-chart-2">
-          <Plus className="mr-2 h-5 w-5" />
+        <Button size="lg" className="w-full bg-gradient-to-r from-primary to-chart-2 border-2 border-black">
+          <Plus className="mr-2 h-5 w-5 text-[#FFD700]" />
           Add Funds
         </Button>
       </DialogTrigger>

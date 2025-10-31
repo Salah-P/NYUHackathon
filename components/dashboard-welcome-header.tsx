@@ -120,7 +120,7 @@ export function DashboardWelcomeHeader() {
             <div className="bg-card rounded-lg p-4 border border-secondary">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
-                  <Wallet className="h-5 w-5 text-white" />
+                  <Wallet className="h-5 w-5 text-[#FFD700]" />
                 </div>
                 <div className="ml-3">
                   <p className="text-sm font-semibold text-white/80">Wallet Balance</p>
@@ -135,7 +135,7 @@ export function DashboardWelcomeHeader() {
           <div className="bg-card rounded-lg p-4 border border-secondary">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <Calendar className="h-5 w-5 text-white" />
+                <Calendar className="h-5 w-5 text-[#FFD700]" />
               </div>
               <div className="ml-3">
                 <p className="text-sm font-semibold text-white/80">Total Rides</p>
@@ -147,7 +147,7 @@ export function DashboardWelcomeHeader() {
           <div className="bg-card rounded-lg p-4 border border-secondary">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <User className="h-5 w-5 text-white" />
+                <User className="h-5 w-5 text-[#FFD700]" />
               </div>
               <div className="ml-3">
                 <p className="text-sm font-semibold text-white/80">Member Since</p>

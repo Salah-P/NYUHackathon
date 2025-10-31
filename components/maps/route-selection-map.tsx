@@ -398,9 +398,60 @@ export function RouteSelectionMap({
 
   // Sync with controlled props from parent (e.g., autocomplete inputs)
   useEffect(() => {
+    if (!mapInstanceRef.current || !window.google) return
+    
     if (controlledPickup) {
+      // Update state
       setPickup(controlledPickup)
-      addPickupMarker(controlledPickup)
+      // Add/update marker
+      if (pickupMarkerRef.current) {
+        pickupMarkerRef.current.setMap(null)
+      }
+      pickupMarkerRef.current = new window.google.maps.Marker({
+        position: controlledPickup,
+        map: mapInstanceRef.current,
+        title: 'Pickup Location',
+        icon: createMarkerIcon('#10b981', true),
+        draggable: !disabled,
+        animation: window.google.maps.Animation.DROP
+      })
+      
+      // Add drag listener
+      pickupMarkerRef.current.addListener('dragend', () => {
+        const newPosition = pickupMarkerRef.current?.getPosition()
+        if (newPosition) {
+          const newLocation: LatLng = {
+            lat: newPosition.lat(),
+            lng: newPosition.lng()
+          }
+          setPickup(newLocation)
+          calculateRoute(newLocation, dropoff || controlledDropoff)
+        }
+      })
+      
+      // Add click listener to remove marker
+      pickupMarkerRef.current.addListener('click', () => {
+        if (disabled) return
+        if (pickupMarkerRef.current) {
+          pickupMarkerRef.current.setMap(null)
+          pickupMarkerRef.current = null
+        }
+        setPickup(null)
+        clearRoute()
+      })
+      
+      // Update map bounds
+      if (mapInstanceRef.current) {
+        const bounds = new window.google.maps.LatLngBounds()
+        bounds.extend(controlledPickup)
+        if (dropoff || controlledDropoff) {
+          bounds.extend(dropoff || controlledDropoff!)
+          mapInstanceRef.current.fitBounds(bounds)
+        } else {
+          mapInstanceRef.current.setCenter(controlledPickup)
+          mapInstanceRef.current.setZoom(15)
+        }
+      }
     } else {
       // Clear pickup marker if parent cleared value
       if (pickupMarkerRef.current) {
@@ -409,12 +460,63 @@ export function RouteSelectionMap({
       }
       setPickup(null)
     }
-  }, [controlledPickup, addPickupMarker])
+  }, [controlledPickup, disabled, dropoff, controlledDropoff, calculateRoute, clearRoute])
 
   useEffect(() => {
+    if (!mapInstanceRef.current || !window.google) return
+    
     if (controlledDropoff) {
+      // Update state
       setDropoff(controlledDropoff)
-      addDropoffMarker(controlledDropoff)
+      // Add/update marker
+      if (dropoffMarkerRef.current) {
+        dropoffMarkerRef.current.setMap(null)
+      }
+      dropoffMarkerRef.current = new window.google.maps.Marker({
+        position: controlledDropoff,
+        map: mapInstanceRef.current,
+        title: 'Drop-off Location',
+        icon: createMarkerIcon('#ef4444', false),
+        draggable: !disabled,
+        animation: window.google.maps.Animation.DROP
+      })
+      
+      // Add drag listener
+      dropoffMarkerRef.current.addListener('dragend', () => {
+        const newPosition = dropoffMarkerRef.current?.getPosition()
+        if (newPosition) {
+          const newLocation: LatLng = {
+            lat: newPosition.lat(),
+            lng: newPosition.lng()
+          }
+          setDropoff(newLocation)
+          calculateRoute(pickup || controlledPickup, newLocation)
+        }
+      })
+      
+      // Add click listener to remove marker
+      dropoffMarkerRef.current.addListener('click', () => {
+        if (disabled) return
+        if (dropoffMarkerRef.current) {
+          dropoffMarkerRef.current.setMap(null)
+          dropoffMarkerRef.current = null
+        }
+        setDropoff(null)
+        clearRoute()
+      })
+      
+      // Update map bounds
+      if (mapInstanceRef.current) {
+        const bounds = new window.google.maps.LatLngBounds()
+        if (pickup || controlledPickup) {
+          bounds.extend(pickup || controlledPickup!)
+          bounds.extend(controlledDropoff)
+          mapInstanceRef.current.fitBounds(bounds)
+        } else {
+          mapInstanceRef.current.setCenter(controlledDropoff)
+          mapInstanceRef.current.setZoom(15)
+        }
+      }
     } else {
       // Clear dropoff marker if parent cleared value
       if (dropoffMarkerRef.current) {
@@ -423,14 +525,32 @@ export function RouteSelectionMap({
       }
       setDropoff(null)
     }
-  }, [controlledDropoff, addDropoffMarker])
+  }, [controlledDropoff, disabled, pickup, controlledPickup, calculateRoute, clearRoute])
 
-  // If both controlled points are present and map/services are ready, compute route immediately
+  // Calculate route when both controlled points are present
   useEffect(() => {
-    if (mapInstanceRef.current && directionsServiceRef.current && directionsRendererRef.current && controlledPickup && controlledDropoff) {
-      calculateRoute(controlledPickup, controlledDropoff)
+    if (!mapInstanceRef.current || !directionsServiceRef.current || !directionsRendererRef.current) return
+    
+    // Use controlled props if available, otherwise fall back to internal state
+    // But only if controlled props are not explicitly null (undefined means not provided)
+    const currentPickup = controlledPickup !== undefined ? controlledPickup : pickup
+    const currentDropoff = controlledDropoff !== undefined ? controlledDropoff : dropoff
+    
+    if (currentPickup && currentDropoff) {
+      calculateRoute(currentPickup, currentDropoff)
+    } else {
+      // Clear route if either point is missing
+      if (directionsRendererRef.current) {
+        directionsRendererRef.current.setDirections({ routes: [] })
+      }
+      setRouteData(null)
+      onRouteChange?.({
+        pickup: null,
+        dropoff: null,
+        routeData: null
+      })
     }
-  }, [controlledPickup, controlledDropoff, calculateRoute])
+  }, [controlledPickup, controlledDropoff, pickup, dropoff, calculateRoute, onRouteChange])
 
   return (
     <Card className={cn("overflow-hidden", className)}>

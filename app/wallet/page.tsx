@@ -228,7 +228,7 @@ function WalletPageContent() {
       <Card className="bg-gradient-to-br from-primary to-chart-2 p-6 text-white">
         <div className="space-y-4">
           <div className="flex items-center gap-2">
-            <Wallet className="h-6 w-6" />
+            <Wallet className="h-6 w-6 text-[#FFD700]" />
             <span className="text-sm font-medium opacity-90">Current Balance</span>
           </div>
           <p className="text-5xl font-bold">AED {walletData.balance.toFixed(2)}</p>
@@ -261,7 +261,7 @@ function WalletPageContent() {
         <Card className="p-4">
           <div className="flex items-center gap-3">
             <div className="rounded-full bg-primary/10 p-3">
-              <TrendingUp className="h-5 w-5 text-primary" />
+              <TrendingUp className="h-5 w-5 text-[#FFD700]" />
             </div>
             <div>
               <p className="text-sm text-muted-foreground">This Month</p>
@@ -277,7 +277,7 @@ function WalletPageContent() {
         <Card className="p-4">
           <div className="flex items-center gap-3">
             <div className="rounded-full bg-destructive/10 p-3">
-              <TrendingDown className="h-5 w-5 text-destructive" />
+              <TrendingDown className="h-5 w-5 text-[#FFD700]" />
             </div>
             <div>
               <p className="text-sm text-muted-foreground">Spent</p>
@@ -293,7 +293,7 @@ function WalletPageContent() {
         <Card className="p-4">
           <div className="flex items-center gap-3">
             <div className="rounded-full bg-chart-2/10 p-3">
-              <Activity className="h-5 w-5 text-chart-2" />
+              <Activity className="h-5 w-5 text-[#FFD700]" />
             </div>
             <div>
               <p className="text-sm text-muted-foreground">Transactions</p>
@@ -309,7 +309,7 @@ function WalletPageContent() {
         {userTransactions.length === 0 ? (
           <Card className="p-8">
             <div className="text-center">
-              <CreditCard className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
+              <CreditCard className="mx-auto h-12 w-12 text-[#FFD700] mb-4" />
               <h3 className="text-lg font-semibold text-foreground mb-2">No transactions yet</h3>
               <p className="text-sm text-muted-foreground mb-4">
                 Your transaction history will appear here once you start using UniRide.
