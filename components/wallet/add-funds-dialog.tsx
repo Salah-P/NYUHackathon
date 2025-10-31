@@ -201,7 +201,7 @@ export function AddFundsDialog({ onPaymentSuccess }: AddFundsDialogProps) {
           Add Funds
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-md !bg-white">
+      <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle>Add Funds to Wallet</DialogTitle>
           <DialogDescription>

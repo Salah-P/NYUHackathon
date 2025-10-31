@@ -120,7 +120,7 @@ export function WithdrawDialog({ currentBalance, onWithdrawSuccess }: WithdrawDi
           Withdraw Funds
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-md !bg-white">
+      <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle>Withdraw Funds</DialogTitle>
           <DialogDescription>Transfer funds from your Poolara wallet to your bank account.</DialogDescription>
