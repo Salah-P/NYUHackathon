@@ -8,6 +8,8 @@ import { MapPin, Navigation, Clock, Route, Loader2, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { GOOGLE_MAPS_CONFIG } from '@/lib/google-maps-config'
 
+// Google Maps types are available from @types/google.maps
+
 // Types
 interface LatLng {
   lat: number
@@ -69,11 +71,11 @@ export function RouteSelectionMap({
 }: RouteSelectionMapProps) {
   // Refs
   const mapRef = useRef<HTMLDivElement>(null)
-  const mapInstanceRef = useRef<window.google.maps.Map | null>(null)
-  const pickupMarkerRef = useRef<window.google.maps.Marker | null>(null)
-  const dropoffMarkerRef = useRef<window.google.maps.Marker | null>(null)
-  const directionsServiceRef = useRef<window.google.maps.DirectionsService | null>(null)
-  const directionsRendererRef = useRef<window.google.maps.DirectionsRenderer | null>(null)
+  const mapInstanceRef = useRef<google.maps.Map | null>(null)
+  const pickupMarkerRef = useRef<google.maps.Marker | null>(null)
+  const dropoffMarkerRef = useRef<google.maps.Marker | null>(null)
+  const directionsServiceRef = useRef<google.maps.DirectionsService | null>(null)
+  const directionsRendererRef = useRef<google.maps.DirectionsRenderer | null>(null)
 
   // State
   const [isLoading, setIsLoading] = useState(true)
@@ -83,17 +85,22 @@ export function RouteSelectionMap({
   const [routeData, setRouteData] = useState<RouteData | null>(null)
   const [isCalculatingRoute, setIsCalculatingRoute] = useState(false)
 
-  // Initialize Google Maps
+  // Initialize Google Maps - only once, don't depend on pickup/dropoff
   const initializeMap = useCallback(() => {
     if (!mapRef.current || !window.google?.maps) {
       console.warn('Map container or Google Maps not available')
       return
     }
 
+    // Don't re-initialize if map already exists
+    if (mapInstanceRef.current) {
+      return
+    }
+
     try {
-      // Create map instance
+      // Create map instance - start with default center, will be updated by controlled props
       mapInstanceRef.current = new window.google.maps.Map(mapRef.current, {
-        center: pickup || dropoff || DEFAULT_CENTER,
+        center: DEFAULT_CENTER,
         zoom: 13,
         mapTypeId: window.google.maps.MapTypeId.ROADMAP,
         styles: [
@@ -123,11 +130,16 @@ export function RouteSelectionMap({
         }
       })
 
-      directionsRendererRef.current.setMap(mapInstanceRef.current)
+      if (directionsRendererRef.current && mapInstanceRef.current) {
+        directionsRendererRef.current.setMap(mapInstanceRef.current)
 
-      // Add click listener to map
-      mapInstanceRef.current.addListener('click', (event: window.google.maps.MapMouseEvent) => {
+        // Add click listener to map - only works if no controlled props
+        // Controlled props take precedence, so this is for manual map clicking
+        mapInstanceRef.current.addListener('click', (event: google.maps.MapMouseEvent) => {
         if (disabled) return
+        
+        // Only handle clicks if not using controlled props
+        if (controlledPickup !== undefined || controlledDropoff !== undefined) return
         
         const lat = event.latLng?.lat()
         const lng = event.latLng?.lng()
@@ -135,23 +147,30 @@ export function RouteSelectionMap({
         if (lat && lng) {
           const newLocation: LatLng = { lat, lng }
           
-          // If no pickup, set pickup. If pickup exists but no dropoff, set dropoff
-          if (!pickup) {
-            setPickup(newLocation)
-            addPickupMarker(newLocation)
-          } else if (!dropoff) {
-            setDropoff(newLocation)
-            addDropoffMarker(newLocation)
-          }
+          // Use functional updates to get current state
+          setPickup(currentPickup => {
+            if (!currentPickup) {
+              return newLocation
+            }
+            return currentPickup
+          })
+          
+          setDropoff(currentDropoff => {
+            // Only set dropoff if pickup exists
+            setPickup(currentPickup => {
+              if (currentPickup && !currentDropoff) {
+                return currentPickup // Keep pickup as is
+              }
+              return currentPickup
+            })
+            
+            if (pickup && !currentDropoff) {
+              return newLocation
+            }
+            return currentDropoff
+          })
         }
       })
-
-      // Add initial markers if provided
-      if (pickup) {
-        addPickupMarker(pickup)
-      }
-      if (dropoff) {
-        addDropoffMarker(dropoff)
       }
 
       setIsLoading(false)
@@ -161,7 +180,7 @@ export function RouteSelectionMap({
       setHasError(true)
       setIsLoading(false)
     }
-  }, [pickup, dropoff, disabled])
+  }, [disabled])
 
   // Add pickup marker
   const addPickupMarker = useCallback((location: LatLng) => {
@@ -183,23 +202,25 @@ export function RouteSelectionMap({
     })
 
     // Add drag listener
-    pickupMarkerRef.current.addListener('dragend', () => {
-      const newPosition = pickupMarkerRef.current?.getPosition()
-      if (newPosition) {
-        const newLocation: LatLng = {
-          lat: newPosition.lat(),
-          lng: newPosition.lng()
+    if (pickupMarkerRef.current) {
+      pickupMarkerRef.current.addListener('dragend', () => {
+        const newPosition = pickupMarkerRef.current?.getPosition()
+        if (newPosition) {
+          const newLocation: LatLng = {
+            lat: newPosition.lat(),
+            lng: newPosition.lng()
+          }
+          setPickup(newLocation)
+          calculateRoute(newLocation, dropoff)
         }
-        setPickup(newLocation)
-        calculateRoute(newLocation, dropoff)
-      }
-    })
+      })
 
-    // Add click listener to remove marker
-    pickupMarkerRef.current.addListener('click', () => {
-      if (disabled) return
-      removePickupMarker()
-    })
+      // Add click listener to remove marker
+      pickupMarkerRef.current.addListener('click', () => {
+        if (disabled) return
+        removePickupMarker()
+      })
+    }
   }, [disabled, dropoff])
 
   // Add dropoff marker
@@ -222,23 +243,25 @@ export function RouteSelectionMap({
     })
 
     // Add drag listener
-    dropoffMarkerRef.current.addListener('dragend', () => {
-      const newPosition = dropoffMarkerRef.current?.getPosition()
-      if (newPosition) {
-        const newLocation: LatLng = {
-          lat: newPosition.lat(),
-          lng: newPosition.lng()
+    if (dropoffMarkerRef.current) {
+      dropoffMarkerRef.current.addListener('dragend', () => {
+        const newPosition = dropoffMarkerRef.current?.getPosition()
+        if (newPosition) {
+          const newLocation: LatLng = {
+            lat: newPosition.lat(),
+            lng: newPosition.lng()
+          }
+          setDropoff(newLocation)
+          calculateRoute(pickup, newLocation)
         }
-        setDropoff(newLocation)
-        calculateRoute(pickup, newLocation)
-      }
-    })
+      })
 
-    // Add click listener to remove marker
-    dropoffMarkerRef.current.addListener('click', () => {
-      if (disabled) return
-      removeDropoffMarker()
-    })
+      // Add click listener to remove marker
+      dropoffMarkerRef.current.addListener('click', () => {
+        if (disabled) return
+        removeDropoffMarker()
+      })
+    }
   }, [disabled, pickup])
 
   // Remove pickup marker
@@ -270,18 +293,18 @@ export function RouteSelectionMap({
     setIsCalculatingRoute(true)
 
     try {
-      const request: window.google.maps.DirectionsRequest = {
+      const request: google.maps.DirectionsRequest = {
         origin: start,
         destination: end,
-        travelMode: window.google.maps.TravelMode.DRIVING,
-        unitSystem: window.google.maps.UnitSystem.METRIC,
+        travelMode: google.maps.TravelMode.DRIVING,
+        unitSystem: google.maps.UnitSystem.METRIC,
         avoidHighways: false,
         avoidTolls: false
       }
 
-      const result = await new Promise<window.google.maps.DirectionsResult>((resolve, reject) => {
-        directionsServiceRef.current!.route(request, (result, status) => {
-          if (status === window.google.maps.DirectionsStatus.OK && result) {
+      const result = await new Promise<google.maps.DirectionsResult>((resolve, reject) => {
+        directionsServiceRef.current!.route(request, (result: google.maps.DirectionsResult | null, status: google.maps.DirectionsStatus) => {
+          if (status === google.maps.DirectionsStatus.OK && result) {
             resolve(result)
           } else {
             reject(new Error(`Directions request failed: ${status}`))
@@ -324,7 +347,7 @@ export function RouteSelectionMap({
   const clearRoute = useCallback(() => {
     // Clear directions
     if (directionsRendererRef.current) {
-      directionsRendererRef.current.setDirections({ routes: [] })
+      directionsRendererRef.current.setDirections(null as any)
     }
 
     // Remove markers
@@ -380,7 +403,7 @@ export function RouteSelectionMap({
     }
   }, [pickup, dropoff, calculateRoute])
 
-  // Update map center when markers change
+  // Update map center when markers change (for internal state updates)
   useEffect(() => {
     if (mapInstanceRef.current && (pickup || dropoff)) {
       const bounds = new window.google.maps.LatLngBounds()
@@ -389,72 +412,99 @@ export function RouteSelectionMap({
       if (dropoff) bounds.extend(dropoff)
       
       if (pickup && dropoff) {
-        mapInstanceRef.current.fitBounds(bounds)
+        // Both locations selected - fit bounds with padding
+        mapInstanceRef.current.fitBounds(bounds, 50)
       } else {
+        // Single location selected - center and zoom
         mapInstanceRef.current.setCenter(pickup || dropoff || DEFAULT_CENTER)
+        mapInstanceRef.current.setZoom(15)
       }
     }
   }, [pickup, dropoff])
 
-  // Sync with controlled props from parent (e.g., autocomplete inputs)
+  // Sync with controlled props from parent (e.g., autocomplete inputs) - START LOCATION
   useEffect(() => {
     if (!mapInstanceRef.current || !window.google) return
     
     if (controlledPickup) {
       // Update state
       setPickup(controlledPickup)
-      // Add/update marker
-      if (pickupMarkerRef.current) {
-        pickupMarkerRef.current.setMap(null)
-      }
-      pickupMarkerRef.current = new window.google.maps.Marker({
-        position: controlledPickup,
-        map: mapInstanceRef.current,
-        title: 'Pickup Location',
-        icon: createMarkerIcon('#10b981', true),
-        draggable: !disabled,
-        animation: window.google.maps.Animation.DROP
-      })
       
-      // Add drag listener
-      pickupMarkerRef.current.addListener('dragend', () => {
-        const newPosition = pickupMarkerRef.current?.getPosition()
-        if (newPosition) {
-          const newLocation: LatLng = {
-            lat: newPosition.lat(),
-            lng: newPosition.lng()
-          }
-          setPickup(newLocation)
-          calculateRoute(newLocation, dropoff || controlledDropoff)
-        }
-      })
+      // Add or update marker - only create if it doesn't exist or position changed
+      const needsNewMarker = !pickupMarkerRef.current || 
+        (pickupMarkerRef.current.getPosition()?.lat() !== controlledPickup.lat ||
+         pickupMarkerRef.current.getPosition()?.lng() !== controlledPickup.lng)
       
-      // Add click listener to remove marker
-      pickupMarkerRef.current.addListener('click', () => {
-        if (disabled) return
+      if (needsNewMarker) {
+        // Remove existing marker if it exists
         if (pickupMarkerRef.current) {
+          window.google.maps.event.clearInstanceListeners(pickupMarkerRef.current)
           pickupMarkerRef.current.setMap(null)
-          pickupMarkerRef.current = null
         }
-        setPickup(null)
-        clearRoute()
-      })
+        
+        // Create new marker
+        pickupMarkerRef.current = new window.google.maps.Marker({
+          position: controlledPickup,
+          map: mapInstanceRef.current,
+          title: 'Start Location',
+          icon: createMarkerIcon('#10b981', true),
+          draggable: !disabled,
+          animation: window.google.maps.Animation.DROP
+        })
+        
+        // Add drag listener
+        if (pickupMarkerRef.current) {
+          pickupMarkerRef.current.addListener('dragend', () => {
+            const newPosition = pickupMarkerRef.current?.getPosition()
+            if (newPosition) {
+              const newLocation: LatLng = {
+                lat: newPosition.lat(),
+                lng: newPosition.lng()
+              }
+              setPickup(newLocation)
+              const currentDropoff = controlledDropoff || dropoff
+              if (currentDropoff) {
+                calculateRoute(newLocation, currentDropoff)
+              }
+            }
+          })
+          
+          // Add click listener to remove marker
+          pickupMarkerRef.current.addListener('click', () => {
+            if (disabled) return
+            if (pickupMarkerRef.current) {
+              window.google.maps.event.clearInstanceListeners(pickupMarkerRef.current)
+              pickupMarkerRef.current.setMap(null)
+              pickupMarkerRef.current = null
+            }
+            setPickup(null)
+            clearRoute()
+          })
+        }
+      } else if (pickupMarkerRef.current) {
+        // Just update position if marker exists
+        pickupMarkerRef.current.setPosition(controlledPickup)
+      }
       
-      // Update map bounds
-      if (mapInstanceRef.current) {
+      // Update map bounds - center and zoom to pickup when only pickup is set
+      // Adjust bounds to show both when both are set
+      const currentDropoff = controlledDropoff !== undefined ? controlledDropoff : dropoff
+      if (currentDropoff) {
+        // Both locations selected - fit bounds to show both
         const bounds = new window.google.maps.LatLngBounds()
         bounds.extend(controlledPickup)
-        if (dropoff || controlledDropoff) {
-          bounds.extend(dropoff || controlledDropoff!)
-          mapInstanceRef.current.fitBounds(bounds)
-        } else {
-          mapInstanceRef.current.setCenter(controlledPickup)
-          mapInstanceRef.current.setZoom(15)
-        }
+        bounds.extend(currentDropoff)
+        // Add padding to ensure markers are visible
+        mapInstanceRef.current.fitBounds(bounds, 50)
+      } else {
+        // Only pickup selected - center and zoom to it
+        mapInstanceRef.current.setCenter(controlledPickup)
+        mapInstanceRef.current.setZoom(15)
       }
-    } else {
-      // Clear pickup marker if parent cleared value
+    } else if (controlledPickup === null) {
+      // Clear pickup marker if parent cleared value (explicitly null)
       if (pickupMarkerRef.current) {
+        window.google.maps.event.clearInstanceListeners(pickupMarkerRef.current)
         pickupMarkerRef.current.setMap(null)
         pickupMarkerRef.current = null
       }
@@ -462,64 +512,89 @@ export function RouteSelectionMap({
     }
   }, [controlledPickup, disabled, dropoff, controlledDropoff, calculateRoute, clearRoute])
 
+  // Sync with controlled props from parent (e.g., autocomplete inputs) - END LOCATION
   useEffect(() => {
     if (!mapInstanceRef.current || !window.google) return
     
     if (controlledDropoff) {
       // Update state
       setDropoff(controlledDropoff)
-      // Add/update marker
-      if (dropoffMarkerRef.current) {
-        dropoffMarkerRef.current.setMap(null)
-      }
-      dropoffMarkerRef.current = new window.google.maps.Marker({
-        position: controlledDropoff,
-        map: mapInstanceRef.current,
-        title: 'Drop-off Location',
-        icon: createMarkerIcon('#ef4444', false),
-        draggable: !disabled,
-        animation: window.google.maps.Animation.DROP
-      })
       
-      // Add drag listener
-      dropoffMarkerRef.current.addListener('dragend', () => {
-        const newPosition = dropoffMarkerRef.current?.getPosition()
-        if (newPosition) {
-          const newLocation: LatLng = {
-            lat: newPosition.lat(),
-            lng: newPosition.lng()
-          }
-          setDropoff(newLocation)
-          calculateRoute(pickup || controlledPickup, newLocation)
-        }
-      })
+      // Add or update marker - only create if it doesn't exist or position changed
+      const needsNewMarker = !dropoffMarkerRef.current || 
+        (dropoffMarkerRef.current.getPosition()?.lat() !== controlledDropoff.lat ||
+         dropoffMarkerRef.current.getPosition()?.lng() !== controlledDropoff.lng)
       
-      // Add click listener to remove marker
-      dropoffMarkerRef.current.addListener('click', () => {
-        if (disabled) return
+      if (needsNewMarker) {
+        // Remove existing marker if it exists
         if (dropoffMarkerRef.current) {
+          window.google.maps.event.clearInstanceListeners(dropoffMarkerRef.current)
           dropoffMarkerRef.current.setMap(null)
-          dropoffMarkerRef.current = null
         }
-        setDropoff(null)
-        clearRoute()
-      })
-      
-      // Update map bounds
-      if (mapInstanceRef.current) {
-        const bounds = new window.google.maps.LatLngBounds()
-        if (pickup || controlledPickup) {
-          bounds.extend(pickup || controlledPickup!)
-          bounds.extend(controlledDropoff)
-          mapInstanceRef.current.fitBounds(bounds)
-        } else {
-          mapInstanceRef.current.setCenter(controlledDropoff)
-          mapInstanceRef.current.setZoom(15)
+        
+        // Create new marker
+        dropoffMarkerRef.current = new window.google.maps.Marker({
+          position: controlledDropoff,
+          map: mapInstanceRef.current,
+          title: 'End Location',
+          icon: createMarkerIcon('#ef4444', false),
+          draggable: !disabled,
+          animation: window.google.maps.Animation.DROP
+        })
+        
+        // Add drag listener
+        if (dropoffMarkerRef.current) {
+          dropoffMarkerRef.current.addListener('dragend', () => {
+            const newPosition = dropoffMarkerRef.current?.getPosition()
+            if (newPosition) {
+              const newLocation: LatLng = {
+                lat: newPosition.lat(),
+                lng: newPosition.lng()
+              }
+              setDropoff(newLocation)
+              const currentPickup = controlledPickup || pickup
+              if (currentPickup) {
+                calculateRoute(currentPickup, newLocation)
+              }
+            }
+          })
+          
+          // Add click listener to remove marker
+          dropoffMarkerRef.current.addListener('click', () => {
+            if (disabled) return
+            if (dropoffMarkerRef.current) {
+              window.google.maps.event.clearInstanceListeners(dropoffMarkerRef.current)
+              dropoffMarkerRef.current.setMap(null)
+              dropoffMarkerRef.current = null
+            }
+            setDropoff(null)
+            clearRoute()
+          })
         }
+      } else if (dropoffMarkerRef.current) {
+        // Just update position if marker exists
+        dropoffMarkerRef.current.setPosition(controlledDropoff)
       }
-    } else {
-      // Clear dropoff marker if parent cleared value
+      
+      // Update map bounds - center and zoom to dropoff when only dropoff is set
+      // Adjust bounds to show both when both are set
+      const currentPickup = controlledPickup !== undefined ? controlledPickup : pickup
+      if (currentPickup) {
+        // Both locations selected - fit bounds to show both
+        const bounds = new window.google.maps.LatLngBounds()
+        bounds.extend(currentPickup)
+        bounds.extend(controlledDropoff)
+        // Add padding to ensure markers are visible
+        mapInstanceRef.current.fitBounds(bounds, 50)
+      } else {
+        // Only dropoff selected - center and zoom to it
+        mapInstanceRef.current.setCenter(controlledDropoff)
+        mapInstanceRef.current.setZoom(15)
+      }
+    } else if (controlledDropoff === null) {
+      // Clear dropoff marker if parent cleared value (explicitly null)
       if (dropoffMarkerRef.current) {
+        window.google.maps.event.clearInstanceListeners(dropoffMarkerRef.current)
         dropoffMarkerRef.current.setMap(null)
         dropoffMarkerRef.current = null
       }
@@ -541,7 +616,7 @@ export function RouteSelectionMap({
     } else {
       // Clear route if either point is missing
       if (directionsRendererRef.current) {
-        directionsRendererRef.current.setDirections({ routes: [] })
+        directionsRendererRef.current.setDirections(null as any)
       }
       setRouteData(null)
       onRouteChange?.({
